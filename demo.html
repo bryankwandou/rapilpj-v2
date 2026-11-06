@@ -457,7 +457,8 @@ label.chk input { width: 20px; height: 20px; min-height: 20px; margin: 0; }
 <p class="note" style="margin-top:16px" id="t_footer_note">Aturan diverifikasi dari 5 pedoman resmi fakultas (FIB UB, FEB UGM, HIMA Desain Interior ITS, Biologi ITS, FILKOM UB) serta UU No. 10 Tahun 2020 tentang Bea Meterai. Keputusan verifikasi akhir tetap berada pada bagian kemahasiswaan fakultas masing-masing.</p>
 </main>
 
-<script src="engine.js"></script>
+<script src="/engine.js"></script>
+<script>if (typeof LPJ === 'undefined') { document.write('<script src="engine.js"><\/script>'); }</script>
 <script>
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -597,33 +598,6 @@ function setLanguage(lang) {
   $('t_lbl_att').textContent = d.lbl_att;
   $('t_lbl_docs').textContent = d.lbl_docs;
   $('t_doc_rep').textContent = d.doc_rep;
-  $('t_doc_fin').textContent = d.doc_fin;
-  $('t_doc_pho').textContent = d.doc_pho;
-  $('t_doc_ass').textContent = d.doc_ass;
-  $('t_rules_hdr').textContent = d.rules_hdr;
-  $('rulesHint').textContent = d.rules_hint;
-  $('t_s2').textContent = d.s2;
-  $('t_th_bpos').textContent = d.th_bpos;
-  $('t_th_bplan').textContent = d.th_bplan;
-  $('t_th_bact').textContent = d.th_bact;
-  $('addB').textContent = d.btn_addB;
-  $('t_s3').textContent = d.s3;
-  $('t_note_nts').textContent = d.note_nts;
-  $('t_th_ref').textContent = d.th_ref;
-  $('t_th_date').textContent = d.th_date;
-  $('t_th_npos').textContent = d.th_npos;
-  $('t_th_namt').textContent = d.th_namt;
-  $('t_th_natt').textContent = d.th_natt;
-  $('t_th_nact').textContent = d.th_nact;
-  $('addN').textContent = d.btn_addN;
-  $('go').textContent = d.btn_go;
-  $('ex').textContent = d.btn_ex;
-  $('dl').textContent = d.btn_dl;
-  $('pr').textContent = d.btn_pr;
-  $('t_footer_note').textContent = d.footer_note;
-  renderRulesPanel();
-  if (last) $('go').click();
-}
   $('t_doc_fin').textContent = d.doc_fin;
   $('t_doc_pho').textContent = d.doc_pho;
   $('t_doc_ass').textContent = d.doc_ass;
