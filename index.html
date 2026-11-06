@@ -345,15 +345,16 @@ label.chk input { width: 20px; height: 20px; min-height: 20px; margin: 0; }
 </header>
 
 <section class="agent-banner noprint">
-  <h3 id="t_agent_hdr">Asisten Agentic Gemini (Multimodal Ingestion &amp; Tata Kelola)</h3>
-  <p class="note" id="t_agent_sub">Hilangkan friksi pengetikan manual nota: Agen Gemini Multimodal membaca struk, mengekstrak nomor bukti &amp; tanggal, serta mendeteksi stempel basah dan meterai Rp10.000 secara otomatis.</p>
+  <h3 id="t_agent_hdr">Asisten Ekstraksi &amp; Tata Kelola Nota</h3>
+  <p class="note" id="t_agent_sub">Hilangkan friksi pengetikan manual: Membaca berkas nota/kuitansi, mengekstrak nomor bukti &amp; tanggal, serta memverifikasi stempel basah dan meterai Rp10.000 secara otomatis.</p>
   <div class="pipeline-steps">
-    <span class="pipeline-step">1. Persepsi Visual Gemini Flash</span>
-    <span class="pipeline-step">2. Deteksi Stempel &amp; Meterai</span>
-    <span class="pipeline-step">3. Pemetaan Otomatis ke RAB</span>
-    <span class="pipeline-step">4. Verifikasi Deterministik Sandboxed</span>
+    <span class="pipeline-step" id="t_pipe1">1. Persepsi Visual Dokumen</span>
+    <span class="pipeline-step" id="t_pipe2">2. Deteksi Stempel &amp; Meterai</span>
+    <span class="pipeline-step" id="t_pipe3">3. Pemetaan Otomatis ke Pos RAB</span>
+    <span class="pipeline-step" id="t_pipe4">4. Verifikasi Deterministik Sandboxed</span>
   </div>
-  <button type="button" id="btnGeminiScan">Pindai Nota via Gemini Multimodal (Muat 3 Berkas Riil)</button>
+  <button type="button" id="btnGeminiScan">Masukkan Contoh Sampel Nota</button>
+  <span class="note" style="display:inline-block; margin-top:8px; font-size:12px;">Berkas foto struk fisik tersedia di folder <code>samples/</code> untuk pengujian unggah berkas.</span>
 </section>
 
 <section>
@@ -470,15 +471,15 @@ const I18N = {
     sub: 'Pemeriksa Laporan Pertanggungjawaban (LPJ) berarsitektur Neuro-Simbolik: Persepsi Multimodal & Edukasi Tata Kelola via Agen Gemini + Verifikasi Aritmetika Deterministik Sandboxed.',
     b1: 'Arsitektur Neuro-Simbolik',
     b2: 'Agen Gemini Multimodal + Kernel Audit Deterministik',
-    agent_hdr: 'Asisten Agentic Gemini (Multimodal Ingestion & Tata Kelola)',
-    agent_sub: 'Hilangkan friksi pengetikan manual nota: Agen Gemini Multimodal membaca struk, mengekstrak nomor bukti & tanggal, serta mendeteksi stempel basah dan meterai Rp10.000 secara otomatis.',
-    btn_scan: 'Pindai Nota via Gemini Multimodal (Muat 3 Berkas Riil)',
-    btn_addendum: 'Susun Draf Surat Addendum (Gemini Co-Pilot)',
+    agent_hdr: 'Asisten Ekstraksi & Tata Kelola Nota',
+    agent_sub: 'Hilangkan friksi pengetikan manual: Membaca berkas nota/kuitansi, mengekstrak nomor bukti & tanggal, serta memverifikasi stempel basah dan meterai Rp10.000 secara otomatis.',
+    btn_scan: 'Masukkan Contoh Sampel Nota',
+    btn_addendum: 'Susun Draf Surat Addendum (Asisten Tata Kelola)',
     hash_lbl: 'Segel Kriptografis Integritas Audit (SHA-256):',
     hash_desc: 'Hash SHA-256 ini mengikat data transaksi dan aturan secara matematis. Cetak dan lampirkan pada lembar muka LPJ fisik untuk verifikator kampus.',
-    pipeline_1: '1. Persepsi Visual Gemini Flash',
+    pipeline_1: '1. Persepsi Visual Dokumen',
     pipeline_2: '2. Deteksi Stempel & Meterai',
-    pipeline_3: '3. Pemetaan Otomatis ke RAB',
+    pipeline_3: '3. Pemetaan Otomatis ke Pos RAB',
     pipeline_4: '4. Verifikasi Deterministik Sandboxed',
     s1: '1. Kegiatan & Regulasi Fakultas',
     lbl_preset: 'Aturan yang dipakai',
@@ -522,15 +523,15 @@ const I18N = {
     sub: 'Neuro-Symbolic LPJ Auditor: Multimodal Perception & Governance Coaching via Agentic Gemini + Zero-Hallucination Deterministic Verification Kernel.',
     b1: 'Neuro-Symbolic Architecture',
     b2: 'Gemini Multimodal Agent + Deterministic Audit Kernel',
-    agent_hdr: 'Gemini Agentic Assistant (Multimodal Ingestion & Governance)',
-    agent_sub: 'Eliminates manual typing: Gemini Multimodal Agent reads receipts, extracts ref numbers & dates, and verifies wet stamps and Rp10,000 meterai automatically.',
-    btn_scan: 'Ingest Receipts via Gemini Multimodal (Load 3 Real Invoices)',
-    btn_addendum: 'Draft Official Addendum Letter (Gemini Co-Pilot)',
+    agent_hdr: 'Receipt Extraction & Governance Assistant',
+    agent_sub: 'Eliminates manual typing friction: Parses receipts, extracts reference numbers & dates, and verifies wet stamps and Rp10,000 revenue seals automatically.',
+    btn_scan: 'Load Sample Receipts',
+    btn_addendum: 'Draft Official Addendum Letter',
     hash_lbl: 'Cryptographic Audit Attestation Hash (SHA-256):',
     hash_desc: 'This SHA-256 hash cryptographically binds transaction rows and active rules. Print and affix to the physical submission binder for campus auditors.',
-    pipeline_1: '1. Gemini Flash Visual Perception',
-    pipeline_2: '2. Stamp & Revenue Seal Detection',
-    pipeline_3: '3. Semantic RAB Item Mapping',
+    pipeline_1: '1. Visual Document Perception',
+    pipeline_2: '2. Stamp & Revenue Seal Inspection',
+    pipeline_3: '3. Semantic Budget Mapping',
     pipeline_4: '4. Sandboxed Deterministic Verification',
     s1: '1. Event & Faculty Regulation',
     lbl_preset: 'Faculty Ruleset Applied',
@@ -581,6 +582,10 @@ function setLanguage(lang) {
   $('t_agent_hdr').textContent = d.agent_hdr;
   $('t_agent_sub').textContent = d.agent_sub;
   $('btnGeminiScan').textContent = d.btn_scan;
+  $('t_pipe1').textContent = d.pipeline_1;
+  $('t_pipe2').textContent = d.pipeline_2;
+  $('t_pipe3').textContent = d.pipeline_3;
+  $('t_pipe4').textContent = d.pipeline_4;
   $('t_s1').textContent = d.s1;
   $('t_lbl_preset').textContent = d.lbl_preset;
   $('t_lbl_evDate').textContent = d.lbl_evDate;
