@@ -434,7 +434,6 @@ label.chk input { width: 20px; height: 20px; min-height: 20px; margin: 0; }
 <section>
   <div class="noprint">
     <button type="button" id="go">Periksa LPJ</button>
-    <button type="button" class="alt" id="ex">Muat Contoh Kasus Nyata</button>
     <button type="button" class="alt" id="dl">Unduh Tabel (CSV)</button>
     <button type="button" class="alt" id="pr">Cetak Hasil Audit</button>
   </div>
@@ -493,7 +492,6 @@ const I18N = {
     th_nact: 'Aksi',
     btn_addN: '+ Tambah nota',
     btn_go: 'Periksa LPJ',
-    btn_ex: 'Muat Contoh Kasus Nyata',
     btn_dl: 'Unduh Tabel (CSV)',
     btn_pr: 'Cetak Hasil Audit',
     footer_note: 'Aturan diverifikasi dari 5 pedoman resmi fakultas (FIB UB, FEB UGM, HIMA Desain Interior ITS, Biologi ITS, FILKOM UB) serta UU No. 10 Tahun 2020 tentang Bea Meterai. Arsitektur Neuro-Simbolik menjamin nol halusinasi kalkulasi finansial.',
@@ -539,7 +537,6 @@ const I18N = {
     th_nact: 'Action',
     btn_addN: '+ Add Receipt',
     btn_go: 'Audit Report',
-    btn_ex: 'Load Realistic Case',
     btn_dl: 'Download CSV',
     btn_pr: 'Print Audit Summary',
     footer_note: 'Rules verified from 5 Indonesian faculty guidelines (FIB UB, FEB UGM, ITS Interior Design, ITS Biology, FILKOM UB) and Law No. 10 of 2020 on Stamp Duty. Neuro-symbolic design guarantees zero arithmetic hallucinations.',
@@ -586,34 +583,6 @@ function setLanguage(lang) {
   $('t_th_nact').textContent = d.th_nact;
   $('addN').textContent = d.btn_addN;
   $('go').textContent = d.btn_go;
-  $('ex').textContent = d.btn_ex;
-  $('dl').textContent = d.btn_dl;
-  $('pr').textContent = d.btn_pr;
-  $('t_footer_note').textContent = d.footer_note;
-  renderRulesPanel();
-  if (last) $('go').click();
-}
-  $('t_doc_fin').textContent = d.doc_fin;
-  $('t_doc_pho').textContent = d.doc_pho;
-  $('t_doc_ass').textContent = d.doc_ass;
-  $('t_rules_hdr').textContent = d.rules_hdr;
-  $('rulesHint').textContent = d.rules_hint;
-  $('t_s2').textContent = d.s2;
-  $('t_th_bpos').textContent = d.th_bpos;
-  $('t_th_bplan').textContent = d.th_bplan;
-  $('t_th_bact').textContent = d.th_bact;
-  $('addB').textContent = d.btn_addB;
-  $('t_s3').textContent = d.s3;
-  $('t_note_nts').textContent = d.note_nts;
-  $('t_th_ref').textContent = d.th_ref;
-  $('t_th_date').textContent = d.th_date;
-  $('t_th_npos').textContent = d.th_npos;
-  $('t_th_namt').textContent = d.th_namt;
-  $('t_th_natt').textContent = d.th_natt;
-  $('t_th_nact').textContent = d.th_nact;
-  $('addN').textContent = d.btn_addN;
-  $('go').textContent = d.btn_go;
-  $('ex').textContent = d.btn_ex;
   $('dl').textContent = d.btn_dl;
   $('pr').textContent = d.btn_pr;
   $('t_footer_note').textContent = d.footer_note;
@@ -858,36 +827,6 @@ $('pr').onclick = () => {
 
 $('addB').onclick = () => addB();
 $('addN').onclick = () => addN();
-
-$('ex').onclick = () => {
-  Object.entries({
-    eventDate: '2026-10-01',
-    submitDate: '2026-10-14',
-    approvedTotal: 6500000,
-    varianceTolerance: 10,
-    consumptionSessions: 2,
-    attendanceSheets: 1
-  }).forEach(([k, v]) => { $(k).value = v; });
-
-  $('bud').innerHTML = '';
-  $('nts').innerHTML = '';
-
-  [
-    { item: 'Konsumsi', planned: 1000000 },
-    { item: 'Banner', planned: 600000 },
-    { item: 'Sewa sound system', planned: 5000000 }
-  ].forEach(addB);
-
-  document.querySelectorAll('[data-d]').forEach((c, i) => { c.checked = i < 2; });
-
-  [
-    { refNo: 'NOTA-01', date: '2026-10-01', item: 'Konsumsi', amount: 1000000, stamp: true, pphIncluded: true },
-    { refNo: 'NOTA-02', date: '2026-10-02', item: 'Banner', amount: 750000, stamp: true, thermal: true, scanned: false, pphIncluded: true },
-    { refNo: 'NOTA-03', date: '2026-10-01', item: 'Sewa sound system', amount: 5000000, stamp: false, materai: false, service: true, recipientId: false }
-  ].forEach(addN);
-
-  $('go').click();
-};
 
 $('themeBtn').onclick = () => {
   const cur = document.documentElement.getAttribute('data-theme');
