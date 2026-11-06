@@ -94,5 +94,19 @@ assert.equal(uajmRes.issues.length, 0, 'Valid LPJ must pass UAJM preset');
 uajmLpj.attendanceSheets = 1; // session=2, sheets=1
 assert(L.check(uajmLpj, 'uajm').issues.some(i => i.rule === 'attendance'), 'UAJM preset must enforce attendance matching');
 
-console.log('ALL TESTS PASSED (9/9 SUCCESS)');
+// Test 10: Cryptographic SHA-256 standard test vector
+const shaVector = L.sha256('test');
+assert.equal(shaVector, '9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08', 'SHA-256 must match standard test vector');
+
+// Test 11: Audit attestation hash generation
+const attestationHash = L.computeAttestationHash(validLpj, res);
+assert.equal(typeof attestationHash, 'string');
+assert.equal(attestationHash.length, 64, 'Attestation hash must be a 64-character SHA-256 hex string');
+
+// Test 12: Autonomous Addendum generation for budget variance
+const addendumLetter = L.generateAddendumDraft(overBudgetLpj, overRes);
+assert(addendumLetter.includes('SURAT PERMOHONAN ADDENDUM PERGESERAN ANGGARAN'), 'Must generate formal addendum header');
+assert(addendumLetter.includes('Banner'), 'Addendum must mention overbudget item');
+
+console.log('ALL TESTS PASSED (12/12 SUCCESS)');
 

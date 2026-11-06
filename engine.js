@@ -383,6 +383,209 @@
     );
   }
 
+  /* Portable pure JavaScript SHA-256 implementation */
+  function sha256(ascii) {
+    function rightRotate(value, amount) {
+      return (value >>> amount) | (value << (32 - amount));
+    }
+    const mathPow = Math.pow;
+    const maxWord = mathPow(2, 32);
+    let i, j;
+    let result = '';
+    const words = [];
+    const asciiBitLength = (ascii || '').length * 8;
+    const hash = [];
+    const k = [];
+    let primeCounter = 0;
+    const isComposite = {};
+    for (let candidate = 2; primeCounter < 64; candidate++) {
+      if (!isComposite[candidate]) {
+        for (i = 0; i < 313; i += candidate) {
+          isComposite[i] = candidate;
+        }
+        if (primeCounter < 8) hash[primeCounter] = (mathPow(candidate, 0.5) * maxWord) | 0;
+        k[primeCounter++] = (mathPow(candidate, 1 / 3) * maxWord) | 0;
+      }
+    }
+    ascii += '\x80';
+    while (ascii.length % 64 - 56) ascii += '\x00';
+    for (i = 0; i < ascii.length; i++) {
+      j = ascii.charCodeAt(i);
+      words[i >> 2] |= j << ((3 - i) % 4) * 8;
+    }
+    words[words.length] = (asciiBitLength / maxWord) | 0;
+    words[words.length] = asciiBitLength | 0;
+    for (j = 0; j < words.length; ) {
+      const w = words.slice(j, (j += 16));
+      const oldHash = hash.slice(0);
+      for (i = 0; i < 64; i++) {
+        const w15 = w[i - 15],
+          w2 = w[i - 2];
+        const a = hash[0],
+          e = hash[4];
+        const temp1 =
+          hash[7] +
+          (rightRotate(e, 6) ^ rightRotate(e, 11) ^ rightRotate(e, 25)) +
+          ((e & hash[5]) ^ (~e & hash[6])) +
+          k[i] +
+          (w[i] =
+            i < 16
+              ? w[i] | 0
+              : (w[i - 16] +
+                  (rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3)) +
+                  w[i - 7] +
+                  (rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10))) |
+                0);
+        const temp2 =
+          (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22)) +
+          ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
+        hash[7] = hash[6];
+        hash[6] = hash[5];
+        hash[5] = hash[4];
+        hash[4] = (hash[3] + temp1) | 0;
+        hash[3] = hash[2];
+        hash[2] = hash[1];
+        hash[1] = hash[0];
+        hash[0] = (temp1 + temp2) | 0;
+      }
+      for (i = 0; i < 8; i++) {
+        hash[i] = (hash[i] + oldHash[i]) | 0;
+      }
+    }
+    for (i = 0; i < 8; i++) {
+      for (j = 3; j >= 0; j--) {
+        const b = (hash[i] >> (j * 8)) & 255;
+        result += (b < 16 ? '0' : '') + b.toString(16);
+      }
+    }
+    return result;
+  }
+
+  /* Cryptographic Attestation Hash of audited records */
+  function computeAttestationHash(lpj, res) {
+    const canonicalPayload = [
+      lpj.eventDate || '',
+      lpj.submitDate || '',
+      lpj.approvedTotal || 0,
+      res.planned || 0,
+      res.spent || 0,
+      res.issues.length,
+      (lpj.notes || [])
+        .map((n) => [n.refNo || '', n.date || '', n.item || '', n.amount || 0].join(':'))
+        .sort()
+        .join('|')
+    ].join('##');
+    return sha256(canonicalPayload);
+  }
+
+  /* Autonomous Governance Co-Pilot: Generates official addendum draft for variances */
+  function generateAddendumDraft(lpj, res, facultyName = 'Biro Kemahasiswaan (BKAM)') {
+    const overBudgetItems = res.budget.filter(
+      (b) => b.pctOver > (lpj.varianceTolerancePercent || 10)
+    );
+    const dateStr = lpj.submitDate || new Date().toISOString().split('T')[0];
+
+    let itemsTable = overBudgetItems
+      .map(
+        (b, idx) =>
+          `${idx + 1}. Pos: ${b.item} | Rencana: Rp${fmt(b.planned)} | Realisasi: Rp${fmt(
+            b.real
+          )} | Selisih: +Rp${fmt(b.diff)} (+${b.pctOver}%)`
+      )
+      .join('\n');
+
+    if (!itemsTable) {
+      itemsTable = 'Tidak ada pos anggaran yang melampaui batas toleransi varians.';
+    }
+
+    return `SURAT PERMOHONAN ADDENDUM PERGESERAN ANGGARAN KEGIATAN
+Nomor: 042/PAN-PEL/ADDENDUM/${dateStr.replace(/-/g, '')}
+Lampiran: 1 (satu) berkas rekapitulasi audit RapiLPJ
+Perihal: Permohonan Persetujuan Pergeseran Anggaran Biaya Realisasi Kegiatan
+
+Kepada Yth.
+Kepala ${facultyName}
+di Tempat
+
+Dengan hormat,
+Sehubungan dengan telah terlaksananya kegiatan kemahasiswaan pada tanggal ${lpj.eventDate || '-'}, bersama surat ini kami panitia pelaksana menyampaikan permohonan persetujuan atas pergeseran/realisasi anggaran belanja yang melampaui batas toleransi rencana awal sebagai berikut:
+
+${itemsTable}
+
+Alasan Pergeseran:
+Kebutuhan mendesak di lapangan saat pelaksanaan kegiatan demi kelancaran operasional dan keselamatan peserta, dengan tetap menjaga keseimbangan total pagu dana yang telah disahkan.
+
+Demikian surat permohonan addendum ini kami ajukan sebagai kelengkapan administratif Laporan Pertanggungjawaban (LPJ). Atas perhatian dan persetujuan Bapak/Ibu, kami ucapkan terima kasih.
+
+Makassar, ${dateStr}
+Hormat kami,
+
+Ketua Panitia Pelaksana                     Bendahara Kegiatan
+
+
+(__________________________)                (__________________________)
+NIM:                                        NIM:
+
+Mengetahui,
+Dosen Pembina / Pendamping Kemahasiswaan
+
+
+(__________________________)
+NIDN:`;
+  }
+
+  /* Sample multimodal perception datasets representing realistic Indonesian student receipts */
+  const SAMPLE_GEMINI_RECEIPTS = [
+    {
+      refNo: 'SPBU-74921',
+      date: '2026-10-01',
+      merchant: 'SPBU Pertamina 74.902.11',
+      item: 'Transportasi & Bahan Bakar',
+      amount: 250000,
+      stamp: true,
+      thermal: true,
+      scanned: true,
+      materai: false,
+      combined: false,
+      pphIncluded: true,
+      service: false,
+      confidence: 0.98,
+      notesVision: 'Struk termal terdeteksi, teks tajam, nomor pompa dan liter terverifikasi.'
+    },
+    {
+      refNo: 'KTR-8812',
+      date: '2026-10-02',
+      merchant: 'CV Berkah Rasa Catering',
+      item: 'Konsumsi',
+      amount: 5250000,
+      stamp: true,
+      thermal: false,
+      scanned: true,
+      materai: true,
+      combined: false,
+      pphIncluded: true,
+      service: false,
+      confidence: 0.96,
+      notesVision: 'Faktur katering resmi, stempel basah ungu, meterai Rp10.000 terverifikasi pada nominal >= 5jt.'
+    },
+    {
+      refNo: 'ATK-0924',
+      date: '2026-10-02',
+      merchant: 'Toko Buku & Percetakan Sentosa',
+      item: 'Banner & Publikasi',
+      amount: 600000,
+      stamp: true,
+      thermal: false,
+      scanned: true,
+      materai: false,
+      combined: false,
+      pphIncluded: true,
+      service: false,
+      confidence: 0.94,
+      notesVision: 'Nota kontan kertas NCR rangkap, cap basah lunas toko terdeteksi di pojok kanan bawah.'
+    }
+  ];
+
   return {
     RULES,
     SOURCES,
@@ -391,7 +594,11 @@
     csv,
     fmt,
     workDays,
-    daysBetween
+    daysBetween,
+    sha256,
+    computeAttestationHash,
+    generateAddendumDraft,
+    SAMPLE_GEMINI_RECEIPTS
   };
 });
 

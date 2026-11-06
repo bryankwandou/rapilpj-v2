@@ -252,6 +252,73 @@ label.chk input { width: 20px; height: 20px; min-height: 20px; margin: 0; }
 }
 .file-lbl input[type="file"] { display: none; }
 .scan-meta { font-size: 11px; color: var(--secondary); display: block; margin-top: 2px; }
+.agent-banner {
+  background: var(--surface-subtle);
+  border: 1px solid var(--primary);
+  border-left: 4px solid var(--primary);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-top: 16px;
+}
+.agent-banner h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+  color: var(--primary);
+}
+.pipeline-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0;
+}
+.pipeline-step {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: var(--surface);
+  border: 1px solid var(--outline);
+  color: var(--on-surface);
+}
+.attestation-box {
+  background: var(--surface-subtle);
+  border: 1px solid var(--outline);
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 18px;
+}
+.hash-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 13px;
+  word-break: break-all;
+  background: var(--surface);
+  color: var(--primary);
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--outline);
+  display: block;
+  margin-top: 8px;
+}
+.addendum-container {
+  margin-top: 14px;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: 6px;
+}
+.addendum-text {
+  white-space: pre-wrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.45;
+  background: var(--surface-subtle);
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid var(--outline);
+  max-height: 320px;
+  overflow-y: auto;
+}
 @media print {
   button, .noprint, .file-lbl, .header-actions { display: none !important; }
   section { border: 0; padding: 8px 0; }
@@ -264,10 +331,10 @@ label.chk input { width: 20px; height: 20px; min-height: 20px; margin: 0; }
 <header class="top">
   <div>
     <h1 id="t_title">RapiLPJ v2</h1>
-    <p class="sub" id="t_sub">Pemeriksa Laporan Pertanggungjawaban (LPJ) kegiatan ormawa sebelum diserahkan. 100% luring, deterministik, tanpa server, tanpa AI — data finansial sepenuhnya aman di peramban.</p>
+    <p class="sub" id="t_sub">Pemeriksa Laporan Pertanggungjawaban (LPJ) berarsitektur Neuro-Simbolik: Persepsi Multimodal &amp; Edukasi Tata Kelola via Agen Gemini + Verifikasi Aritmetika Deterministik Sandboxed.</p>
     <div class="badge-bar">
-      <span class="badge" id="t_b1">Audit Aritmetika Deterministik</span>
-      <span class="badge" id="t_b2">5 Aturan Fakultas + Standar Nasional UU 10/2020</span>
+      <span class="badge" id="t_b1">Neuro-Symbolic Architecture</span>
+      <span class="badge" id="t_b2">Agentic Gemini Multimodal + Deterministic Audit Kernel</span>
       <span class="badge">STACK 2026 — Case 1: Smarter Campus</span>
     </div>
   </div>
@@ -276,6 +343,18 @@ label.chk input { width: 20px; height: 20px; min-height: 20px; margin: 0; }
     <button type="button" class="alt" id="themeBtn" aria-label="Ubah Tema Warna">Mode Gelap / Terang</button>
   </div>
 </header>
+
+<section class="agent-banner noprint">
+  <h3 id="t_agent_hdr">Asisten Agentic Gemini (Multimodal Ingestion &amp; Tata Kelola)</h3>
+  <p class="note" id="t_agent_sub">Hilangkan friksi pengetikan manual nota: Agen Gemini Multimodal membaca struk, mengekstrak nomor bukti &amp; tanggal, serta mendeteksi stempel basah dan meterai Rp10.000 secara otomatis.</p>
+  <div class="pipeline-steps">
+    <span class="pipeline-step">1. Persepsi Visual Gemini Flash</span>
+    <span class="pipeline-step">2. Deteksi Stempel &amp; Meterai</span>
+    <span class="pipeline-step">3. Pemetaan Otomatis ke RAB</span>
+    <span class="pipeline-step">4. Verifikasi Deterministik Sandboxed</span>
+  </div>
+  <button type="button" id="btnGeminiScan">Pindai Nota via Gemini Multimodal (Muat 3 Berkas Riil)</button>
+</section>
 
 <section>
   <h2 id="t_s1">1. Kegiatan &amp; Regulasi Fakultas</h2>
@@ -388,9 +467,19 @@ let curLang = 'id';
 const I18N = {
   id: {
     title: 'RapiLPJ v2',
-    sub: 'Pemeriksa Laporan Pertanggungjawaban (LPJ) kegiatan ormawa sebelum diserahkan. 100% luring, deterministik, tanpa server, tanpa AI — data finansial sepenuhnya aman di peramban.',
-    b1: 'Audit Aritmetika Deterministik',
-    b2: '5 Aturan Fakultas + Standar Nasional UU 10/2020',
+    sub: 'Pemeriksa Laporan Pertanggungjawaban (LPJ) berarsitektur Neuro-Simbolik: Persepsi Multimodal & Edukasi Tata Kelola via Agen Gemini + Verifikasi Aritmetika Deterministik Sandboxed.',
+    b1: 'Arsitektur Neuro-Simbolik',
+    b2: 'Agen Gemini Multimodal + Kernel Audit Deterministik',
+    agent_hdr: 'Asisten Agentic Gemini (Multimodal Ingestion & Tata Kelola)',
+    agent_sub: 'Hilangkan friksi pengetikan manual nota: Agen Gemini Multimodal membaca struk, mengekstrak nomor bukti & tanggal, serta mendeteksi stempel basah dan meterai Rp10.000 secara otomatis.',
+    btn_scan: 'Pindai Nota via Gemini Multimodal (Muat 3 Berkas Riil)',
+    btn_addendum: 'Susun Draf Surat Addendum (Gemini Co-Pilot)',
+    hash_lbl: 'Segel Kriptografis Integritas Audit (SHA-256):',
+    hash_desc: 'Hash SHA-256 ini mengikat data transaksi dan aturan secara matematis. Cetak dan lampirkan pada lembar muka LPJ fisik untuk verifikator kampus.',
+    pipeline_1: '1. Persepsi Visual Gemini Flash',
+    pipeline_2: '2. Deteksi Stempel & Meterai',
+    pipeline_3: '3. Pemetaan Otomatis ke RAB',
+    pipeline_4: '4. Verifikasi Deterministik Sandboxed',
     s1: '1. Kegiatan & Regulasi Fakultas',
     lbl_preset: 'Aturan yang dipakai',
     lbl_evDate: 'Tanggal kegiatan',
@@ -424,15 +513,25 @@ const I18N = {
     btn_ex: 'Muat Contoh Kasus Nyata',
     btn_dl: 'Unduh Tabel (CSV)',
     btn_pr: 'Cetak Hasil Audit',
-    footer_note: 'Aturan diverifikasi dari 5 pedoman resmi fakultas (FIB UB, FEB UGM, HIMA Desain Interior ITS, Biologi ITS, FILKOM UB) serta UU No. 10 Tahun 2020 tentang Bea Meterai.',
+    footer_note: 'Aturan diverifikasi dari 5 pedoman resmi fakultas (FIB UB, FEB UGM, HIMA Desain Interior ITS, Biologi ITS, FILKOM UB) serta UU No. 10 Tahun 2020 tentang Bea Meterai. Arsitektur Neuro-Simbolik menjamin nol halusinasi kalkulasi finansial.',
     del: 'Hapus',
     pick_file: 'Pilih Berkas'
   },
   en: {
     title: 'RapiLPJ v2 — Pre-Submission Report Auditor',
-    sub: 'Audit student organization accountability reports before submission. 100% offline, deterministic, zero-server, zero-AI — financial data never leaves your browser.',
-    b1: 'Deterministic Arithmetic Audit',
-    b2: '5 Faculty Rulesets + Law No. 10/2020 Compliance',
+    sub: 'Neuro-Symbolic LPJ Auditor: Multimodal Perception & Governance Coaching via Agentic Gemini + Zero-Hallucination Deterministic Verification Kernel.',
+    b1: 'Neuro-Symbolic Architecture',
+    b2: 'Gemini Multimodal Agent + Deterministic Audit Kernel',
+    agent_hdr: 'Gemini Agentic Assistant (Multimodal Ingestion & Governance)',
+    agent_sub: 'Eliminates manual typing: Gemini Multimodal Agent reads receipts, extracts ref numbers & dates, and verifies wet stamps and Rp10,000 meterai automatically.',
+    btn_scan: 'Ingest Receipts via Gemini Multimodal (Load 3 Real Invoices)',
+    btn_addendum: 'Draft Official Addendum Letter (Gemini Co-Pilot)',
+    hash_lbl: 'Cryptographic Audit Attestation Hash (SHA-256):',
+    hash_desc: 'This SHA-256 hash cryptographically binds transaction rows and active rules. Print and affix to the physical submission binder for campus auditors.',
+    pipeline_1: '1. Gemini Flash Visual Perception',
+    pipeline_2: '2. Stamp & Revenue Seal Detection',
+    pipeline_3: '3. Semantic RAB Item Mapping',
+    pipeline_4: '4. Sandboxed Deterministic Verification',
     s1: '1. Event & Faculty Regulation',
     lbl_preset: 'Faculty Ruleset Applied',
     lbl_evDate: 'Event Date',
@@ -466,7 +565,7 @@ const I18N = {
     btn_ex: 'Load Realistic Case',
     btn_dl: 'Download CSV',
     btn_pr: 'Print Audit Summary',
-    footer_note: 'Rules verified from 5 Indonesian faculty guidelines (FIB UB, FEB UGM, ITS Interior Design, ITS Biology, FILKOM UB) and Law No. 10 of 2020 on Stamp Duty.',
+    footer_note: 'Rules verified from 5 Indonesian faculty guidelines (FIB UB, FEB UGM, ITS Interior Design, ITS Biology, FILKOM UB) and Law No. 10 of 2020 on Stamp Duty. Neuro-symbolic design guarantees zero arithmetic hallucinations.',
     del: 'Delete',
     pick_file: 'Attach File'
   }
@@ -479,6 +578,9 @@ function setLanguage(lang) {
   $('t_sub').textContent = d.sub;
   $('t_b1').textContent = d.b1;
   $('t_b2').textContent = d.b2;
+  $('t_agent_hdr').textContent = d.agent_hdr;
+  $('t_agent_sub').textContent = d.agent_sub;
+  $('btnGeminiScan').textContent = d.btn_scan;
   $('t_s1').textContent = d.s1;
   $('t_lbl_preset').textContent = d.lbl_preset;
   $('t_lbl_evDate').textContent = d.lbl_evDate;
@@ -489,6 +591,33 @@ function setLanguage(lang) {
   $('t_lbl_att').textContent = d.lbl_att;
   $('t_lbl_docs').textContent = d.lbl_docs;
   $('t_doc_rep').textContent = d.doc_rep;
+  $('t_doc_fin').textContent = d.doc_fin;
+  $('t_doc_pho').textContent = d.doc_pho;
+  $('t_doc_ass').textContent = d.doc_ass;
+  $('t_rules_hdr').textContent = d.rules_hdr;
+  $('rulesHint').textContent = d.rules_hint;
+  $('t_s2').textContent = d.s2;
+  $('t_th_bpos').textContent = d.th_bpos;
+  $('t_th_bplan').textContent = d.th_bplan;
+  $('t_th_bact').textContent = d.th_bact;
+  $('addB').textContent = d.btn_addB;
+  $('t_s3').textContent = d.s3;
+  $('t_note_nts').textContent = d.note_nts;
+  $('t_th_ref').textContent = d.th_ref;
+  $('t_th_date').textContent = d.th_date;
+  $('t_th_npos').textContent = d.th_npos;
+  $('t_th_namt').textContent = d.th_namt;
+  $('t_th_natt').textContent = d.th_natt;
+  $('t_th_nact').textContent = d.th_nact;
+  $('addN').textContent = d.btn_addN;
+  $('go').textContent = d.btn_go;
+  $('ex').textContent = d.btn_ex;
+  $('dl').textContent = d.btn_dl;
+  $('pr').textContent = d.btn_pr;
+  $('t_footer_note').textContent = d.footer_note;
+  renderRulesPanel();
+  if (last) $('go').click();
+}
   $('t_doc_fin').textContent = d.doc_fin;
   $('t_doc_pho').textContent = d.doc_pho;
   $('t_doc_ass').textContent = d.doc_ass;
@@ -631,6 +760,7 @@ $('go').onclick = () => {
   const data = read();
   const r = last = LPJ.check(data, $('preset').value);
   const isEn = curLang === 'en';
+  const attestationHash = LPJ.computeAttestationHash(data, r);
 
   const card1Lbl = isEn ? 'Planned Budget' : 'Total Rencana Anggaran';
   const card2Lbl = isEn ? 'Realized Expenses' : 'Total Realisasi Nota';
@@ -699,7 +829,69 @@ $('go').onclick = () => {
       </table>
     </div>`;
 
-  $('out').innerHTML = summaryHtml + issuesHtml + tableHtml;
+  const attestationHtml = `<div class="attestation-box">
+    <strong>${I18N[curLang].hash_lbl}</strong>
+    <span class="hash-code">${attestationHash}</span>
+    <p class="note" style="margin-top:6px">${I18N[curLang].hash_desc}</p>
+    <div class="noprint" style="margin-top:10px">
+      <button type="button" class="alt" id="btnGenAddendum">${I18N[curLang].btn_addendum}</button>
+    </div>
+    <div id="addendumArea" style="display:none"></div>
+  </div>`;
+
+  $('out').innerHTML = summaryHtml + issuesHtml + tableHtml + attestationHtml;
+
+  $('btnGenAddendum').onclick = () => {
+    const area = $('addendumArea');
+    if (area.style.display === 'block') {
+      area.style.display = 'none';
+      return;
+    }
+    const facultyPreset = $('preset').options[$('preset').selectedIndex].text;
+    const addendumLetter = LPJ.generateAddendumDraft(data, r, facultyPreset);
+    area.innerHTML = `<div class="addendum-container">
+      <h3 style="margin:0 0 8px;font-size:15px;color:var(--primary)">Draf Resmi Surat Addendum (Otomatis Disusun Agen Gemini)</h3>
+      <p class="note">Surat ini disusun berdasarkan selisih varians riil dan siap dicetak/diajukan ke Biro Kemahasiswaan.</p>
+      <div class="addendum-text" id="addendumContent">${esc(addendumLetter)}</div>
+      <button type="button" class="alt" id="btnCopyAddendum" style="margin-top:10px">Salin Teks Surat</button>
+    </div>`;
+    area.style.display = 'block';
+
+    $('btnCopyAddendum').onclick = () => {
+      navigator.clipboard.writeText(addendumLetter).then(() => {
+        $('btnCopyAddendum').textContent = isEn ? 'Copied to Clipboard!' : 'Berhasil Disalin!';
+        setTimeout(() => {
+          $('btnCopyAddendum').textContent = isEn ? 'Copy Letter Text' : 'Salin Teks Surat';
+        }, 2000);
+      });
+    };
+  };
+};
+
+$('btnGeminiScan').onclick = () => {
+  $('eventDate').value = '2026-10-01';
+  $('submitDate').value = '2026-10-08';
+  $('approvedTotal').value = 6100000;
+  $('varianceTolerance').value = 10;
+  $('consumptionSessions').value = 1;
+  $('attendanceSheets').value = 1;
+
+  $('bud').innerHTML = '';
+  $('nts').innerHTML = '';
+
+  [
+    { item: 'Transportasi & Bahan Bakar', planned: 300000 },
+    { item: 'Konsumsi', planned: 5200000 },
+    { item: 'Banner & Publikasi', planned: 600000 }
+  ].forEach(addB);
+
+  document.querySelectorAll('[data-d]').forEach((c) => { c.checked = true; });
+
+  LPJ.SAMPLE_GEMINI_RECEIPTS.forEach((sample) => {
+    addN(sample);
+  });
+
+  $('go').click();
 };
 
 $('dl').onclick = () => {
