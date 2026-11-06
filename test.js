@@ -87,4 +87,12 @@ const csvOut = L.csv(res);
 assert(csvOut.includes('Konsumsi'), 'CSV output must contain budget item');
 assert(csvOut.includes('1.000.000') || csvOut.includes('1000000'), 'CSV output must contain numbers');
 
-console.log('ALL TESTS PASSED (8/8 SUCCESS)');
+// Test 9: UAJM preset verification
+const uajmLpj = JSON.parse(JSON.stringify(validLpj));
+let uajmRes = L.check(uajmLpj, 'uajm');
+assert.equal(uajmRes.issues.length, 0, 'Valid LPJ must pass UAJM preset');
+uajmLpj.attendanceSheets = 1; // session=2, sheets=1
+assert(L.check(uajmLpj, 'uajm').issues.some(i => i.rule === 'attendance'), 'UAJM preset must enforce attendance matching');
+
+console.log('ALL TESTS PASSED (9/9 SUCCESS)');
+

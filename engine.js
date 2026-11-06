@@ -113,10 +113,15 @@
     national: {
       name: 'Standar Akuntabilitas Keuangan Ormawa & UU No. 10 Tahun 2020',
       url: 'https://peraturan.bpk.go.id/Details/149827/uu-no-10-tahun-2020'
+    },
+    uajm: {
+      name: 'BKAM Universitas Atma Jaya Makassar & Jurnal Tematika UAJM',
+      url: 'https://doi.org/10.56963/tematika.v9i1.119'
     }
   };
 
   const PRESETS = {
+    uajm: ['totalsMatch', 'stamp', 'attendance', 'materai', 'thermal', 'filkomDocs', 'duplicateInvoice', 'dateSanity', 'budgetVariance'],
     fibub: ['stamp', 'totalsMatch', 'attendance', 'duplicateInvoice', 'dateSanity'],
     ugmfeb: ['materai', 'thermal', 'duplicateInvoice', 'dateSanity'],
     itshima: ['deadline10', 'duplicateInvoice', 'dateSanity'],
@@ -389,3 +394,4 @@
     daysBetween
   };
 });
+
