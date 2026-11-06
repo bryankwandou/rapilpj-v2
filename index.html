@@ -339,23 +339,11 @@ label.chk input { width: 20px; height: 20px; min-height: 20px; margin: 0; }
     </div>
   </div>
   <div class="header-actions noprint">
+    <a href="/demo" id="t_demoBtn" class="alt" style="text-decoration:none; display:inline-flex; align-items:center; min-height:44px; padding:10px 16px; border:1px solid var(--primary); border-radius:6px; color:var(--primary); font-size:14px; font-weight:600;">Mode Demo &amp; Sampel</a>
     <button type="button" class="alt" id="langBtn" aria-label="Ganti Bahasa">EN / ID</button>
     <button type="button" class="alt" id="themeBtn" aria-label="Ubah Tema Warna">Mode Gelap / Terang</button>
   </div>
 </header>
-
-<section class="agent-banner noprint">
-  <h3 id="t_agent_hdr">Asisten Ekstraksi &amp; Tata Kelola Nota</h3>
-  <p class="note" id="t_agent_sub">Hilangkan friksi pengetikan manual: Membaca berkas nota/kuitansi, mengekstrak nomor bukti &amp; tanggal, serta memverifikasi stempel basah dan meterai Rp10.000 secara otomatis.</p>
-  <div class="pipeline-steps">
-    <span class="pipeline-step" id="t_pipe1">1. Persepsi Visual Dokumen</span>
-    <span class="pipeline-step" id="t_pipe2">2. Deteksi Stempel &amp; Meterai</span>
-    <span class="pipeline-step" id="t_pipe3">3. Pemetaan Otomatis ke Pos RAB</span>
-    <span class="pipeline-step" id="t_pipe4">4. Verifikasi Deterministik Sandboxed</span>
-  </div>
-  <button type="button" id="btnGeminiScan">Masukkan Contoh Sampel Nota</button>
-  <span class="note" style="display:inline-block; margin-top:8px; font-size:12px;">Berkas foto struk fisik tersedia di folder <code>samples/</code> untuk pengujian unggah berkas.</span>
-</section>
 
 <section>
   <h2 id="t_s1">1. Kegiatan &amp; Regulasi Fakultas</h2>
@@ -468,19 +456,13 @@ let curLang = 'id';
 const I18N = {
   id: {
     title: 'RapiLPJ v2',
-    sub: 'Pemeriksa Laporan Pertanggungjawaban (LPJ) berarsitektur Neuro-Simbolik: Persepsi Multimodal & Edukasi Tata Kelola via Agen Gemini + Verifikasi Aritmetika Deterministik Sandboxed.',
+    sub: 'Pemeriksa Laporan Pertanggungjawaban (LPJ) berarsitektur Neuro-Simbolik: Persepsi Dokumen & Edukasi Tata Kelola + Verifikasi Aritmetika Deterministik Sandboxed.',
     b1: 'Arsitektur Neuro-Simbolik',
-    b2: 'Agen Gemini Multimodal + Kernel Audit Deterministik',
-    agent_hdr: 'Asisten Ekstraksi & Tata Kelola Nota',
-    agent_sub: 'Hilangkan friksi pengetikan manual: Membaca berkas nota/kuitansi, mengekstrak nomor bukti & tanggal, serta memverifikasi stempel basah dan meterai Rp10.000 secara otomatis.',
-    btn_scan: 'Masukkan Contoh Sampel Nota',
+    b2: 'Persepsi Dokumen + Kernel Audit Deterministik',
+    btn_demo: 'Mode Demo & Sampel',
     btn_addendum: 'Susun Draf Surat Addendum (Asisten Tata Kelola)',
     hash_lbl: 'Segel Kriptografis Integritas Audit (SHA-256):',
     hash_desc: 'Hash SHA-256 ini mengikat data transaksi dan aturan secara matematis. Cetak dan lampirkan pada lembar muka LPJ fisik untuk verifikator kampus.',
-    pipeline_1: '1. Persepsi Visual Dokumen',
-    pipeline_2: '2. Deteksi Stempel & Meterai',
-    pipeline_3: '3. Pemetaan Otomatis ke Pos RAB',
-    pipeline_4: '4. Verifikasi Deterministik Sandboxed',
     s1: '1. Kegiatan & Regulasi Fakultas',
     lbl_preset: 'Aturan yang dipakai',
     lbl_evDate: 'Tanggal kegiatan',
@@ -520,19 +502,13 @@ const I18N = {
   },
   en: {
     title: 'RapiLPJ v2 — Pre-Submission Report Auditor',
-    sub: 'Neuro-Symbolic LPJ Auditor: Multimodal Perception & Governance Coaching via Agentic Gemini + Zero-Hallucination Deterministic Verification Kernel.',
+    sub: 'Neuro-Symbolic LPJ Auditor: Document Perception & Governance Coaching + Zero-Hallucination Deterministic Verification Kernel.',
     b1: 'Neuro-Symbolic Architecture',
-    b2: 'Gemini Multimodal Agent + Deterministic Audit Kernel',
-    agent_hdr: 'Receipt Extraction & Governance Assistant',
-    agent_sub: 'Eliminates manual typing friction: Parses receipts, extracts reference numbers & dates, and verifies wet stamps and Rp10,000 revenue seals automatically.',
-    btn_scan: 'Load Sample Receipts',
+    b2: 'Document Perception + Deterministic Audit Kernel',
+    btn_demo: 'Demo & Sample Mode',
     btn_addendum: 'Draft Official Addendum Letter',
     hash_lbl: 'Cryptographic Audit Attestation Hash (SHA-256):',
     hash_desc: 'This SHA-256 hash cryptographically binds transaction rows and active rules. Print and affix to the physical submission binder for campus auditors.',
-    pipeline_1: '1. Visual Document Perception',
-    pipeline_2: '2. Stamp & Revenue Seal Inspection',
-    pipeline_3: '3. Semantic Budget Mapping',
-    pipeline_4: '4. Sandboxed Deterministic Verification',
     s1: '1. Event & Faculty Regulation',
     lbl_preset: 'Faculty Ruleset Applied',
     lbl_evDate: 'Event Date',
@@ -579,13 +555,7 @@ function setLanguage(lang) {
   $('t_sub').textContent = d.sub;
   $('t_b1').textContent = d.b1;
   $('t_b2').textContent = d.b2;
-  $('t_agent_hdr').textContent = d.agent_hdr;
-  $('t_agent_sub').textContent = d.agent_sub;
-  $('btnGeminiScan').textContent = d.btn_scan;
-  $('t_pipe1').textContent = d.pipeline_1;
-  $('t_pipe2').textContent = d.pipeline_2;
-  $('t_pipe3').textContent = d.pipeline_3;
-  $('t_pipe4').textContent = d.pipeline_4;
+  $('t_demoBtn').textContent = d.btn_demo;
   $('t_s1').textContent = d.s1;
   $('t_lbl_preset').textContent = d.lbl_preset;
   $('t_lbl_evDate').textContent = d.lbl_evDate;
@@ -871,32 +841,6 @@ $('go').onclick = () => {
       });
     };
   };
-};
-
-$('btnGeminiScan').onclick = () => {
-  $('eventDate').value = '2026-10-01';
-  $('submitDate').value = '2026-10-08';
-  $('approvedTotal').value = 6100000;
-  $('varianceTolerance').value = 10;
-  $('consumptionSessions').value = 1;
-  $('attendanceSheets').value = 1;
-
-  $('bud').innerHTML = '';
-  $('nts').innerHTML = '';
-
-  [
-    { item: 'Transportasi & Bahan Bakar', planned: 300000 },
-    { item: 'Konsumsi', planned: 5200000 },
-    { item: 'Banner & Publikasi', planned: 600000 }
-  ].forEach(addB);
-
-  document.querySelectorAll('[data-d]').forEach((c) => { c.checked = true; });
-
-  LPJ.SAMPLE_GEMINI_RECEIPTS.forEach((sample) => {
-    addN(sample);
-  });
-
-  $('go').click();
 };
 
 $('dl').onclick = () => {

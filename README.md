@@ -4,7 +4,8 @@
 **Event:** STACK 2026 by GDGoC ITB  
 **Selected Case:** Case 1: Smarter Campus and Learning  
 **Members:** Vincentius Bryan Kwandou (leader), Valentino Filemon Limer, Putra Purwanugraha Tengbunan, Marvel Harjosetio  
-**Live Production URL:** https://rapilpj-v2.vercel.app  
+**Live Production URL (Clean):** https://rapilpj-v2.vercel.app  
+**Interactive Demo & Sample Mode:** https://rapilpj-v2.vercel.app/demo  
 **Repository:** https://github.com/bryankwandou/rapilpj-v2  
 
 ---

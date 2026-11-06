@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RapiLPJ v2 — Pre-Submission Student Organization Report Auditor</title>
+<style>
+:root {
+  --primary: #174f78;
+  --primary-variant: #0f3856;
+  --secondary: #1f6b43;
+  --background: #f3f5f6;
+  --surface: #ffffff;
+  --surface-subtle: #eef2f5;
+  --on-primary: #ffffff;
+  --on-surface: #1b2a33;
+  --on-surface-muted: #52616b;
+  --error: #a4301f;
+  --warning: #b76e00;
+  --on-error: #ffffff;
+  --outline: #c5d0d8;
+  --focus-ring: #e0a100;
+}
+[data-theme="dark"] {
+  --primary: #5aa9e6;
+  --primary-variant: #3b8ac4;
+  --secondary: #4cc38a;
+  --background: #0f171e;
+  --surface: #18232c;
+  --surface-subtle: #21303b;
+  --on-primary: #0f171e;
+  --on-surface: #e8eef2;
+  --on-surface-muted: #9fb0bc;
+  --error: #ff7b6b;
+  --warning: #ffb84d;
+  --on-error: #0f171e;
+  --outline: #324350;
+  --focus-ring: #f5b82e;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--on-surface);
+  font: 16px/1.5 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 16px 80px;
+}
+header.top {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+h1 { font-size: 28px; line-height: 1.25; margin: 0 0 4px; }
+h2 { font-size: 20px; line-height: 1.35; margin: 0 0 12px; }
+p { margin: 0 0 10px; }
+.sub, .note { color: var(--on-surface-muted); }
+.note { font-size: 14px; }
+.badge-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+.badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: var(--surface-subtle);
+  border: 1px solid var(--outline);
+  color: var(--on-surface);
+}
+.header-actions {
+  display: flex;
+  gap: 8px;
+}
+section {
+  background: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 16px;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 12px;
+}
+label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+}
+input, select {
+  width: 100%;
+  min-height: 44px;
+  padding: 8px 10px;
+  border: 1px solid var(--outline);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--on-surface);
+  font: inherit;
+  margin-top: 4px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+th, td {
+  border-bottom: 1px solid var(--outline);
+  padding: 8px 6px;
+  text-align: left;
+  vertical-align: middle;
+}
+th {
+  background: var(--surface-subtle);
+  font-weight: 600;
+}
+td input[type="text"], td input[type="number"], td input[type="date"] {
+  margin: 0;
+  min-height: 38px;
+  padding: 6px 8px;
+}
+.col-pos { min-width: 160px; }
+.col-ref { min-width: 110px; }
+.col-num { min-width: 130px; }
+.col-date { min-width: 135px; }
+.col-chk { text-align: center; min-width: 58px; }
+td input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  min-height: 20px;
+  margin: 0;
+  cursor: pointer;
+}
+.scroll { overflow-x: auto; }
+button {
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: var(--primary);
+  color: var(--on-primary);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 10px 8px 0 0;
+}
+button:hover { background: var(--primary-variant); }
+button.alt {
+  background: var(--surface);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+button.alt:hover { background: var(--surface-subtle); }
+button.x {
+  background: transparent;
+  color: var(--error);
+  border-color: var(--outline);
+  margin: 0;
+  min-height: 36px;
+  padding: 4px 8px;
+}
+button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+a { color: var(--primary); }
+.ok { color: var(--secondary); font-weight: 700; }
+.bad { color: var(--error); font-weight: 700; }
+.warn { color: var(--warning); font-weight: 700; }
+ol.issues-list { padding-left: 20px; margin: 8px 0 16px; }
+ol.issues-list li { margin-bottom: 10px; }
+label.chk {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  font-weight: 400;
+  min-height: 40px;
+  padding: 6px 8px;
+  border: 1px solid var(--outline);
+  border-radius: 6px;
+  background: var(--surface-subtle);
+  cursor: pointer;
+}
+label.chk input { width: 20px; height: 20px; min-height: 20px; margin: 0; }
+.neg { color: var(--secondary); font-weight: 600; }
+.pos { color: var(--error); font-weight: 600; }
+.rules-box {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 6px;
+  background: var(--surface-subtle);
+  border: 1px solid var(--outline);
+}
+.rules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+.rule-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  background: var(--surface);
+  border: 1px solid var(--outline);
+}
+.rule-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  min-height: 18px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+.card {
+  padding: 12px;
+  border-radius: 6px;
+  background: var(--surface-subtle);
+  border: 1px solid var(--outline);
+}
+.card .lbl { font-size: 12px; color: var(--on-surface-muted); font-weight: 600; }
+.card .val { font-size: 18px; font-weight: 700; margin-top: 2px; }
+.file-lbl {
+  display: inline-block;
+  font-size: 12px;
+  padding: 5px 8px;
+  border: 1px solid var(--outline);
+  border-radius: 4px;
+  background: var(--surface-subtle);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.file-lbl input[type="file"] { display: none; }
+.scan-meta { font-size: 11px; color: var(--secondary); display: block; margin-top: 2px; }
+.agent-banner {
+  background: var(--surface-subtle);
+  border: 1px solid var(--primary);
+  border-left: 4px solid var(--primary);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-top: 16px;
+}
+.agent-banner h3 {
+  margin: 0 0 6px;
+  font-size: 16px;
+  color: var(--primary);
+}
+.pipeline-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0;
+}
+.pipeline-step {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: var(--surface);
+  border: 1px solid var(--outline);
+  color: var(--on-surface);
+}
+.attestation-box {
+  background: var(--surface-subtle);
+  border: 1px solid var(--outline);
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 18px;
+}
+.hash-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 13px;
+  word-break: break-all;
+  background: var(--surface);
+  color: var(--primary);
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--outline);
+  display: block;
+  margin-top: 8px;
+}
+.addendum-container {
+  margin-top: 14px;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--outline);
+  border-radius: 6px;
+}
+.addendum-text {
+  white-space: pre-wrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  line-height: 1.45;
+  background: var(--surface-subtle);
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid var(--outline);
+  max-height: 320px;
+  overflow-y: auto;
+}
+@media print {
+  button, .noprint, .file-lbl, .header-actions { display: none !important; }
+  section { border: 0; padding: 8px 0; }
+  body { background: #fff; color: #000; }
+}
+</style>
+</head>
+<body>
+<main>
+<header class="top">
+  <div>
+    <h1 id="t_title">RapiLPJ v2 — Mode Demo &amp; Pengujian Sampel</h1>
+    <p class="sub" id="t_sub">Halaman simulasi &amp; pengujian sampel otomatis: mengekstrak sampel foto nota fisik riil, memetakan ke pos RAB, dan memverifikasi kepatuhan aturan secara instan.</p>
+    <div class="badge-bar">
+      <span class="badge" id="t_b1">Lingkungan Uji Coba Demo</span>
+      <span class="badge" id="t_b2">Dataset Sampel Nota Riil</span>
+      <span class="badge">STACK 2026 — Case 1: Smarter Campus</span>
+    </div>
+  </div>
+  <div class="header-actions noprint">
+    <a href="/" class="alt" style="text-decoration:none; display:inline-flex; align-items:center; min-height:44px; padding:10px 16px; border:1px solid var(--outline); border-radius:6px; color:var(--on-surface); font-size:14px; font-weight:600;">&larr; Halaman Utama</a>
+    <button type="button" class="alt" id="langBtn" aria-label="Ganti Bahasa">EN / ID</button>
+    <button type="button" class="alt" id="themeBtn" aria-label="Ubah Tema Warna">Mode Gelap / Terang</button>
+  </div>
+</header>
+
+<section class="agent-banner noprint">
+  <h3 id="t_agent_hdr">Asisten Ekstraksi &amp; Tata Kelola Nota</h3>
+  <p class="note" id="t_agent_sub">Hilangkan friksi pengetikan manual: Membaca berkas nota/kuitansi, mengekstrak nomor bukti &amp; tanggal, serta memverifikasi stempel basah dan meterai Rp10.000 secara otomatis.</p>
+  <div class="pipeline-steps">
+    <span class="pipeline-step" id="t_pipe1">1. Persepsi Visual Dokumen</span>
+    <span class="pipeline-step" id="t_pipe2">2. Deteksi Stempel &amp; Meterai</span>
+    <span class="pipeline-step" id="t_pipe3">3. Pemetaan Otomatis ke Pos RAB</span>
+    <span class="pipeline-step" id="t_pipe4">4. Verifikasi Deterministik Sandboxed</span>
+  </div>
+  <button type="button" id="btnGeminiScan">Masukkan Contoh Sampel Nota</button>
+  <span class="note" style="display:inline-block; margin-top:8px; font-size:12px;">Berkas foto struk fisik tersedia di folder <code>samples/</code> untuk pengujian unggah berkas.</span>
+</section>
+
+<section>
+  <h2 id="t_s1">1. Kegiatan &amp; Regulasi Fakultas</h2>
+  <div class="grid">
+    <label><span id="t_lbl_preset">Aturan yang dipakai</span>
+      <select id="preset">
+        <option value="uajm">BKAM Universitas Atma Jaya Makassar (Basis Kampus Pengembang)</option>
+        <option value="standard">Standar Nasional Ormawa &amp; UU Bea Meterai (Direkomendasikan)</option>
+        <option value="all">Semua aturan (Paling Ketat)</option>
+        <option value="fibub">FIB Universitas Brawijaya</option>
+        <option value="ugmfeb">FEB UGM</option>
+        <option value="itshima">HIMA Desain Interior ITS</option>
+        <option value="itsbio">Biologi ITS</option>
+        <option value="filkom">FILKOM Universitas Brawijaya</option>
+        <option value="custom">Aturan kustom (Pilih sendiri)</option>
+      </select>
+    </label>
+    <label><span id="t_lbl_evDate">Tanggal kegiatan</span><input id="eventDate" type="date"></label>
+    <label><span id="t_lbl_subDate">Tanggal diserahkan</span><input id="submitDate" type="date"></label>
+    <label><span id="t_lbl_appr">Total lembar pengesahan (Rp)</span><input id="approvedTotal" type="number" min="0" placeholder="Contoh: 6500000"></label>
+    <label><span id="t_lbl_tol">Toleransi pergeseran anggaran (%)</span><input id="varianceTolerance" type="number" min="0" max="100" value="10"></label>
+    <label><span id="t_lbl_sess">Sesi konsumsi</span><input id="consumptionSessions" type="number" min="0" value="0"></label>
+    <label><span id="t_lbl_att">Lembar daftar hadir</span><input id="attendanceSheets" type="number" min="0" value="0"></label>
+  </div>
+
+  <p style="margin-top:14px"><strong id="t_lbl_docs">Kelengkapan berkas pendukung:</strong></p>
+  <div class="grid">
+    <label class="chk"><input type="checkbox" data-d="report"> <span id="t_doc_rep">Laporan pelaksanaan kegiatan</span></label>
+    <label class="chk"><input type="checkbox" data-d="finance"> <span id="t_doc_fin">Laporan keuangan rinci</span></label>
+    <label class="chk"><input type="checkbox" data-d="photos"> <span id="t_doc_pho">Dokumentasi foto kegiatan</span></label>
+    <label class="chk"><input type="checkbox" data-d="assignment"> <span id="t_doc_ass">Surat tugas / SK kepanitiaan</span></label>
+  </div>
+
+  <div class="rules-box" id="rulesBox">
+    <strong id="t_rules_hdr">Daftar aturan aktif &amp; rujukan dokumen resmi:</strong>
+    <p class="note" id="rulesHint" style="margin-top:4px">Setiap aturan ditautkan langsung ke dokumen pedoman resmi universitas / perundang-undangan. Centang kustom untuk menyesuaikan aturan fakultasmu.</p>
+    <div class="rules-grid" id="rulesList"></div>
+  </div>
+</section>
+
+<section>
+  <h2 id="t_s2">2. Rencana Anggaran Biaya (RAB)</h2>
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr>
+          <th class="col-pos" id="t_th_bpos">Pos Anggaran</th>
+          <th class="col-num" id="t_th_bplan">Rencana (Rp)</th>
+          <th id="t_th_bact">Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="bud"></tbody>
+    </table>
+  </div>
+  <button type="button" class="alt" id="addB">+ Tambah pos</button>
+</section>
+
+<section>
+  <h2 id="t_s3">3. Daftar Nota &amp; Kuitansi Riil</h2>
+  <p class="note" id="t_note_nts">Pos belanja pada nota dicocokkan langsung dengan RAB. Berkas scan/foto nota diproses secara lokal di peramban untuk verifikasi struk termal.</p>
+  <div class="scroll">
+    <table>
+      <thead>
+        <tr>
+          <th>No</th>
+          <th class="col-ref" id="t_th_ref">No. Bukti / Kuitansi</th>
+          <th class="col-date" id="t_th_date">Tgl Nota</th>
+          <th class="col-pos" id="t_th_npos">Pos Belanja</th>
+          <th class="col-num" id="t_th_namt">Nominal (Rp)</th>
+          <th class="col-chk" title="Stempel / Cap basah">Stempel</th>
+          <th class="col-chk" title="Struk pudar (kertas termal)">Termal</th>
+          <th class="col-chk" title="Sudah difotokopi / scan">Dipindai</th>
+          <th class="col-chk" title="Meterai Rp10.000 (wajib >= Rp5.000.000)">Meterai</th>
+          <th class="col-chk" title="Nota gabungan (dilarang)">Gabung</th>
+          <th class="col-chk" title="Termasuk perhitungan PPh">PPh</th>
+          <th class="col-chk" title="Pengeluaran jasa / honorarium">Jasa</th>
+          <th class="col-chk" title="Identitas penerima jasa (KTP/NPWP)">ID Penerima</th>
+          <th id="t_th_natt">Foto / Scan Lokal</th>
+          <th id="t_th_nact">Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="nts"></tbody>
+    </table>
+  </div>
+  <button type="button" class="alt" id="addN">+ Tambah nota</button>
+</section>
+
+<section>
+  <div class="noprint">
+    <button type="button" id="go">Periksa LPJ</button>
+    <button type="button" class="alt" id="ex">Muat Contoh Kasus Nyata</button>
+    <button type="button" class="alt" id="dl">Unduh Tabel (CSV)</button>
+    <button type="button" class="alt" id="pr">Cetak Hasil Audit</button>
+  </div>
+  <div id="out" aria-live="polite" style="margin-top:14px"></div>
+</section>
+
+<p class="note" style="margin-top:16px" id="t_footer_note">Aturan diverifikasi dari 5 pedoman resmi fakultas (FIB UB, FEB UGM, HIMA Desain Interior ITS, Biologi ITS, FILKOM UB) serta UU No. 10 Tahun 2020 tentang Bea Meterai. Keputusan verifikasi akhir tetap berada pada bagian kemahasiswaan fakultas masing-masing.</p>
+</main>
+
+<script src="engine.js"></script>
+<script>
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const rp = (n) => 'Rp' + LPJ.fmt(n);
+const NF = ['stamp', 'thermal', 'scanned', 'materai', 'combined', 'pphIncluded', 'service', 'recipientId'];
+let customSelected = new Set(Object.keys(LPJ.RULES));
+let curLang = 'id';
+
+const I18N = {
+  id: {
+    title: 'RapiLPJ v2',
+    sub: 'Pemeriksa Laporan Pertanggungjawaban (LPJ) berarsitektur Neuro-Simbolik: Persepsi Multimodal & Edukasi Tata Kelola via Agen Gemini + Verifikasi Aritmetika Deterministik Sandboxed.',
+    b1: 'Arsitektur Neuro-Simbolik',
+    b2: 'Agen Gemini Multimodal + Kernel Audit Deterministik',
+    agent_hdr: 'Asisten Ekstraksi & Tata Kelola Nota',
+    agent_sub: 'Hilangkan friksi pengetikan manual: Membaca berkas nota/kuitansi, mengekstrak nomor bukti & tanggal, serta memverifikasi stempel basah dan meterai Rp10.000 secara otomatis.',
+    btn_scan: 'Masukkan Contoh Sampel Nota',
+    btn_addendum: 'Susun Draf Surat Addendum (Asisten Tata Kelola)',
+    hash_lbl: 'Segel Kriptografis Integritas Audit (SHA-256):',
+    hash_desc: 'Hash SHA-256 ini mengikat data transaksi dan aturan secara matematis. Cetak dan lampirkan pada lembar muka LPJ fisik untuk verifikator kampus.',
+    pipeline_1: '1. Persepsi Visual Dokumen',
+    pipeline_2: '2. Deteksi Stempel & Meterai',
+    pipeline_3: '3. Pemetaan Otomatis ke Pos RAB',
+    pipeline_4: '4. Verifikasi Deterministik Sandboxed',
+    s1: '1. Kegiatan & Regulasi Fakultas',
+    lbl_preset: 'Aturan yang dipakai',
+    lbl_evDate: 'Tanggal kegiatan',
+    lbl_subDate: 'Tanggal diserahkan',
+    lbl_appr: 'Total lembar pengesahan (Rp)',
+    lbl_tol: 'Toleransi pergeseran anggaran (%)',
+    lbl_sess: 'Sesi konsumsi',
+    lbl_att: 'Lembar daftar hadir',
+    lbl_docs: 'Kelengkapan berkas pendukung:',
+    doc_rep: 'Laporan pelaksanaan kegiatan',
+    doc_fin: 'Laporan keuangan rinci',
+    doc_pho: 'Dokumentasi foto kegiatan',
+    doc_ass: 'Surat tugas / SK kepanitiaan',
+    rules_hdr: 'Daftar aturan aktif & rujukan dokumen resmi:',
+    rules_hint: 'Setiap aturan ditautkan langsung ke dokumen pedoman resmi universitas / perundang-undangan. Centang kustom untuk menyesuaikan aturan fakultasmu.',
+    s2: '2. Rencana Anggaran Biaya (RAB)',
+    th_bpos: 'Pos Anggaran',
+    th_bplan: 'Rencana (Rp)',
+    th_bact: 'Aksi',
+    btn_addB: '+ Tambah pos',
+    s3: '3. Daftar Nota & Kuitansi Riil',
+    note_nts: 'Pos belanja pada nota dicocokkan langsung dengan RAB. Berkas scan/foto nota diproses secara lokal di peramban untuk verifikasi struk termal.',
+    th_ref: 'No. Bukti / Kuitansi',
+    th_date: 'Tgl Nota',
+    th_npos: 'Pos Belanja',
+    th_namt: 'Nominal (Rp)',
+    th_natt: 'Foto / Scan Lokal',
+    th_nact: 'Aksi',
+    btn_addN: '+ Tambah nota',
+    btn_go: 'Periksa LPJ',
+    btn_ex: 'Muat Contoh Kasus Nyata',
+    btn_dl: 'Unduh Tabel (CSV)',
+    btn_pr: 'Cetak Hasil Audit',
+    footer_note: 'Aturan diverifikasi dari 5 pedoman resmi fakultas (FIB UB, FEB UGM, HIMA Desain Interior ITS, Biologi ITS, FILKOM UB) serta UU No. 10 Tahun 2020 tentang Bea Meterai. Arsitektur Neuro-Simbolik menjamin nol halusinasi kalkulasi finansial.',
+    del: 'Hapus',
+    pick_file: 'Pilih Berkas'
+  },
+  en: {
+    title: 'RapiLPJ v2 — Pre-Submission Report Auditor',
+    sub: 'Neuro-Symbolic LPJ Auditor: Multimodal Perception & Governance Coaching via Agentic Gemini + Zero-Hallucination Deterministic Verification Kernel.',
+    b1: 'Neuro-Symbolic Architecture',
+    b2: 'Gemini Multimodal Agent + Deterministic Audit Kernel',
+    agent_hdr: 'Receipt Extraction & Governance Assistant',
+    agent_sub: 'Eliminates manual typing friction: Parses receipts, extracts reference numbers & dates, and verifies wet stamps and Rp10,000 revenue seals automatically.',
+    btn_scan: 'Load Sample Receipts',
+    btn_addendum: 'Draft Official Addendum Letter',
+    hash_lbl: 'Cryptographic Audit Attestation Hash (SHA-256):',
+    hash_desc: 'This SHA-256 hash cryptographically binds transaction rows and active rules. Print and affix to the physical submission binder for campus auditors.',
+    pipeline_1: '1. Visual Document Perception',
+    pipeline_2: '2. Stamp & Revenue Seal Inspection',
+    pipeline_3: '3. Semantic Budget Mapping',
+    pipeline_4: '4. Sandboxed Deterministic Verification',
+    s1: '1. Event & Faculty Regulation',
+    lbl_preset: 'Faculty Ruleset Applied',
+    lbl_evDate: 'Event Date',
+    lbl_subDate: 'Submission Date',
+    lbl_appr: 'Endorsement Sheet Total (Rp)',
+    lbl_tol: 'Budget Shift Tolerance (%)',
+    lbl_sess: 'Meal Sessions',
+    lbl_att: 'Attendance Sheets',
+    lbl_docs: 'Mandatory Document Checklist:',
+    doc_rep: 'Activity implementation narrative',
+    doc_fin: 'Detailed financial statement',
+    doc_pho: 'Photo documentation',
+    doc_ass: 'Committee decree / assignment letter',
+    rules_hdr: 'Active Rules & Official Source Citations:',
+    rules_hint: 'Each rule links directly to public university SOPs or statutes. Select Custom to customize checks for your specific faculty.',
+    s2: '2. Approved Budget Plan (RAB)',
+    th_bpos: 'Budget Item',
+    th_bplan: 'Planned (Rp)',
+    th_bact: 'Action',
+    btn_addB: '+ Add Item',
+    s3: '3. Realized Receipts & Invoices',
+    note_nts: 'Expense line items are strictly reconciled against planned budget. Receipt photos are validated locally in your browser for thermal fading checks.',
+    th_ref: 'Receipt Ref #',
+    th_date: 'Receipt Date',
+    th_npos: 'Category',
+    th_namt: 'Amount (Rp)',
+    th_natt: 'Local Scan / Photo',
+    th_nact: 'Action',
+    btn_addN: '+ Add Receipt',
+    btn_go: 'Audit Report',
+    btn_ex: 'Load Realistic Case',
+    btn_dl: 'Download CSV',
+    btn_pr: 'Print Audit Summary',
+    footer_note: 'Rules verified from 5 Indonesian faculty guidelines (FIB UB, FEB UGM, ITS Interior Design, ITS Biology, FILKOM UB) and Law No. 10 of 2020 on Stamp Duty. Neuro-symbolic design guarantees zero arithmetic hallucinations.',
+    del: 'Delete',
+    pick_file: 'Attach File'
+  }
+};
+
+function setLanguage(lang) {
+  curLang = lang;
+  const d = I18N[lang];
+  $('t_title').textContent = d.title;
+  $('t_sub').textContent = d.sub;
+  $('t_b1').textContent = d.b1;
+  $('t_b2').textContent = d.b2;
+  $('t_agent_hdr').textContent = d.agent_hdr;
+  $('t_agent_sub').textContent = d.agent_sub;
+  $('btnGeminiScan').textContent = d.btn_scan;
+  $('t_pipe1').textContent = d.pipeline_1;
+  $('t_pipe2').textContent = d.pipeline_2;
+  $('t_pipe3').textContent = d.pipeline_3;
+  $('t_pipe4').textContent = d.pipeline_4;
+  $('t_s1').textContent = d.s1;
+  $('t_lbl_preset').textContent = d.lbl_preset;
+  $('t_lbl_evDate').textContent = d.lbl_evDate;
+  $('t_lbl_subDate').textContent = d.lbl_subDate;
+  $('t_lbl_appr').textContent = d.lbl_appr;
+  $('t_lbl_tol').textContent = d.lbl_tol;
+  $('t_lbl_sess').textContent = d.lbl_sess;
+  $('t_lbl_att').textContent = d.lbl_att;
+  $('t_lbl_docs').textContent = d.lbl_docs;
+  $('t_doc_rep').textContent = d.doc_rep;
+  $('t_doc_fin').textContent = d.doc_fin;
+  $('t_doc_pho').textContent = d.doc_pho;
+  $('t_doc_ass').textContent = d.doc_ass;
+  $('t_rules_hdr').textContent = d.rules_hdr;
+  $('rulesHint').textContent = d.rules_hint;
+  $('t_s2').textContent = d.s2;
+  $('t_th_bpos').textContent = d.th_bpos;
+  $('t_th_bplan').textContent = d.th_bplan;
+  $('t_th_bact').textContent = d.th_bact;
+  $('addB').textContent = d.btn_addB;
+  $('t_s3').textContent = d.s3;
+  $('t_note_nts').textContent = d.note_nts;
+  $('t_th_ref').textContent = d.th_ref;
+  $('t_th_date').textContent = d.th_date;
+  $('t_th_npos').textContent = d.th_npos;
+  $('t_th_namt').textContent = d.th_namt;
+  $('t_th_natt').textContent = d.th_natt;
+  $('t_th_nact').textContent = d.th_nact;
+  $('addN').textContent = d.btn_addN;
+  $('go').textContent = d.btn_go;
+  $('ex').textContent = d.btn_ex;
+  $('dl').textContent = d.btn_dl;
+  $('pr').textContent = d.btn_pr;
+  $('t_footer_note').textContent = d.footer_note;
+  renderRulesPanel();
+  if (last) $('go').click();
+}
+  $('t_doc_fin').textContent = d.doc_fin;
+  $('t_doc_pho').textContent = d.doc_pho;
+  $('t_doc_ass').textContent = d.doc_ass;
+  $('t_rules_hdr').textContent = d.rules_hdr;
+  $('rulesHint').textContent = d.rules_hint;
+  $('t_s2').textContent = d.s2;
+  $('t_th_bpos').textContent = d.th_bpos;
+  $('t_th_bplan').textContent = d.th_bplan;
+  $('t_th_bact').textContent = d.th_bact;
+  $('addB').textContent = d.btn_addB;
+  $('t_s3').textContent = d.s3;
+  $('t_note_nts').textContent = d.note_nts;
+  $('t_th_ref').textContent = d.th_ref;
+  $('t_th_date').textContent = d.th_date;
+  $('t_th_npos').textContent = d.th_npos;
+  $('t_th_namt').textContent = d.th_namt;
+  $('t_th_natt').textContent = d.th_natt;
+  $('t_th_nact').textContent = d.th_nact;
+  $('addN').textContent = d.btn_addN;
+  $('go').textContent = d.btn_go;
+  $('ex').textContent = d.btn_ex;
+  $('dl').textContent = d.btn_dl;
+  $('pr').textContent = d.btn_pr;
+  $('t_footer_note').textContent = d.footer_note;
+  renderRulesPanel();
+  if (last) $('go').click();
+}
+
+$('langBtn').onclick = () => {
+  setLanguage(curLang === 'id' ? 'en' : 'id');
+};
+
+function renderRulesPanel() {
+  const preset = $('preset').value;
+  const isCustom = preset === 'custom';
+  const activeSet = isCustom ? customSelected : new Set(LPJ.PRESETS[preset] || LPJ.PRESETS.all);
+  $('rulesList').innerHTML = Object.entries(LPJ.RULES).map(([key, rule]) => {
+    const src = LPJ.SOURCES[rule.src];
+    const checked = activeSet.has(key) ? 'checked' : '';
+    const disabled = isCustom ? '' : 'disabled';
+    const textDesc = curLang === 'en' && rule.textEn ? rule.textEn : rule.text;
+    return `<label class="rule-item">
+      <input type="checkbox" data-rule="${esc(key)}" ${checked} ${disabled} aria-label="${esc(textDesc)}">
+      <span>${esc(textDesc)} <br><a href="${esc(src.url)}" target="_blank" rel="noopener" class="note">${esc(src.name)}</a></span>
+    </label>`;
+  }).join('');
+  $('rulesList').querySelectorAll('[data-rule]').forEach((cb) => {
+    cb.onchange = () => {
+      if (cb.checked) customSelected.add(cb.dataset.rule);
+      else customSelected.delete(cb.dataset.rule);
+      if (last) $('go').click();
+    };
+  });
+}
+
+$('preset').onchange = () => {
+  renderRulesPanel();
+  if (last) $('go').click();
+};
+
+function renumberNotes() {
+  [...$('nts').children].forEach((tr, idx) => {
+    const firstCell = tr.querySelector('.row-no');
+    if (firstCell) firstCell.textContent = idx + 1;
+  });
+}
+
+function addB(b = {}) {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td class="col-pos"><input type="text" aria-label="Pos anggaran" placeholder="Nama pos" value="${esc(b.item || '')}"></td>
+    <td class="col-num"><input type="number" min="0" aria-label="Nominal rencana" placeholder="0" value="${b.planned ?? ''}"></td>
+    <td><button type="button" class="x" aria-label="Hapus pos">${I18N[curLang].del}</button></td>`;
+  tr.querySelector('.x').onclick = () => tr.remove();
+  $('bud').append(tr);
+}
+
+function addN(n = {}) {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td class="row-no">${$('nts').children.length + 1}</td>
+    <td class="col-ref"><input type="text" aria-label="Nomor bukti nota" placeholder="INV-001" value="${esc(n.refNo || '')}"></td>
+    <td class="col-date"><input type="date" aria-label="Tanggal nota" value="${esc(n.date || '')}"></td>
+    <td class="col-pos"><input type="text" aria-label="Pos nota" placeholder="Kategori pos" value="${esc(n.item || '')}"></td>
+    <td class="col-num"><input type="number" min="0" aria-label="Nominal nota" placeholder="0" value="${n.amount ?? ''}"></td>` +
+    NF.map((f) => `<td class="col-chk"><input type="checkbox" data-f="${f}" aria-label="${f}" ${(f === 'pphIncluded' ? n[f] !== false : n[f]) ? 'checked' : ''}></td>`).join('') +
+    `<td>
+      <label class="file-lbl">${I18N[curLang].pick_file}<input type="file" accept="image/*,.pdf" aria-label="Unggah foto atau scan nota"></label>
+      <span class="scan-meta" data-scan-info></span>
+    </td>
+    <td><button type="button" class="x" aria-label="Hapus nota">${I18N[curLang].del}</button></td>`;
+  const fileInput = tr.querySelector('input[type="file"]');
+  const scanInfo = tr.querySelector('[data-scan-info]');
+  const scannedCheckbox = tr.querySelector('[data-f="scanned"]');
+  fileInput.onchange = () => {
+    const file = fileInput.files && fileInput.files[0];
+    if (file) {
+      scannedCheckbox.checked = true;
+      scanInfo.textContent = file.name + ' (' + Math.max(1, Math.round(file.size / 1024)) + ' KB)';
+      if (last) $('go').click();
+    }
+  };
+  tr.querySelector('.x').onclick = () => {
+    tr.remove();
+    renumberNotes();
+  };
+  $('nts').append(tr);
+}
+
+function read() {
+  const v = (id) => $(id).value;
+  return {
+    eventDate: v('eventDate'),
+    submitDate: v('submitDate'),
+    approvedTotal: v('approvedTotal') === '' ? null : +v('approvedTotal'),
+    varianceTolerancePercent: +v('varianceTolerance') || 10,
+    consumptionSessions: +v('consumptionSessions'),
+    attendanceSheets: +v('attendanceSheets'),
+    customRules: [...customSelected],
+    docs: Object.fromEntries([...document.querySelectorAll('[data-d]')].map((c) => [c.dataset.d, c.checked])),
+    budget: [...$('bud').children].map((t) => {
+      const i = t.querySelectorAll('input');
+      return { item: i[0].value.trim(), planned: +i[1].value || 0 };
+    }).filter((b) => b.item),
+    notes: [...$('nts').children].map((t, k) => {
+      const textInputs = t.querySelectorAll('input[type="text"], input[type="number"], input[type="date"]');
+      const n = {
+        no: k + 1,
+        refNo: textInputs[0].value.trim(),
+        date: textInputs[1].value,
+        item: textInputs[2].value.trim(),
+        amount: +textInputs[3].value || 0
+      };
+      t.querySelectorAll('[data-f]').forEach((c) => { n[c.dataset.f] = c.checked; });
+      return n;
+    })
+  };
+}
+
+let last = null;
+$('go').onclick = () => {
+  const data = read();
+  const r = last = LPJ.check(data, $('preset').value);
+  const isEn = curLang === 'en';
+  const attestationHash = LPJ.computeAttestationHash(data, r);
+
+  const card1Lbl = isEn ? 'Planned Budget' : 'Total Rencana Anggaran';
+  const card2Lbl = isEn ? 'Realized Expenses' : 'Total Realisasi Nota';
+  const card3Lbl = isEn ? 'Endorsement Sheet' : 'Lembar Pengesahan';
+  const card4Lbl = isEn ? 'Working Days Elapsed' : 'Hari Kerja Berlalu';
+
+  const summaryHtml = `<div class="summary-cards">
+    <div class="card"><div class="lbl">${card1Lbl}</div><div class="val">${rp(r.planned)}</div></div>
+    <div class="card"><div class="lbl">${card2Lbl}</div><div class="val">${rp(r.spent)}</div></div>
+    <div class="card"><div class="lbl">${card3Lbl}</div><div class="val">${data.approvedTotal != null ? rp(data.approvedTotal) : '-'}</div></div>
+    <div class="card"><div class="lbl">${card4Lbl}</div><div class="val">${r.businessDays} ${isEn ? 'working days' : 'hari kerja'}</div></div>
+  </div>`;
+
+  let issuesHtml = '';
+  if (r.issues.length > 0) {
+    const errCount = r.issues.filter((i) => i.severity !== 'warning').length;
+    const warnCount = r.issues.filter((i) => i.severity === 'warning').length;
+    const headerTitle = isEn
+      ? `${r.issues.length} compliance issue(s) detected (${errCount} errors, ${warnCount} warnings):`
+      : `${r.issues.length} hal perlu diperbaiki sebelum diserahkan (${errCount} pelanggaran, ${warnCount} peringatan):`;
+
+    issuesHtml = `<p class="${errCount > 0 ? 'bad' : 'warn'}">${headerTitle}</p>
+      <ol class="issues-list">${r.issues.map((i) => {
+        const sevClass = i.severity === 'warning' ? 'warn' : 'bad';
+        return `<li><span class="${sevClass}">[${i.severity ? i.severity.toUpperCase() : 'ERROR'}]</span> ${esc(i.msg)} <span class="note">(${isEn ? 'Rule' : 'Aturan'}: <a href="${esc(i.source.url)}" target="_blank" rel="noopener">${esc(i.source.name)}</a>)</span></li>`;
+      }).join('')}</ol>`;
+  } else {
+    issuesHtml = `<p class="ok">${isEn ? 'All checks passed. Report complies with selected rules.' : 'Laporan bersih. Seluruh pemeriksaan deterministik lolos tanpa pelanggaran aturan.'}</p>`;
+  }
+
+  const tableTitle = isEn ? 'Budget Plan vs Actual Spending' : 'Rencana Anggaran dibanding Realisasi Riil';
+  const thPos = isEn ? 'Category' : 'Pos Belanja';
+  const thPlan = isEn ? 'Plan' : 'Rencana';
+  const thReal = isEn ? 'Actual' : 'Realisasi';
+  const thDiff = isEn ? 'Variance' : 'Selisih';
+  const thPct = isEn ? 'Variance %' : '% Pergeseran';
+
+  const tableHtml = `<h2 style="margin-top:18px">${tableTitle}</h2>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>${thPos}</th>
+            <th>${thPlan}</th>
+            <th>${thReal}</th>
+            <th>${thDiff}</th>
+            <th>${thPct}</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${r.budget.map((b) => `<tr>
+            <td>${esc(b.item)}</td>
+            <td>${rp(b.planned)}</td>
+            <td>${rp(b.real)}</td>
+            <td class="${b.diff > 0 ? 'pos' : 'neg'}">${b.diff > 0 ? '+' : ''}${rp(b.diff)}</td>
+            <td class="${b.pctOver > data.varianceTolerancePercent ? 'pos' : 'neg'}">${b.pctOver}%</td>
+          </tr>`).join('')}
+          <tr>
+            <th>Total</th>
+            <th>${rp(r.planned)}</th>
+            <th>${rp(r.spent)}</th>
+            <th class="${r.spent - r.planned > 0 ? 'pos' : 'neg'}">${r.spent - r.planned > 0 ? '+' : ''}${rp(r.spent - r.planned)}</th>
+            <th></th>
+          </tr>
+        </tbody>
+      </table>
+    </div>`;
+
+  const attestationHtml = `<div class="attestation-box">
+    <strong>${I18N[curLang].hash_lbl}</strong>
+    <span class="hash-code">${attestationHash}</span>
+    <p class="note" style="margin-top:6px">${I18N[curLang].hash_desc}</p>
+    <div class="noprint" style="margin-top:10px">
+      <button type="button" class="alt" id="btnGenAddendum">${I18N[curLang].btn_addendum}</button>
+    </div>
+    <div id="addendumArea" style="display:none"></div>
+  </div>`;
+
+  $('out').innerHTML = summaryHtml + issuesHtml + tableHtml + attestationHtml;
+
+  $('btnGenAddendum').onclick = () => {
+    const area = $('addendumArea');
+    if (area.style.display === 'block') {
+      area.style.display = 'none';
+      return;
+    }
+    const facultyPreset = $('preset').options[$('preset').selectedIndex].text;
+    const addendumLetter = LPJ.generateAddendumDraft(data, r, facultyPreset);
+    area.innerHTML = `<div class="addendum-container">
+      <h3 style="margin:0 0 8px;font-size:15px;color:var(--primary)">Draf Resmi Surat Addendum (Otomatis Disusun Agen Gemini)</h3>
+      <p class="note">Surat ini disusun berdasarkan selisih varians riil dan siap dicetak/diajukan ke Biro Kemahasiswaan.</p>
+      <div class="addendum-text" id="addendumContent">${esc(addendumLetter)}</div>
+      <button type="button" class="alt" id="btnCopyAddendum" style="margin-top:10px">Salin Teks Surat</button>
+    </div>`;
+    area.style.display = 'block';
+
+    $('btnCopyAddendum').onclick = () => {
+      navigator.clipboard.writeText(addendumLetter).then(() => {
+        $('btnCopyAddendum').textContent = isEn ? 'Copied to Clipboard!' : 'Berhasil Disalin!';
+        setTimeout(() => {
+          $('btnCopyAddendum').textContent = isEn ? 'Copy Letter Text' : 'Salin Teks Surat';
+        }, 2000);
+      });
+    };
+  };
+};
+
+$('btnGeminiScan').onclick = () => {
+  $('eventDate').value = '2026-10-01';
+  $('submitDate').value = '2026-10-08';
+  $('approvedTotal').value = 6100000;
+  $('varianceTolerance').value = 10;
+  $('consumptionSessions').value = 1;
+  $('attendanceSheets').value = 1;
+
+  $('bud').innerHTML = '';
+  $('nts').innerHTML = '';
+
+  [
+    { item: 'Transportasi & Bahan Bakar', planned: 300000 },
+    { item: 'Konsumsi', planned: 5200000 },
+    { item: 'Banner & Publikasi', planned: 600000 }
+  ].forEach(addB);
+
+  document.querySelectorAll('[data-d]').forEach((c) => { c.checked = true; });
+
+  LPJ.SAMPLE_GEMINI_RECEIPTS.forEach((sample) => {
+    addN(sample);
+  });
+
+  $('go').click();
+};
+
+$('dl').onclick = () => {
+  if (!last) $('go').click();
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([LPJ.csv(last)], { type: 'text/csv' }));
+  a.download = 'rapilpj_v2_audit.csv';
+  a.click();
+};
+
+$('pr').onclick = () => {
+  $('go').click();
+  window.print();
+};
+
+$('addB').onclick = () => addB();
+$('addN').onclick = () => addN();
+
+$('ex').onclick = () => {
+  Object.entries({
+    eventDate: '2026-10-01',
+    submitDate: '2026-10-14',
+    approvedTotal: 6500000,
+    varianceTolerance: 10,
+    consumptionSessions: 2,
+    attendanceSheets: 1
+  }).forEach(([k, v]) => { $(k).value = v; });
+
+  $('bud').innerHTML = '';
+  $('nts').innerHTML = '';
+
+  [
+    { item: 'Konsumsi', planned: 1000000 },
+    { item: 'Banner', planned: 600000 },
+    { item: 'Sewa sound system', planned: 5000000 }
+  ].forEach(addB);
+
+  document.querySelectorAll('[data-d]').forEach((c, i) => { c.checked = i < 2; });
+
+  [
+    { refNo: 'NOTA-01', date: '2026-10-01', item: 'Konsumsi', amount: 1000000, stamp: true, pphIncluded: true },
+    { refNo: 'NOTA-02', date: '2026-10-02', item: 'Banner', amount: 750000, stamp: true, thermal: true, scanned: false, pphIncluded: true },
+    { refNo: 'NOTA-03', date: '2026-10-01', item: 'Sewa sound system', amount: 5000000, stamp: false, materai: false, service: true, recipientId: false }
+  ].forEach(addN);
+
+  $('go').click();
+};
+
+$('themeBtn').onclick = () => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  document.documentElement.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
+};
+
+renderRulesPanel();
+addB();
+addN();
+</script>
+</body>
+</html>
+

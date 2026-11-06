@@ -43,3 +43,4 @@ Folder ini berisi berkas gambar struk dan kuitansi fisik nyata yang dirancang un
 1. Buka aplikasi di peramban atau melalui URL produksi: `https://rapilpj-v2.vercel.app`.
 2. Klik tombol **"Masukkan Contoh Sampel Nota"** untuk memuat data terstruktur ketiga nota secara otomatis.
 3. Atau, pada baris tabel nota, klik tombol **"Pilih Berkas"** lalu pilih salah satu berkas gambar dari folder `samples/` ini untuk memverifikasi lampiran foto lokal.
+
