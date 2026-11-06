@@ -20,59 +20,44 @@ RapiLPJ acts as an automated pre-submission gatekeeper: a neuro-symbolic audit p
 
 ## 2. Neuro-Symbolic Agentic Architecture
 
-RapiLPJ eliminates the classic trade-off between AI hallucinations in financial math and the rigid manual friction of traditional spreadsheets:
+RapiLPJ eliminates the classic trade-off between AI hallucinations in financial math and the rigid manual friction of traditional spreadsheets by establishing an unbreachable division of labor:
 
 ```
-[Raw Receipt Photos / Scans]        [Campus Bylaw PDFs (SOP 40+ hal)]
-             |                                      |
-             v                                      v
-+-------------------------------+      +-------------------------------+
-| Tier 1: Gemini Vision Agent   |      | Tier 2: Bylaw Compiler Agent  |
-| - OCR Handwriting & Thermal   |      | - Long Context PDF Ingestion  |
-| - Detect Store Wet Stamp      |      | - Statutory Policy-as-Code    |
-| - Detect Rp10.000 Meterai     |      | - Schema: Active Campus Rules |
-+-------------------------------+      +-------------------------------+
-             |                                      |
-             +------------------+-------------------+
-                                |
-                                v
-               +----------------------------------+
-               | Tier 3: Deterministic Kernel     |
-               | - Zero-Tolerance Arithmetic      |
-               | - Duplicate Invoice Hashing      |
-               | - Date Sanity Bounds             |
-               | - Budget Variance (>10%) Bounds  |
-               | - Attendance-to-Meal Matching    |
-               +----------------------------------+
-                                |
-                                v
-               +----------------------------------+
-               | Tier 4: Governance Co-Pilot      |
-               | - Pedagogical Financial Coaching |
-               | - Auto-Drafted Addendum Letters  |
-               | - Verifiable SHA-256 Attestation |
-               +----------------------------------+
+[Pengurus Ormawa / Bendahara]
+             |
+             +---------------------------------------+
+             |                                       |
+             v                                       v
++-----------------------------------+   +-----------------------------------+
+| 1. DETERMINISTIC AUDIT KERNEL     |   | 2. AI GOVERNANCE CO-PILOT         |
+|    (Open-Source Browser Engine)   |   |    (Agentic Gemini Consultant)    |
+|-----------------------------------|   |-----------------------------------|
+| - 100% Browser RAM execution      |   | - Mentors students on BPK rules   |
+| - Zero arithmetic hallucinations  |   | - Explains why infractions occur  |
+| - Law No. 10/2020 revenue stamps  |   | - Auto-drafts official Addendums  |
+| - Duplicate invoice collisions    |   | - PPh tax compliance advice       |
+| - Budget variance (>10%) bounds   |   | - NEVER touches financial math    |
+| - Verifiable SHA-256 attestation  |   | - Invoked strictly on-demand      |
++-----------------------------------+   +-----------------------------------+
+             |                                       |
+             v                                       v
+[Hasil Audit & Segel Hash SHA-256]      [Draf Surat Addendum Siap Cetak]
 ```
 
-1. **Tier 1: Multimodal Ingestion Agent (Gemini Flash Multimodal):**
-   - Automatically transcribes crumpled thermal receipts, printed tax invoices, and handwritten vendor slips.
-   - Visually verifies physical compliance markers: store wet stamps, Rp10.000 revenue seals, and thermal paper tags.
-   - Maps line items semantically to approved budget categories in the Budget Plan (RAB), eliminating 100% of manual transcription typing.
+1. **Client-Side Open-Source Execution Kernel:**
+   - 100% deterministic mathematical execution running in client JavaScript memory.
+   - Reconciles endorsement totals, budget plan items (RAB), and actual expenses without server latency.
+   - Detects duplicate invoice numbers through SHA-256 / hash map indexing.
+   - Verifies statutory rules: Law No. 10 of 2020 on Stamp Duty ($\ge$ Rp5.000.000), thermal fading receipt warnings, and attendance-to-meal session matching.
 
-2. **Tier 2: Statutory Bylaw-to-Code Compiler Agent (Gemini Long Context):**
-   - Ingests unstructured 40-page campus guideline PDFs.
-   - Extracts statutory rules (deadlines, allowable variance percentages, mandatory documents, and tax rates) into executable declarative JSON schemas.
+2. **Agentic Gemini Governance Consultant (Advisory Layer):**
+   - Serves as an interactive mentor in fiscal governance and university bylaws.
+   - When budget variances or document shortages occur, Gemini analyzes the statutory root cause (BPK and university standards) and autonomously drafts the formal **Surat Permohonan Addendum Pergeseran Anggaran** ready for committee and faculty advisor signatures.
+   - **Crucial Rule:** The AI Agent never computes financial arithmetic; it operates strictly as a governance advisor and document synthesizer.
 
-3. **Tier 3: Sandboxed Deterministic Verification Kernel:**
-   - 100% deterministic, client-side, zero-hallucination arithmetic.
-   - Reconciles endorsement totals, expense sums, and receipt tallies.
-   - Detects duplicate invoice numbers via hash set lookup.
-   - Verifies Law No. 10 of 2020 on Stamp Duty for receipts $\ge$ Rp5.000.000.
-
-4. **Tier 4: Governance & Remediation Co-Pilot (Gemini Pedagogical Agent):**
-   - Acts as an educational mentor for student leaders, explaining financial governance rationales.
-   - Autonomously drafts official **Surat Permohonan Addendum Pergeseran Anggaran** formatted to university standards when budget variance thresholds are exceeded.
-   - Generates an immutable **SHA-256 Cryptographic Attestation Hash** to certify audit integrity for university audit staff.
+3. **Guaranteed Client Privacy (Zero-Storage Architecture):**
+   - Deployed as a static frontend on Vercel CDN without any backend database (no MySQL, MongoDB, Firebase, or external database storage).
+   - Financial data remains strictly in the user's browser memory (*runtime RAM*). Zero tracking, zero data retention.
 
 ---
 
