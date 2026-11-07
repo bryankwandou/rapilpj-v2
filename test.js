@@ -108,5 +108,13 @@ const addendumLetter = L.generateAddendumDraft(overBudgetLpj, overRes);
 assert(addendumLetter.includes('SURAT PERMOHONAN ADDENDUM PERGESERAN ANGGARAN'), 'Must generate formal addendum header');
 assert(addendumLetter.includes('Banner'), 'Addendum must mention overbudget item');
 
-console.log('ALL TESTS PASSED (12/12 SUCCESS)');
+// Test 13: Offline .lpj draft export & import roundtrip
+const exportedStr = L.exportDraft(validLpj);
+assert(exportedStr.includes('"app": "RapiLPJ"'), 'Exported draft must include app signature');
+const importedData = L.parseDraft(exportedStr);
+assert.equal(importedData.eventDate, validLpj.eventDate);
+assert.equal(importedData.budget.length, validLpj.budget.length);
+assert.equal(importedData.notes.length, validLpj.notes.length);
+
+console.log('ALL TESTS PASSED (13/13 SUCCESS)');
 

@@ -550,6 +550,7 @@ NIDN:`;
       pphIncluded: true,
       service: false,
       confidence: 0.98,
+      sampleFile: 'sample_01_struk_termal_spbu.png',
       notesVision: 'Struk termal terdeteksi, teks tajam, nomor pompa dan liter terverifikasi.'
     },
     {
@@ -566,6 +567,7 @@ NIDN:`;
       pphIncluded: true,
       service: false,
       confidence: 0.96,
+      sampleFile: 'sample_02_kuitansi_katering_meterai.png',
       notesVision: 'Faktur katering resmi, stempel basah ungu, meterai Rp10.000 terverifikasi pada nominal >= 5jt.'
     },
     {
@@ -582,9 +584,28 @@ NIDN:`;
       pphIncluded: true,
       service: false,
       confidence: 0.94,
+      sampleFile: 'sample_03_nota_atk_stempel.png',
       notesVision: 'Nota kontan kertas NCR rangkap, cap basah lunas toko terdeteksi di pojok kanan bawah.'
     }
   ];
+
+  function exportDraft(data) {
+    return JSON.stringify({
+      app: 'RapiLPJ',
+      version: '2.0.0',
+      exportedAt: new Date().toISOString(),
+      payload: data
+    }, null, 2);
+  }
+
+  function parseDraft(raw) {
+    if (!raw) throw new Error('Berkas draf kosong');
+    const parsed = typeof raw === 'string' ? JSON.parse(raw) : raw;
+    if (parsed.app && parsed.app !== 'RapiLPJ' && !parsed.budget && !parsed.notes) {
+      throw new Error('Format berkas draf tidak dikenali (bukan draf RapiLPJ)');
+    }
+    return parsed.payload || parsed;
+  }
 
   return {
     RULES,
@@ -598,7 +619,9 @@ NIDN:`;
     sha256,
     computeAttestationHash,
     generateAddendumDraft,
-    SAMPLE_GEMINI_RECEIPTS
+    SAMPLE_GEMINI_RECEIPTS,
+    exportDraft,
+    parseDraft
   };
 });
 

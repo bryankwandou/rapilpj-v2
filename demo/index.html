@@ -322,7 +322,22 @@ label.chk input { width: 20px; height: 20px; min-height: 20px; margin: 0; }
 @media print {
   button, .noprint, .file-lbl, .header-actions { display: none !important; }
   section { border: 0; padding: 8px 0; }
-  body { background: #fff; color: #000; }
+  body { background: #fff; color: #000; font-size: 11pt; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { border: 1px solid #ccc; padding: 6px 8px; }
+  thead { display: table-header-group; }
+  tr { page-break-inside: avoid; }
+  input[type="text"], input[type="number"], input[type="date"], select {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #000 !important;
+    padding: 2px 0 !important;
+  }
+  .summary-cards { page-break-inside: avoid; }
+  .card { border: 1px solid #999 !important; background: #fafafa !important; }
+  .attestation-box { page-break-inside: avoid; border: 2px solid #000 !important; }
+  .addendum-container { page-break-before: always; border: 1px solid #000 !important; }
 }
 </style>
 </head>
@@ -354,7 +369,7 @@ label.chk input { width: 20px; height: 20px; min-height: 20px; margin: 0; }
     <span class="pipeline-step" id="t_pipe3">3. Pemetaan Otomatis ke Pos RAB</span>
     <span class="pipeline-step" id="t_pipe4">4. Verifikasi Deterministik Sandboxed</span>
   </div>
-  <button type="button" id="btnGeminiScan">Masukkan Contoh Sampel Nota</button>
+  <button type="button" id="btnGeminiScan">Muat 3 Sampel Nota Fisik Riil</button>
   <span class="note" style="display:inline-block; margin-top:8px; font-size:12px;">Berkas foto struk fisik tersedia di folder <code>samples/</code> untuk pengujian unggah berkas.</span>
 </section>
 
@@ -445,11 +460,15 @@ label.chk input { width: 20px; height: 20px; min-height: 20px; margin: 0; }
 </section>
 
 <section>
-  <div class="noprint">
+  <div class="noprint" style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
     <button type="button" id="go">Periksa LPJ</button>
-    <button type="button" class="alt" id="ex">Muat Contoh Kasus Nyata</button>
+    <button type="button" class="alt" id="ex">Muat Kasus Uji Pelanggaran</button>
+    <button type="button" class="alt" id="btnExportDraft">Unduh Berkas Draf (.lpj)</button>
+    <button type="button" class="alt" id="btnImportDraft">Buka Berkas Draf (.lpj)</button>
+    <input type="file" id="draftFileInput" accept=".lpj,.json" style="display:none">
     <button type="button" class="alt" id="dl">Unduh Tabel (CSV)</button>
-    <button type="button" class="alt" id="pr">Cetak Hasil Audit</button>
+    <button type="button" class="alt" id="pr">Cetak Dokumen / Simpan PDF</button>
+    <span id="autoSaveStatus" class="note" style="margin-left:auto; font-size:12px;"></span>
   </div>
   <div id="out" aria-live="polite" style="margin-top:14px"></div>
 </section>
@@ -458,7 +477,8 @@ label.chk input { width: 20px; height: 20px; min-height: 20px; margin: 0; }
 </main>
 
 <script src="/engine.js"></script>
-<script>if (typeof LPJ === 'undefined') { document.write('<script src="../engine.js"><\/script>'); }</script>
+<script>if (typeof LPJ === "undefined") { document.write('<script src="../engine.js"><\\/script>'); }</script>
+<script>if (typeof LPJ === 'undefined') { document.write('<script src="engine.js"><\/script>'); }</script>
 <script>
 const $ = (id) => document.getElementById(id);
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -475,7 +495,7 @@ const I18N = {
     b2: 'Agen Gemini Multimodal + Kernel Audit Deterministik',
     agent_hdr: 'Asisten Ekstraksi & Tata Kelola Nota',
     agent_sub: 'Hilangkan friksi pengetikan manual: Membaca berkas nota/kuitansi, mengekstrak nomor bukti & tanggal, serta memverifikasi stempel basah dan meterai Rp10.000 secara otomatis.',
-    btn_scan: 'Masukkan Contoh Sampel Nota',
+    btn_scan: 'Muat 3 Sampel Nota Fisik Riil',
     btn_addendum: 'Susun Draf Surat Addendum (Asisten Tata Kelola)',
     hash_lbl: 'Segel Kriptografis Integritas Audit (SHA-256):',
     hash_desc: 'Hash SHA-256 ini mengikat data transaksi dan aturan secara matematis. Cetak dan lampirkan pada lembar muka LPJ fisik untuk verifikator kampus.',
@@ -513,9 +533,15 @@ const I18N = {
     th_nact: 'Aksi',
     btn_addN: '+ Tambah nota',
     btn_go: 'Periksa LPJ',
-    btn_ex: 'Muat Contoh Kasus Nyata',
+    btn_ex: 'Muat Kasus Uji Pelanggaran',
+    btn_export_draft: 'Unduh Berkas Draf (.lpj)',
+    btn_import_draft: 'Buka Berkas Draf (.lpj)',
     btn_dl: 'Unduh Tabel (CSV)',
-    btn_pr: 'Cetak Hasil Audit',
+    btn_pr: 'Cetak Dokumen / Simpan PDF',
+    autosave_saved: 'Draf tersimpan di peramban',
+    autosave_restored: 'Draf sesi sebelumnya dipulihkan',
+    draft_exported: 'Berkas draf .lpj berhasil diunduh',
+    draft_loaded: 'Draf berhasil dimuat dari berkas',
     footer_note: 'Aturan diverifikasi dari 5 pedoman resmi fakultas (FIB UB, FEB UGM, HIMA Desain Interior ITS, Biologi ITS, FILKOM UB) serta UU No. 10 Tahun 2020 tentang Bea Meterai. Arsitektur Neuro-Simbolik menjamin nol halusinasi kalkulasi finansial.',
     del: 'Hapus',
     pick_file: 'Pilih Berkas'
@@ -527,7 +553,7 @@ const I18N = {
     b2: 'Gemini Multimodal Agent + Deterministic Audit Kernel',
     agent_hdr: 'Receipt Extraction & Governance Assistant',
     agent_sub: 'Eliminates manual typing friction: Parses receipts, extracts reference numbers & dates, and verifies wet stamps and Rp10,000 revenue seals automatically.',
-    btn_scan: 'Load Sample Receipts',
+    btn_scan: 'Load 3 Physical Receipt Samples',
     btn_addendum: 'Draft Official Addendum Letter',
     hash_lbl: 'Cryptographic Audit Attestation Hash (SHA-256):',
     hash_desc: 'This SHA-256 hash cryptographically binds transaction rows and active rules. Print and affix to the physical submission binder for campus auditors.',
@@ -565,9 +591,15 @@ const I18N = {
     th_nact: 'Action',
     btn_addN: '+ Add Receipt',
     btn_go: 'Audit Report',
-    btn_ex: 'Load Realistic Case',
+    btn_ex: 'Load Violation Test Case',
+    btn_export_draft: 'Export Draft (.lpj)',
+    btn_import_draft: 'Open Draft (.lpj)',
     btn_dl: 'Download CSV',
-    btn_pr: 'Print Audit Summary',
+    btn_pr: 'Print Dossier / Save PDF',
+    autosave_saved: 'Auto-saved locally',
+    autosave_restored: 'Restored auto-saved draft',
+    draft_exported: 'Draft exported as .lpj file',
+    draft_loaded: 'Draft loaded from file',
     footer_note: 'Rules verified from 5 Indonesian faculty guidelines (FIB UB, FEB UGM, ITS Interior Design, ITS Biology, FILKOM UB) and Law No. 10 of 2020 on Stamp Duty. Neuro-symbolic design guarantees zero arithmetic hallucinations.',
     del: 'Delete',
     pick_file: 'Attach File'
@@ -619,6 +651,8 @@ function setLanguage(lang) {
   $('addN').textContent = d.btn_addN;
   $('go').textContent = d.btn_go;
   $('ex').textContent = d.btn_ex;
+  $('btnExportDraft').textContent = d.btn_export_draft;
+  $('btnImportDraft').textContent = d.btn_import_draft;
   $('dl').textContent = d.btn_dl;
   $('pr').textContent = d.btn_pr;
   $('t_footer_note').textContent = d.footer_note;
@@ -676,6 +710,8 @@ function addB(b = {}) {
 
 function addN(n = {}) {
   const tr = document.createElement('tr');
+  if (n.sampleFile) tr.dataset.sampleFile = n.sampleFile;
+  if (n.scanName) tr.dataset.scanName = n.scanName;
   tr.innerHTML = `<td class="row-no">${$('nts').children.length + 1}</td>
     <td class="col-ref"><input type="text" aria-label="Nomor bukti nota" placeholder="INV-001" value="${esc(n.refNo || '')}"></td>
     <td class="col-date"><input type="date" aria-label="Tanggal nota" value="${esc(n.date || '')}"></td>
@@ -690,11 +726,19 @@ function addN(n = {}) {
   const fileInput = tr.querySelector('input[type="file"]');
   const scanInfo = tr.querySelector('[data-scan-info]');
   const scannedCheckbox = tr.querySelector('[data-f="scanned"]');
+  if (n.sampleFile) {
+    scanInfo.innerHTML = `<a href="/samples/${esc(n.sampleFile)}" target="_blank" rel="noopener" style="font-size:11px;color:var(--primary);text-decoration:underline;display:inline-block;margin-top:2px;">${esc(n.sampleFile)}</a>`;
+  } else if (n.scanName) {
+    scanInfo.textContent = n.scanName;
+  }
   fileInput.onchange = () => {
     const file = fileInput.files && fileInput.files[0];
     if (file) {
       scannedCheckbox.checked = true;
-      scanInfo.textContent = file.name + ' (' + Math.max(1, Math.round(file.size / 1024)) + ' KB)';
+      const infoText = file.name + ' (' + Math.max(1, Math.round(file.size / 1024)) + ' KB)';
+      scanInfo.textContent = infoText;
+      tr.dataset.scanName = infoText;
+      delete tr.dataset.sampleFile;
       if (last) $('go').click();
     }
   };
@@ -729,6 +773,8 @@ function read() {
         item: textInputs[2].value.trim(),
         amount: +textInputs[3].value || 0
       };
+      if (t.dataset.sampleFile) n.sampleFile = t.dataset.sampleFile;
+      if (t.dataset.scanName) n.scanName = t.dataset.scanName;
       t.querySelectorAll('[data-f]').forEach((c) => { n[c.dataset.f] = c.checked; });
       return n;
     })
@@ -925,9 +971,128 @@ $('themeBtn').onclick = () => {
   document.documentElement.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
 };
 
+const AUTOSAVE_KEY = 'rapilpj_v2_demo_draft_data';
+let autoSaveTimer = null;
+
+function showSaveStatus(msg) {
+  const el = $('autoSaveStatus');
+  if (!el) return;
+  el.textContent = msg;
+  el.style.opacity = '1';
+  clearTimeout(el._fadeTimer);
+  el._fadeTimer = setTimeout(() => {
+    el.style.transition = 'opacity 1s';
+    el.style.opacity = '0.6';
+  }, 3000);
+}
+
+function triggerAutoSave() {
+  clearTimeout(autoSaveTimer);
+  autoSaveTimer = setTimeout(() => {
+    try {
+      const data = read();
+      data.preset = $('preset').value;
+      localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(data));
+      showSaveStatus(I18N[curLang].autosave_saved);
+    } catch (e) {}
+  }, 400);
+}
+
+document.querySelector('main').addEventListener('input', triggerAutoSave);
+document.querySelector('main').addEventListener('change', triggerAutoSave);
+
+function populateForm(data) {
+  if (!data) return;
+  if (data.preset && $('preset').querySelector('option[value="' + data.preset + '"]')) {
+    $('preset').value = data.preset;
+  }
+  if (data.eventDate !== undefined) $('eventDate').value = data.eventDate || '';
+  if (data.submitDate !== undefined) $('submitDate').value = data.submitDate || '';
+  if (data.approvedTotal !== undefined) $('approvedTotal').value = data.approvedTotal ?? '';
+  if (data.varianceTolerancePercent !== undefined) $('varianceTolerance').value = data.varianceTolerancePercent ?? 10;
+  if (data.consumptionSessions !== undefined) $('consumptionSessions').value = data.consumptionSessions ?? 0;
+  if (data.attendanceSheets !== undefined) $('attendanceSheets').value = data.attendanceSheets ?? 0;
+
+  if (Array.isArray(data.customRules)) {
+    customSelected = new Set(data.customRules);
+  }
+
+  if (data.docs) {
+    document.querySelectorAll('[data-d]').forEach((c) => {
+      c.checked = !!data.docs[c.dataset.d];
+    });
+  }
+
+  $('bud').innerHTML = '';
+  if (Array.isArray(data.budget) && data.budget.length > 0) {
+    data.budget.forEach(addB);
+  } else {
+    addB();
+  }
+
+  $('nts').innerHTML = '';
+  if (Array.isArray(data.notes) && data.notes.length > 0) {
+    data.notes.forEach(addN);
+  } else {
+    addN();
+  }
+
+  renderRulesPanel();
+  $('go').click();
+}
+
+$('btnExportDraft').onclick = () => {
+  const data = read();
+  data.preset = $('preset').value;
+  const jsonStr = LPJ.exportDraft(data);
+  const blob = new Blob([jsonStr], { type: 'application/json' });
+  const a = document.createElement('a');
+  const dateStr = data.eventDate || new Date().toISOString().slice(0, 10);
+  a.href = URL.createObjectURL(blob);
+  a.download = 'draf_lpj_' + dateStr + '.lpj';
+  a.click();
+  showSaveStatus(I18N[curLang].draft_exported);
+};
+
+$('btnImportDraft').onclick = () => {
+  $('draftFileInput').click();
+};
+
+$('draftFileInput').onchange = (e) => {
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (evt) => {
+    try {
+      const parsed = LPJ.parseDraft(evt.target.result);
+      populateForm(parsed);
+      showSaveStatus(I18N[curLang].draft_loaded + ': ' + file.name);
+    } catch (err) {
+      alert((curLang === 'en' ? 'Failed to read draft file: ' : 'Gagal membaca berkas draf: ') + err.message);
+    }
+    $('draftFileInput').value = '';
+  };
+  reader.readAsText(file);
+};
+
 renderRulesPanel();
-addB();
-addN();
+let restored = false;
+try {
+  const saved = localStorage.getItem(AUTOSAVE_KEY);
+  if (saved) {
+    const parsed = JSON.parse(saved);
+    if ((parsed.budget && parsed.budget.some(b => b.item)) || (parsed.notes && parsed.notes.some(n => n.refNo || n.item))) {
+      populateForm(parsed);
+      showSaveStatus(I18N[curLang].autosave_restored);
+      restored = true;
+    }
+  }
+} catch (e) {}
+
+if (!restored) {
+  addB();
+  addN();
+}
 </script>
 </body>
 </html>
