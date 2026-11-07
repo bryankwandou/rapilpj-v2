@@ -264,11 +264,9 @@
         if (n.pphIncluded === false || !n.recipientId) {
           add(
             'serviceTax',
-            `${idxLabel} merupakan pengeluaran jasa/honorarium tetapi ${
-              n.pphIncluded === false ? 'belum memperhitungkan PPh' : 'belum melampirkan identitas penerima (KTP/NPWP)'
+            `${idxLabel} merupakan pengeluaran jasa/honorarium tetapi ${n.pphIncluded === false ? 'belum memperhitungkan PPh' : 'belum melampirkan identitas penerima (KTP/NPWP)'
             }.`,
-            `${idxLabelEn} is a service/honorarium expense but ${
-              n.pphIncluded === false ? 'lacks PPh tax withholding' : 'is missing recipient ID (KTP/NPWP)'
+            `${idxLabelEn} is a service/honorarium expense but ${n.pphIncluded === false ? 'lacks PPh tax withholding' : 'is missing recipient ID (KTP/NPWP)'
             }.`,
             i
           );
@@ -480,7 +478,7 @@
     }
     words[words.length] = (asciiBitLength / maxWord) | 0;
     words[words.length] = asciiBitLength | 0;
-    for (j = 0; j < words.length; ) {
+    for (j = 0; j < words.length;) {
       const w = words.slice(j, (j += 16));
       const oldHash = hash.slice(0);
       for (i = 0; i < 64; i++) {
@@ -497,10 +495,10 @@
             i < 16
               ? w[i] | 0
               : (w[i - 16] +
-                  (rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3)) +
-                  w[i - 7] +
-                  (rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10))) |
-                0);
+                (rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3)) +
+                w[i - 7] +
+                (rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10))) |
+              0);
         const temp2 =
           (rightRotate(a, 2) ^ rightRotate(a, 13) ^ rightRotate(a, 22)) +
           ((a & hash[1]) ^ (a & hash[2]) ^ (hash[1] & hash[2]));
