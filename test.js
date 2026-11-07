@@ -82,10 +82,12 @@ assert.equal(L.workDays('2026-10-02', '2026-10-12'), 6);
 assert.equal(L.workDays('2026-10-02', '2026-10-13'), 7);
 assert.equal(L.workDays('2026-10-02', '2026-10-14'), 8);
 
-// Test 8: CSV export check
+// Test 8: CSV export check (ID & EN)
 const csvOut = L.csv(res);
 assert(csvOut.includes('Konsumsi'), 'CSV output must contain budget item');
 assert(csvOut.includes('1.000.000') || csvOut.includes('1000000'), 'CSV output must contain numbers');
+const csvOutEn = L.csv(res, 'en');
+assert(csvOutEn.includes('Budget Category'), 'English CSV output must contain English headers');
 
 // Test 9: UAJM preset verification
 const uajmLpj = JSON.parse(JSON.stringify(validLpj));
@@ -103,10 +105,13 @@ const attestationHash = L.computeAttestationHash(validLpj, res);
 assert.equal(typeof attestationHash, 'string');
 assert.equal(attestationHash.length, 64, 'Attestation hash must be a 64-character SHA-256 hex string');
 
-// Test 12: Autonomous Addendum generation for budget variance
+// Test 12: Autonomous Addendum generation for budget variance (ID & EN)
 const addendumLetter = L.generateAddendumDraft(overBudgetLpj, overRes);
 assert(addendumLetter.includes('SURAT PERMOHONAN ADDENDUM PERGESERAN ANGGARAN'), 'Must generate formal addendum header');
 assert(addendumLetter.includes('Banner'), 'Addendum must mention overbudget item');
+const addendumLetterEn = L.generateAddendumDraft(overBudgetLpj, overRes, 'Student Affairs Bureau', 'en');
+assert(addendumLetterEn.includes('OFFICIAL BUDGET VARIANCE ADDENDUM REQUEST LETTER'), 'Must generate English addendum header');
+assert(addendumLetterEn.includes('Banner'), 'English addendum must mention overbudget item');
 
 // Test 13: Offline .lpj draft export & import roundtrip
 const exportedStr = L.exportDraft(validLpj);
@@ -116,5 +121,13 @@ assert.equal(importedData.eventDate, validLpj.eventDate);
 assert.equal(importedData.budget.length, validLpj.budget.length);
 assert.equal(importedData.notes.length, validLpj.notes.length);
 
-console.log('ALL TESTS PASSED (13/13 SUCCESS)');
+// Test 14: Bilingual English violation messages (msgEn)
+const metIssue = metRes.issues.find((i) => i.rule === 'materai');
+assert(metIssue && metIssue.msgEn && metIssue.msgEn.includes('revenue stamp'), 'Every violation must carry English msgEn');
 
+// Test 15: Governance Co-Pilot offline fallback without API key
+L.callGeminiAdvisory('', overBudgetLpj, overRes, 'BKAM UAJM', 'en').then((adv) => {
+  assert.equal(adv.mode, 'deterministic_template');
+  assert(adv.text.includes('OFFICIAL BUDGET VARIANCE ADDENDUM REQUEST LETTER'));
+  console.log('ALL TESTS PASSED (15/15 SUCCESS)');
+});

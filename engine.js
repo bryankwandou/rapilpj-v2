@@ -1,5 +1,6 @@
-/* RapiLPJ v2: Deterministic Accountability Report (LPJ) Rule Engine
- * 100% Client-Side, Zero AI, Pure Deterministic Verification.
+/* RapiLPJ v2: Neuro-Symbolic Accountability Report (LPJ) Rule Engine
+ * 1. Deterministic Audit Kernel: 100% Client-Side, Zero Arithmetic Hallucination.
+ * 2. Governance Co-Pilot Layer: Offline Deterministic Statutory Template + Optional Live Gemini 2.0 Flash API (BYOK).
  * Complies with Indonesian Faculty LPJ Guidelines and Law No. 10 of 2020 on Stamp Duty.
  */
 (function (root, factory) {
@@ -167,10 +168,11 @@
     const on = new Set(activePreset);
 
     const issues = [];
-    const add = (rule, msg, row, severity = 'error') => {
+    const add = (rule, msg, msgEn, row, severity = 'error') => {
       issues.push({
         rule,
         msg,
+        msgEn: msgEn || msg,
         row,
         severity,
         source: SOURCES[RULES[rule] ? RULES[rule].src : 'national']
@@ -189,6 +191,7 @@
 
     notes.forEach((n, i) => {
       const idxLabel = 'Nota #' + (n.no || i + 1) + (n.item ? ' (' + n.item + ')' : '');
+      const idxLabelEn = 'Receipt #' + (n.no || i + 1) + (n.item ? ' (' + n.item + ')' : '');
       const amt = +n.amount || 0;
 
       // Duplicate invoice / reference check
@@ -198,6 +201,7 @@
           add(
             'duplicateInvoice',
             `${idxLabel}: Nomor referensi "${ref}" kembar dengan Nota #${seenInvoices.get(ref) + 1}.`,
+            `${idxLabelEn}: Reference number "${ref}" is a duplicate of Receipt #${seenInvoices.get(ref) + 1}.`,
             i
           );
         } else {
@@ -207,27 +211,52 @@
 
       // Physical stamp check
       if (on.has('stamp') && !n.stamp) {
-        add('stamp', `${idxLabel} belum memiliki cap atau stempel basah toko.`, i);
+        add(
+          'stamp',
+          `${idxLabel} belum memiliki cap atau stempel basah toko.`,
+          `${idxLabelEn} is missing an official wet store stamp/seal.`,
+          i
+        );
       }
 
       // Revenue stamp (meterai) check for amounts >= Rp5,000,000
       if (on.has('materai') && amt >= 5000000 && !n.materai) {
-        add('materai', `${idxLabel} bernilai Rp${fmt(amt)} (>= Rp5.000.000) tetapi belum dibubuhi meterai Rp10.000.`, i);
+        add(
+          'materai',
+          `${idxLabel} bernilai Rp${fmt(amt)} (>= Rp5.000.000) tetapi belum dibubuhi meterai Rp10.000.`,
+          `${idxLabelEn} amounts to Rp${fmt(amt)} (>= Rp5,000,000) but lacks an official Rp10,000 revenue stamp (meterai).`,
+          i
+        );
       }
 
       // Thermal fading receipt check
       if (on.has('thermal') && n.thermal && !n.scanned) {
-        add('thermal', `${idxLabel} berbahan struk termal mudah pudar dan belum dipindai/difotokopi.`, i);
+        add(
+          'thermal',
+          `${idxLabel} berbahan struk termal mudah pudar dan belum dipindai/difotokopi.`,
+          `${idxLabelEn} is printed on fading thermal paper and has not been digitally scanned or photocopied.`,
+          i
+        );
       }
 
       // Single receipt entry
       if (on.has('perNote') && n.combined) {
-        add('perNote', `${idxLabel} menggabungkan beberapa nota belanja dalam satu baris pembukuan.`, i);
+        add(
+          'perNote',
+          `${idxLabel} menggabungkan beberapa nota belanja dalam satu baris pembukuan.`,
+          `${idxLabelEn} bundles multiple physical receipts into a single ledger row.`,
+          i
+        );
       }
 
       // Tax inclusion
       if (on.has('pph') && n.pphIncluded === false) {
-        add('pph', `${idxLabel} belum memuat perhitungan atau bukti potong PPh.`, i);
+        add(
+          'pph',
+          `${idxLabel} belum memuat perhitungan atau bukti potong PPh.`,
+          `${idxLabelEn} is missing income tax (PPh) calculation or withholding proof.`,
+          i
+        );
       }
 
       // Service / honorarium compliance
@@ -238,6 +267,9 @@
             `${idxLabel} merupakan pengeluaran jasa/honorarium tetapi ${
               n.pphIncluded === false ? 'belum memperhitungkan PPh' : 'belum melampirkan identitas penerima (KTP/NPWP)'
             }.`,
+            `${idxLabelEn} is a service/honorarium expense but ${
+              n.pphIncluded === false ? 'lacks PPh tax withholding' : 'is missing recipient ID (KTP/NPWP)'
+            }.`,
             i
           );
         }
@@ -247,19 +279,36 @@
       if (on.has('unplannedPost') && n.item && n.item.trim()) {
         const itemKey = n.item.trim().toLowerCase();
         if (budgetMap.size > 0 && !budgetMap.has(itemKey)) {
-          add('unplannedPost', `${idxLabel}: Pos "${n.item}" tidak ditemukan dalam Rencana Anggaran Biaya (RAB).`, i, 'warning');
+          add(
+            'unplannedPost',
+            `${idxLabel}: Pos "${n.item}" tidak ditemukan dalam Rencana Anggaran Biaya (RAB).`,
+            `${idxLabelEn}: Expense category "${n.item}" is not listed in the approved Budget Plan (RAB).`,
+            i,
+            'warning'
+          );
         }
       }
 
       // Date sanity check
       if (on.has('dateSanity') && n.date) {
         if (lpj.submitDate && n.date > lpj.submitDate) {
-          add('dateSanity', `${idxLabel}: Tanggal nota (${n.date}) mendahului tanggal pengumpulan laporan (${lpj.submitDate}).`, i);
+          add(
+            'dateSanity',
+            `${idxLabel}: Tanggal nota (${n.date}) mendahului tanggal pengumpulan laporan (${lpj.submitDate}).`,
+            `${idxLabelEn}: Receipt date (${n.date}) is later than the report submission date (${lpj.submitDate}).`,
+            i
+          );
         }
         if (lpj.eventDate) {
           const dBefore = daysBetween(n.date, lpj.eventDate);
           if (dBefore > 30) {
-            add('dateSanity', `${idxLabel}: Tanggal nota (${n.date}) berjarak ${dBefore} hari sebelum kegiatan (melewati batas persiapan 30 hari).`, i, 'warning');
+            add(
+              'dateSanity',
+              `${idxLabel}: Tanggal nota (${n.date}) berjarak ${dBefore} hari sebelum kegiatan (melewati batas persiapan 30 hari).`,
+              `${idxLabelEn}: Receipt date (${n.date}) is ${dBefore} days prior to the event (exceeds 30-day preparation window).`,
+              i,
+              'warning'
+            );
           }
         }
       }
@@ -271,7 +320,8 @@
       if (diff > 0) {
         add(
           'totalsMatch',
-          `Nominal lembar pengesahan (Rp${fmt(lpj.approvedTotal)}) berbeda dengan total realisasi nota (Rp${fmt(spent)}). Selisih: Rp${fmt(diff)}.`
+          `Nominal lembar pengesahan (Rp${fmt(lpj.approvedTotal)}) berbeda dengan total realisasi nota (Rp${fmt(spent)}). Selisih: Rp${fmt(diff)}.`,
+          `Endorsement sheet total (Rp${fmt(lpj.approvedTotal)}) does not match realized receipt total (Rp${fmt(spent)}). Variance: Rp${fmt(diff)}.`
         );
       }
     }
@@ -282,7 +332,8 @@
       if (sheets < lpj.consumptionSessions) {
         add(
           'attendance',
-          `Terdapat ${lpj.consumptionSessions} sesi konsumsi, namun baru dilampirkan ${sheets} lembar daftar hadir (kurang ${lpj.consumptionSessions - sheets} lembar).`
+          `Terdapat ${lpj.consumptionSessions} sesi konsumsi, namun baru dilampirkan ${sheets} lembar daftar hadir (kurang ${lpj.consumptionSessions - sheets} lembar).`,
+          `There are ${lpj.consumptionSessions} meal sessions, but only ${sheets} attendance sheet(s) are attached (missing ${lpj.consumptionSessions - sheets} sheet(s)).`
         );
       }
     }
@@ -291,31 +342,43 @@
     const calDays = daysBetween(lpj.eventDate, lpj.submitDate);
     if (on.has('deadline10') && lpj.eventDate && lpj.submitDate) {
       if (calDays > 10) {
-        add('deadline10', `Diserahkan ${calDays} hari kalender setelah kegiatan (melebihi batas toleransi 10 hari).`);
+        add(
+          'deadline10',
+          `Diserahkan ${calDays} hari kalender setelah kegiatan (melebihi batas toleransi 10 hari).`,
+          `Submitted ${calDays} calendar days after the event (exceeds the 10-calendar-day limit).`
+        );
       }
     }
 
     const bDays = workDays(lpj.eventDate, lpj.submitDate);
     if (on.has('deadline7work') && lpj.eventDate && lpj.submitDate) {
       if (bDays > 7) {
-        add('deadline7work', `Diserahkan ${bDays} hari kerja setelah kegiatan (melebihi batas toleransi 7 hari kerja).`);
+        add(
+          'deadline7work',
+          `Diserahkan ${bDays} hari kerja setelah kegiatan (melebihi batas toleransi 7 hari kerja).`,
+          `Submitted ${bDays} working days after the event (exceeds the 7-working-day limit).`
+        );
       }
     }
 
     // Required documentation checklist
     if (on.has('filkomDocs')) {
       const docs = lpj.docs || {};
-      const missing = [
-        ['report', 'Laporan pelaksanaan kegiatan'],
-        ['finance', 'Laporan pertanggungjawaban keuangan rinci'],
-        ['photos', 'Dokumentasi foto kegiatan'],
-        ['assignment', 'Surat tugas kepanitiaan atau SK ormawa']
-      ]
-        .filter(([key]) => !docs[key])
-        .map(([, label]) => label);
+      const missingPairs = [
+        ['report', 'Laporan pelaksanaan kegiatan', 'Activity implementation narrative'],
+        ['finance', 'Laporan pertanggungjawaban keuangan rinci', 'Detailed financial accountability statement'],
+        ['photos', 'Dokumentasi foto kegiatan', 'Activity photo documentation'],
+        ['assignment', 'Surat tugas kepanitiaan atau SK ormawa', 'Committee assignment decree (SK)']
+      ].filter(([key]) => !docs[key]);
 
-      if (missing.length > 0) {
-        add('filkomDocs', `Berkas administrasi belum lengkap: ${missing.join(', ')}.`);
+      if (missingPairs.length > 0) {
+        const missingId = missingPairs.map(([, idLbl]) => idLbl).join(', ');
+        const missingEn = missingPairs.map(([, , enLbl]) => enLbl).join(', ');
+        add(
+          'filkomDocs',
+          `Berkas administrasi belum lengkap: ${missingId}.`,
+          `Mandatory supporting documents incomplete: ${missingEn}.`
+        );
       }
     }
 
@@ -334,7 +397,8 @@
       if (on.has('budgetVariance') && planned > 0 && pctOver > varianceTolerance) {
         add(
           'budgetVariance',
-          `Pos "${itemName}" overbudget ${Math.round(pctOver * 100)}% (Rencana Rp${fmt(planned)}, Realisasi Rp${fmt(real)}), melebihi ambang toleransi pergeseran ${Math.round(varianceTolerance * 100)}%.`
+          `Pos "${itemName}" overbudget ${Math.round(pctOver * 100)}% (Rencana Rp${fmt(planned)}, Realisasi Rp${fmt(real)}), melebihi ambang toleransi pergeseran ${Math.round(varianceTolerance * 100)}%.`,
+          `Category "${itemName}" is over budget by ${Math.round(pctOver * 100)}% (Planned Rp${fmt(planned)}, Actual Rp${fmt(real)}), exceeding the ${Math.round(varianceTolerance * 100)}% variance tolerance.`
         );
       }
 
@@ -364,10 +428,11 @@
     };
   }
 
-  function csv(res) {
-    const rows = [
-      ['Pos Anggaran', 'Rencana (Rp)', 'Realisasi (Rp)', 'Selisih (Rp)', 'Persentase Varian (%)']
-    ].concat(
+  function csv(res, lang = 'id') {
+    const header = lang === 'en'
+      ? ['Budget Category', 'Planned (Rp)', 'Actual (Rp)', 'Variance (Rp)', 'Variance (%)']
+      : ['Pos Anggaran', 'Rencana (Rp)', 'Realisasi (Rp)', 'Selisih (Rp)', 'Persentase Varian (%)'];
+    const rows = [header].concat(
       res.budget.map((b) => [b.item, b.planned, b.real, b.diff, b.pctOver + '%']),
       [['Total', res.planned, res.spent, res.spent - res.planned, '']]
     );
@@ -478,12 +543,63 @@
     return sha256(canonicalPayload);
   }
 
-  /* Autonomous Governance Co-Pilot: Generates official addendum draft for variances */
-  function generateAddendumDraft(lpj, res, facultyName = 'Biro Kemahasiswaan (BKAM)') {
+  /* Deterministic Statutory Template Engine: Generates official addendum draft for variances (100% Offline) */
+  function generateAddendumDraft(lpj, res, facultyName = 'Biro Kemahasiswaan (BKAM)', lang = 'id') {
     const overBudgetItems = res.budget.filter(
       (b) => b.pctOver > (lpj.varianceTolerancePercent || 10)
     );
     const dateStr = lpj.submitDate || new Date().toISOString().split('T')[0];
+
+    if (lang === 'en') {
+      let itemsTableEn = overBudgetItems
+        .map(
+          (b, idx) =>
+            `${idx + 1}. Category: ${b.item} | Planned: Rp${fmt(b.planned)} | Actual: Rp${fmt(
+              b.real
+            )} | Variance: +Rp${fmt(b.diff)} (+${b.pctOver}%)`
+        )
+        .join('\n');
+
+      if (!itemsTableEn) {
+        itemsTableEn = 'No budget categories exceeded the allowed variance tolerance threshold.';
+      }
+
+      return `SURAT PERMOHONAN ADDENDUM PERGESERAN ANGGARAN KEGIATAN
+(OFFICIAL BUDGET VARIANCE ADDENDUM REQUEST LETTER)
+Reference No: 042/PAN-PEL/ADDENDUM/${dateStr.replace(/-/g, '')}
+Attachment  : 1 (one) RapiLPJ Pre-Submission Audit Dossier
+Subject     : Request for Approval of Realized Activity Budget Reallocation
+
+To:
+Head of ${facultyName}
+In Place
+
+Dear Sir/Madam,
+Following the completion of our student organization activity held on ${lpj.eventDate || '-'}, the Organizing Committee respectfully submits this formal request for approval regarding realized budget reallocations that exceeded initial line-item tolerance bounds:
+
+${itemsTableEn}
+
+Justification for Reallocation:
+Urgent operational adjustments in the field were required to ensure participant safety and event continuity, while maintaining strict compliance with the total approved endorsement ceiling.
+
+We submit this official addendum request as an integral part of our Activity Accountability Report (LPJ). Thank you for your review and approval.
+
+Makassar, ${dateStr}
+Respectfully yours,
+
+Committee Chairperson                       Activity Treasurer
+
+
+(__________________________)                (__________________________)
+Student ID (NIM):                           Student ID (NIM):
+
+Acknowledged by,
+Faculty Advisor / Student Affairs Supervisor
+
+
+(__________________________)
+NIDN:`;
+    }
 
     let itemsTable = overBudgetItems
       .map(
@@ -534,6 +650,71 @@ Dosen Pembina / Pendamping Kemahasiswaan
 NIDN:`;
   }
 
+  /* Optional Live Gemini 2.0 Flash Governance Co-Pilot (BYOK Client-Side Direct Fetch) */
+  async function callGeminiAdvisory(apiKey, lpj, res, facultyName = 'Biro Kemahasiswaan (BKAM)', lang = 'id') {
+    if (!apiKey || !apiKey.trim()) {
+      return {
+        mode: 'deterministic_template',
+        text: generateAddendumDraft(lpj, res, facultyName, lang)
+      };
+    }
+    const baseDraft = generateAddendumDraft(lpj, res, facultyName, lang);
+    const issueSummary = res.issues.map((i, idx) => `${idx + 1}. [${i.rule}] ${lang === 'en' ? i.msgEn : i.msg}`).join('\n') || 'None';
+    const prompt = lang === 'en'
+      ? `You are the RapiLPJ Fiscal Governance Co-Pilot for Indonesian university student organizations.
+Do NOT recalculate any numbers; trust the deterministic kernel numbers below 100%.
+Faculty Preset: ${facultyName}
+Planned Total: Rp${fmt(res.planned)} | Actual Spent: Rp${fmt(res.spent)}
+Detected Compliance Issues:
+${issueSummary}
+
+Provide:
+1. BRIEF GOVERNANCE REMEDIATION GUIDE (bullet points explaining the legal/university rationale for each detected issue and exact corrective steps for the student treasurer).
+2. OFFICIAL ADDENDUM LETTER (keep and refine the following formal letter structure):
+
+${baseDraft}`
+      : `Anda adalah Asisten Tata Kelola Keuangan Ormawa RapiLPJ.
+JANGAN menghitung ulang angka; gunakan hasil kernel deterministik berikut 100%.
+Aturan Kampus: ${facultyName}
+Total Rencana: Rp${fmt(res.planned)} | Total Realisasi: Rp${fmt(res.spent)}
+Temuan Audit Deterministik:
+${issueSummary}
+
+Berikan:
+1. PANDUAN REMEDIASI TATA KELOLA SINGKAT (poin-poin penjelasan dasar hukum/pedoman kampus atas setiap temuan beserta langkah perbaikan konkret bagi bendahara mahasiswa).
+2. SURAT PERMOHONAN ADDENDUM RESMI (pertahankan dan sempurnakan naskah surat dinas berikut):
+
+${baseDraft}`;
+
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${encodeURIComponent(apiKey.trim())}`;
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        generationConfig: { temperature: 0.2, maxOutputTokens: 1200 }
+      })
+    });
+    if (!response.ok) {
+      throw new Error(`Gemini API HTTP ${response.status}`);
+    }
+    const json = await response.json();
+    const outText = json &&
+      json.candidates &&
+      json.candidates[0] &&
+      json.candidates[0].content &&
+      json.candidates[0].content.parts &&
+      json.candidates[0].content.parts[0] &&
+      json.candidates[0].content.parts[0].text;
+    if (!outText) {
+      throw new Error('Empty response from Gemini API');
+    }
+    return {
+      mode: 'live_gemini_api',
+      text: outText.trim()
+    };
+  }
+
   /* Sample multimodal perception datasets representing realistic Indonesian student receipts */
   const SAMPLE_GEMINI_RECEIPTS = [
     {
@@ -551,7 +732,8 @@ NIDN:`;
       service: false,
       confidence: 0.98,
       sampleFile: 'sample_01_struk_termal_spbu.png',
-      notesVision: 'Struk termal terdeteksi, teks tajam, nomor pompa dan liter terverifikasi.'
+      notesVision: 'Struk termal terdeteksi, teks tajam, nomor pompa dan liter terverifikasi.',
+      notesVisionEn: 'Thermal paper slip detected, sharp print, pump number and liter volume verified.'
     },
     {
       refNo: 'KTR-8812',
@@ -568,7 +750,8 @@ NIDN:`;
       service: false,
       confidence: 0.96,
       sampleFile: 'sample_02_kuitansi_katering_meterai.png',
-      notesVision: 'Faktur katering resmi, stempel basah ungu, meterai Rp10.000 terverifikasi pada nominal >= 5jt.'
+      notesVision: 'Faktur katering resmi, stempel basah ungu, meterai Rp10.000 terverifikasi pada nominal >= 5jt.',
+      notesVisionEn: 'Official catering invoice, purple wet stamp, Rp10,000 revenue seal verified for amount >= 5M.'
     },
     {
       refNo: 'ATK-0924',
@@ -585,7 +768,8 @@ NIDN:`;
       service: false,
       confidence: 0.94,
       sampleFile: 'sample_03_nota_atk_stempel.png',
-      notesVision: 'Nota kontan kertas NCR rangkap, cap basah lunas toko terdeteksi di pojok kanan bawah.'
+      notesVision: 'Nota kontan kertas NCR rangkap, cap basah lunas toko terdeteksi di pojok kanan bawah.',
+      notesVisionEn: 'Carbonless NCR cash receipt, store paid wet seal detected at bottom-right corner.'
     }
   ];
 
@@ -599,7 +783,7 @@ NIDN:`;
   }
 
   function parseDraft(raw) {
-    if (!raw) throw new Error('Berkas draf kosong');
+    if (!raw) throw new Error('Berkas draf kosong / Empty draft file');
     const parsed = typeof raw === 'string' ? JSON.parse(raw) : raw;
     if (parsed.app && parsed.app !== 'RapiLPJ' && !parsed.budget && !parsed.notes) {
       throw new Error('Format berkas draf tidak dikenali (bukan draf RapiLPJ)');
@@ -619,9 +803,9 @@ NIDN:`;
     sha256,
     computeAttestationHash,
     generateAddendumDraft,
+    callGeminiAdvisory,
     SAMPLE_GEMINI_RECEIPTS,
     exportDraft,
     parseDraft
   };
 });
-
