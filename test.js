@@ -65,17 +65,27 @@ dateViolationLpj.notes[0].date = '2026-10-20'; // submitDate is 2026-10-08
 let dateRes = L.check(dateViolationLpj, 'standard');
 assert(dateRes.issues.some((i) => i.rule === 'dateSanity'), 'Must detect date sanity violation');
 
-// Test 6: Revenue stamp (Meterai) for amounts >= Rp5,000,000
-const meteraiLpj = JSON.parse(JSON.stringify(validLpj));
-meteraiLpj.notes.push({
+// Test 6: Revenue stamp (Meterai) strictly for amounts > Rp5,000,000 per UU No. 10/2020 Pasal 3
+const meteraiExact5MLpj = JSON.parse(JSON.stringify(validLpj));
+meteraiExact5MLpj.notes.push({
   no: 3,
   item: 'Sewa Gedung',
-  amount: 5000000,
+  amount: 5000000, // Exactly Rp5,000,000 does NOT require meterai
   stamp: true,
   materai: false
 });
-let metRes = L.check(meteraiLpj, 'ugmfeb');
-assert(metRes.issues.some((i) => i.rule === 'materai'), 'Must flag missing revenue stamp for >= Rp5.000.000');
+assert.equal(L.check(meteraiExact5MLpj, 'ugmfeb').issues.filter((i) => i.rule === 'materai').length, 0, 'Exact Rp5.000.000 must not trigger meterai per UU 10/2020');
+
+const meteraiOver5MLpj = JSON.parse(JSON.stringify(validLpj));
+meteraiOver5MLpj.notes.push({
+  no: 3,
+  item: 'Sewa Gedung',
+  amount: 5000001, // Strictly > Rp5,000,000 DOES require meterai
+  stamp: true,
+  materai: false
+});
+let metRes = L.check(meteraiOver5MLpj, 'ugmfeb');
+assert(metRes.issues.some((i) => i.rule === 'materai'), 'Must flag missing revenue stamp strictly for > Rp5.000.000');
 
 // Test 7: Working day calculations (FILKOM UB: 7 working days)
 assert.equal(L.workDays('2026-10-02', '2026-10-12'), 6);
@@ -126,8 +136,34 @@ const metIssue = metRes.issues.find((i) => i.rule === 'materai');
 assert(metIssue && metIssue.msgEn && metIssue.msgEn.includes('revenue stamp'), 'Every violation must carry English msgEn');
 
 // Test 15: Governance Co-Pilot offline fallback without API key
-L.callGeminiAdvisory('', overBudgetLpj, overRes, 'BKAM UAJM', 'en').then((adv) => {
+L.callGeminiAdvisory('', overBudgetLpj, overRes, 'BKAM UAJM', 'en').then(async (adv) => {
   assert.equal(adv.mode, 'deterministic_template');
   assert(adv.text.includes('OFFICIAL BUDGET VARIANCE ADDENDUM REQUEST LETTER'));
-  console.log('ALL TESTS PASSED (15/15 SUCCESS)');
+
+  // Test 16: Interactive Fiscal Governance Learning Modules
+  const materaiMod = L.getLearningModule('materai');
+  assert(materaiMod && materaiMod.quiz, 'Must provide fiscal learning module for materai');
+  assert(materaiMod.concept.includes('LEBIH DARI Rp5.000.000'), 'Concept must cite strictly > Rp5.000.000');
+  const quizResCorrect = L.evaluateQuiz('materai', 0);
+  assert(quizResCorrect.isCorrect === true, 'Quiz evaluation must validate correct answer');
+  const quizResWrong = L.evaluateQuiz('materai', 1);
+  assert(quizResWrong.isCorrect === false, 'Quiz evaluation must detect wrong answer');
+
+  // Test 17: Gemini Multimodal Receipt Parser fallback mode
+  const parsedReceipt = await L.parseReceiptWithGemini(null, '');
+  assert.equal(parsedReceipt.mode, 'deterministic_heuristic');
+  assert(parsedReceipt.receipt && parsedReceipt.receipt.amount > 0);
+
+  // Test 18: Faculty Verifier Desk-Check Verification Engine
+  const verifierRes = L.verifyLpjDossier(validLpj, attestationHash, 'uajm');
+  assert.equal(verifierRes.hashMatch, true, 'Attestation hash must match valid LPJ');
+  assert.equal(verifierRes.canApprove, true, 'Valid LPJ must be approved by faculty verifier');
+  assert.equal(verifierRes.balanceVerified, true, 'Balance must be verified');
+
+  // Test 19: Tampered LPJ detection in Verifier Mode
+  const tamperedVerifierRes = L.verifyLpjDossier(validLpj, '0000000000000000000000000000000000000000000000000000000000000000', 'uajm');
+  assert.equal(tamperedVerifierRes.hashMatch, false, 'Tampered hash must be rejected');
+  assert.equal(tamperedVerifierRes.canApprove, false, 'Tampered dossier cannot be approved');
+
+  console.log('ALL TESTS PASSED (19/19 SUCCESS)');
 });

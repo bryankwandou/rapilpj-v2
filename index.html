@@ -611,7 +611,7 @@
         <div class="badge-bar">
           <span class="badge" id="t_b1">Arsitektur Neuro-Simbolik</span>
           <span class="badge" id="t_b2">Kernel Deterministik Klien + Asisten Tata Kelola</span>
-          <span class="badge">STACK 2026 — Case 1: Smarter Campus</span>
+          <span class="badge">STACK 2026 — Case 1: Smarter Campus &amp; Learning</span>
         </div>
       </div>
       <div class="header-actions noprint">
@@ -624,6 +624,12 @@
           Terang</button>
       </div>
     </header>
+    <div class="persona-tabs noprint" style="display:flex; gap:8px; margin: 12px 0 16px; background:var(--surface); padding:6px; border-radius:8px; border:1px solid var(--outline);">
+      <button type="button" id="tabTreasurer" class="btn" style="flex:1; margin:0; min-height:42px; font-weight:700;">Mode 1: Bendahara Mahasiswa (Penyusun LPJ)</button>
+      <button type="button" id="tabVerifier" class="btn alt" style="flex:1; margin:0; min-height:42px; font-weight:700;">Mode 2: Verifikator Kemahasiswaan (Fakultas / BEM / DPM)</button>
+    </div>
+
+    <div id="viewTreasurer">
 
     <section>
       <h2 id="t_s1">1. Kegiatan &amp; Regulasi Fakultas</h2>
@@ -707,7 +713,7 @@
               <th class="col-chk" id="t_th_stamp" title="Stempel / Cap basah">Stempel</th>
               <th class="col-chk" id="t_th_therm" title="Struk pudar (kertas termal)">Termal</th>
               <th class="col-chk" id="t_th_scan" title="Sudah difotokopi / scan">Dipindai</th>
-              <th class="col-chk" id="t_th_mat" title="Meterai Rp10.000 (wajib >= Rp5.000.000)">Meterai</th>
+              <th class="col-chk" id="t_th_mat" title="Meterai Rp10.000 (wajib > Rp5.000.000)">Meterai</th>
               <th class="col-chk" id="t_th_comb" title="Nota gabungan (dilarang)">Gabung</th>
               <th class="col-chk" id="t_th_pph" title="Termasuk perhitungan PPh">PPh</th>
               <th class="col-chk" id="t_th_srv" title="Pengeluaran jasa / honorarium">Jasa</th>
@@ -718,6 +724,31 @@
           </thead>
           <tbody id="nts"></tbody>
         </table>
+      </div>
+      <button type="button" class="alt" id="btnScanGemini" style="border-color:var(--secondary); color:var(--secondary); font-weight:600;">Scan Kuitansi (Gemini 2.0 Flash Vision)</button>
+      
+      <div id="geminiScanPanel" class="noprint" style="display:none; margin-top:14px; padding:16px; background:var(--surface-subtle); border:2px dashed var(--secondary); border-radius:8px;">
+        <h3 style="margin:0 0 8px; font-size:15px; color:var(--secondary);" id="t_gemini_scanner_hdr">Pindai Kuitansi Fisik via Gemini Multimodal Vision</h3>
+        <p class="note" style="margin-bottom:10px;" id="t_gemini_scanner_sub">Unggah foto kuitansi/struk atau pilih salah satu sampel riil. Gemini 2.0 Flash mengekstrak metadata JSON terstruktur, lalu diserahkan ke kernel deterministik untuk audit tanpa halusinasi aritmetika.</p>
+        <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:10px;">
+          <label class="file-lbl" style="background:var(--surface);">
+            <span id="t_gemini_pick_file">Pilih Foto Kuitansi (JPG/PNG)</span>
+            <input type="file" id="geminiFileInput" accept="image/*">
+          </label>
+          <span class="note" id="t_gemini_or_sample">atau gunakan sampel:</span>
+          <button type="button" class="alt" id="btnSampleSPBU" style="min-height:34px; padding:4px 10px; font-size:12px; margin:0;">Sampel SPBU (Termal)</button>
+          <button type="button" class="alt" id="btnSampleKatering" style="min-height:34px; padding:4px 10px; font-size:12px; margin:0;">Sampel Katering (Meterai >5jt)</button>
+          <button type="button" class="alt" id="btnSampleATK" style="min-height:34px; padding:4px 10px; font-size:12px; margin:0;">Sampel ATK (Stempel)</button>
+        </div>
+        <div id="geminiScanPreview" style="display:none; margin-top:10px; padding:12px; background:var(--surface); border:1px solid var(--outline); border-radius:6px;">
+          <div style="display:flex; flex-wrap:wrap; gap:14px; align-items:flex-start;">
+            <img id="geminiPreviewImg" src="" style="max-width:140px; max-height:140px; object-fit:contain; border:1px solid var(--outline); border-radius:4px; background:#fff;">
+            <div style="flex:1; min-width:260px;">
+              <div id="geminiExtractedFields" style="font-size:13px; font-family:monospace; line-height:1.45; background:var(--surface-subtle); padding:8px 10px; border-radius:4px; border:1px solid var(--outline);"></div>
+              <button type="button" id="btnApplyGeminiReceipt" style="margin-top:8px; background:var(--secondary); min-height:36px; padding:6px 14px; font-size:13px;" id="t_gemini_btn_apply">Tambahkan ke Tabel &amp; Audit</button>
+            </div>
+          </div>
+        </div>
       </div>
       <button type="button" class="alt" id="addN">+ Tambah nota</button>
     </section>
@@ -735,6 +766,36 @@
       <div id="out" aria-live="polite" style="margin-top:14px"></div>
     </section>
 
+    
+    </div>
+
+    <div id="viewVerifier" style="display:none;">
+      <section>
+        <h2 id="t_v_hdr">Verifikasi Meja LPJ Kemahasiswaan (Faculty Desk-Check)</h2>
+        <p class="sub" id="t_v_sub">Portal bagi staf Biro Kemahasiswaan (BKAM), DPM, atau BEM untuk memverifikasi keaslian kriptografis dan kepatuhan regulasi berkas .lpj mahasiswa dalam hitungan detik.</p>
+        <div class="grid" style="margin-top:14px;">
+          <label><span id="t_v_lbl_file">Unggah Berkas Draf (.lpj) Mahasiswa</span>
+            <input type="file" id="verifierFileInput" accept=".lpj,.json">
+          </label>
+          <label><span id="t_v_lbl_hash">Hash SHA-256 Lembar Muka Fisik (Opsional)</span>
+            <input type="text" id="verifierExpectedHash" placeholder="Contoh: 9f86d081884c7d65...">
+          </label>
+          <label><span id="t_v_lbl_preset">Regulasi yang Diverifikasi</span>
+            <select id="verifierPreset">
+              <option value="uajm">BKAM Universitas Atma Jaya Makassar (Standar)</option>
+              <option value="filkom">FILKOM Universitas Brawijaya</option>
+              <option value="standard">Standar Nasional Ormawa &amp; UU Bea Meterai</option>
+              <option value="all">Semua Aturan (Audit Ketat)</option>
+            </select>
+          </label>
+        </div>
+        <div style="margin-top:14px; display:flex; flex-wrap:wrap; gap:8px;">
+          <button type="button" id="btnRunVerification">Jalankan Verifikasi Meja</button>
+          <button type="button" class="alt" id="btnLoadSampleForVerifier">Muat Sampel UAJM untuk Verifikasi</button>
+        </div>
+        <div id="verifierResults" style="margin-top:16px;"></div>
+      </section>
+    </div>
     <p class="note" style="margin-top:16px" id="t_footer_note">Aturan diverifikasi dari 5 pedoman resmi fakultas (FIB
       UB, FEB UGM, HIMA Desain Interior ITS, Biologi ITS, FILKOM UB), penelitian BKAM UAJM, serta UU No. 10 Tahun 2020
       tentang Bea Meterai.
@@ -762,6 +823,23 @@
         btn_lang: 'Bahasa: ID (Ke EN)',
         btn_theme_light: 'Tema: Terang (Ke Gelap)',
         btn_theme_dark: 'Tema: Gelap (Ke Terang)',
+        tab_treasurer: 'Mode 1: Bendahara Mahasiswa (Penyusun LPJ)',
+        tab_verifier: 'Mode 2: Verifikator Kemahasiswaan (Fakultas / BEM / DPM)',
+        btn_scan_gemini: 'Scan Kuitansi (Gemini 2.0 Flash Vision)',
+        gemini_scanner_hdr: 'Pindai Kuitansi Fisik via Gemini Multimodal Vision',
+        gemini_scanner_sub: 'Unggah foto kuitansi/struk atau pilih salah satu sampel riil. Gemini 2.0 Flash mengekstrak metadata JSON terstruktur, lalu diserahkan ke kernel deterministik untuk audit tanpa halusinasi aritmetika.',
+        gemini_pick_file: 'Pilih Foto Kuitansi (JPG/PNG)',
+        gemini_or_sample: 'atau gunakan sampel:',
+        gemini_btn_apply: 'Tambahkan ke Tabel & Audit',
+        v_hdr: 'Verifikasi Meja LPJ Kemahasiswaan (Faculty Desk-Check)',
+        v_sub: 'Portal bagi staf Biro Kemahasiswaan (BKAM), DPM, atau BEM untuk memverifikasi keaslian kriptografis dan kepatuhan regulasi berkas .lpj mahasiswa dalam hitungan detik.',
+        v_lbl_file: 'Unggah Berkas Draf (.lpj) Mahasiswa',
+        v_lbl_hash: 'Hash SHA-256 Lembar Muka Fisik (Opsional)',
+        v_lbl_preset: 'Regulasi yang Diverifikasi',
+        v_btn_run: 'Jalankan Verifikasi Meja',
+        v_btn_sample: 'Muat Sampel UAJM untuk Verifikasi',
+        fiscal_literacy_lbl: 'Literasi Tata Kelola Fiskal',
+        fiscal_literacy_val: 'Konsep Dikuasai',
         btn_addendum: 'Susun Draf Surat Addendum & Panduan Remedi',
         hash_lbl: 'Segel Kriptografis Integritas Audit (SHA-256):',
         hash_desc: 'Hash SHA-256 ini mengikat data transaksi dan aturan secara matematis. Cetak dan lampirkan pada lembar muka LPJ fisik untuk verifikator kampus.',
@@ -842,6 +920,23 @@
         btn_lang: 'Language: EN (To ID)',
         btn_theme_light: 'Theme: Light (To Dark)',
         btn_theme_dark: 'Theme: Dark (To Light)',
+        tab_treasurer: 'Mode 1: Student Treasurer (LPJ Author)',
+        tab_verifier: 'Mode 2: Faculty Verifier (Student Affairs / BEM / DPM)',
+        btn_scan_gemini: 'Scan Receipt (Gemini 2.0 Flash Vision)',
+        gemini_scanner_hdr: 'Physical Receipt Scanning via Gemini Multimodal Vision',
+        gemini_scanner_sub: 'Upload receipt photo or pick realistic samples. Gemini 2.0 Flash extracts structured JSON metadata, handed directly to the deterministic kernel with zero arithmetic hallucination.',
+        gemini_pick_file: 'Select Receipt Photo (JPG/PNG)',
+        gemini_or_sample: 'or pick sample:',
+        gemini_btn_apply: 'Add to Table & Run Audit',
+        v_hdr: 'Student Org LPJ Faculty Desk-Check Verification',
+        v_sub: 'Portal for Student Affairs (BKAM), DPM, or BEM audit staff to verify cryptographic authenticity and regulatory compliance of student .lpj packages in seconds.',
+        v_lbl_file: 'Upload Student Draft (.lpj) File',
+        v_lbl_hash: 'Physical Binder Cover SHA-256 Hash (Optional)',
+        v_lbl_preset: 'Faculty Ruleset to Verify',
+        v_btn_run: 'Run Desk Verification',
+        v_btn_sample: 'Load UAJM Sample for Verification',
+        fiscal_literacy_lbl: 'Fiscal Governance Literacy',
+        fiscal_literacy_val: 'Concepts Mastered',
         btn_addendum: 'Draft Official Addendum & Remediation Guide',
         hash_lbl: 'Cryptographic Audit Attestation Hash (SHA-256):',
         hash_desc: 'This SHA-256 hash cryptographically binds transaction rows and active rules. Print and affix to the physical submission binder for campus auditors.',
@@ -1131,6 +1226,193 @@
     }
 
     let last = null;
+    
+    // PERSONA & VERIFIER LOGIC
+    let currentPersona = 'treasurer';
+    const masteredConcepts = new Set(JSON.parse(localStorage.getItem('rapilpj_mastered_concepts') || '[]'));
+
+    window.recordQuizMastery = function(ruleKey) {
+      masteredConcepts.add(ruleKey);
+      try {
+        localStorage.setItem('rapilpj_mastered_concepts', JSON.stringify([...masteredConcepts]));
+      } catch(e) {}
+      if (last) $('go').click();
+    };
+
+    $('tabTreasurer').onclick = () => {
+      currentPersona = 'treasurer';
+      $('tabTreasurer').classList.remove('alt');
+      $('tabVerifier').classList.add('alt');
+      $('viewTreasurer').style.display = 'block';
+      $('viewVerifier').style.display = 'none';
+    };
+
+    $('tabVerifier').onclick = () => {
+      currentPersona = 'verifier';
+      $('tabVerifier').classList.remove('alt');
+      $('tabTreasurer').classList.add('alt');
+      $('viewTreasurer').style.display = 'none';
+      $('viewVerifier').style.display = 'block';
+    };
+
+    // GEMINI VISION RECEIPT SCANNER LOGIC
+    let pendingGeminiReceipt = null;
+    $('btnScanGemini').onclick = () => {
+      const panel = $('geminiScanPanel');
+      panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+    };
+
+    function previewExtractedReceipt(rec, imgUrl = '') {
+      pendingGeminiReceipt = rec;
+      $('geminiScanPreview').style.display = 'block';
+      if (imgUrl) $('geminiPreviewImg').src = imgUrl;
+      const isEn = curLang === 'en';
+      $('geminiExtractedFields').innerHTML = [
+        '<b>' + (isEn ? 'Merchant' : 'Vendor') + ':</b> ' + esc(rec.merchant || '-'),
+        '<b>' + (isEn ? 'Ref No' : 'No. Bukti') + ':</b> ' + esc(rec.refNo || '-'),
+        '<b>' + (isEn ? 'Date' : 'Tanggal') + ':</b> ' + esc(rec.date || '-'),
+        '<b>' + (isEn ? 'Category' : 'Pos Belanja') + ':</b> ' + esc(rec.item || '-'),
+        '<b>' + (isEn ? 'Amount' : 'Nominal') + ':</b> Rp' + LPJ.fmt(rec.amount || 0),
+        '<b>' + (isEn ? 'Wet Stamp' : 'Stempel Basah') + ':</b> ' + (rec.stamp ? (isEn ? 'Detected' : 'Terdeteksi') : (isEn ? 'Not Found' : 'Tidak Ditemukan')),
+        '<b>' + (isEn ? 'Thermal Paper' : 'Kertas Termal') + ':</b> ' + (rec.thermal ? (isEn ? 'Yes (Requires Scan)' : 'Ya (Wajib Scan)') : (isEn ? 'No' : 'Tidak')),
+        '<b>' + (isEn ? 'Revenue Stamp' : 'Meterai') + ':</b> ' + (rec.materai ? (isEn ? 'Affixed' : 'Terpasang') : (isEn ? 'None' : 'Tidak Ada')),
+        '<b>' + (isEn ? 'Extraction Mode' : 'Mode Ekstraksi') + ':</b> ' + (rec.notesVision || 'Gemini 2.0 Flash Vision')
+      ].join('<br>');
+    }
+
+    $('btnSampleSPBU').onclick = () => {
+      const s = LPJ.SAMPLE_GEMINI_RECEIPTS[0];
+      previewExtractedReceipt(s, '/samples/' + s.sampleFile);
+    };
+
+    $('btnSampleKatering').onclick = () => {
+      const s = LPJ.SAMPLE_GEMINI_RECEIPTS[1];
+      previewExtractedReceipt(s, '/samples/' + s.sampleFile);
+    };
+
+    $('btnSampleATK').onclick = () => {
+      const s = LPJ.SAMPLE_GEMINI_RECEIPTS[2];
+      previewExtractedReceipt(s, '/samples/' + s.sampleFile);
+    };
+
+    $('geminiFileInput').onchange = (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = async (evt) => {
+        const base64Data = evt.target.result;
+        try {
+          const res = await LPJ.parseReceiptWithGemini(base64Data, sessionGeminiKey, file.type || 'image/jpeg');
+          const rec = res.receipt;
+          rec.imgData = base64Data;
+          previewExtractedReceipt(rec, base64Data);
+        } catch (err) {
+          alert((curLang === 'en' ? 'Extraction failed: ' : 'Ekstraksi gagal: ') + err.message);
+        }
+      };
+      reader.readAsDataURL(file);
+    };
+
+    $('btnApplyGeminiReceipt').onclick = () => {
+      if (!pendingGeminiReceipt) return;
+      addN(pendingGeminiReceipt);
+      $('geminiScanPanel').style.display = 'none';
+      $('geminiScanPreview').style.display = 'none';
+      pendingGeminiReceipt = null;
+      $('go').click();
+      showSaveStatus(curLang === 'en' ? 'Receipt added & audited' : 'Nota ditambahkan & diaudit');
+    };
+
+    // FACULTY VERIFIER VIEW LOGIC
+    let verifierLoadedPayload = null;
+    $('verifierFileInput').onchange = (e) => {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (evt) => {
+        try {
+          verifierLoadedPayload = LPJ.parseDraft(evt.target.result);
+          $('verifierResults').innerHTML = '<p class="ok">' + (curLang === 'en' ? 'Draft file loaded: ' : 'Berkas draf siap diverifikasi: ') + esc(file.name) + '</p>';
+        } catch(err) {
+          $('verifierResults').innerHTML = '<p class="bad">' + (curLang === 'en' ? 'Error parsing draft: ' : 'Format draf tidak valid: ') + esc(err.message) + '</p>';
+        }
+      };
+      reader.readAsText(file);
+    };
+
+    $('btnLoadSampleForVerifier').onclick = () => {
+      verifierLoadedPayload = {
+        preset: 'uajm',
+        eventDate: '2026-10-01',
+        submitDate: '2026-10-08',
+        approvedTotal: 6500000,
+        varianceTolerancePercent: 10,
+        consumptionSessions: 2,
+        attendanceSheets: 2,
+        docs: { report: 1, finance: 1, photos: 1, assignment: 1 },
+        budget: [
+          { item: 'Transportasi & Bahan Bakar', planned: 300000 },
+          { item: 'Konsumsi', planned: 5500000 },
+          { item: 'Banner & Publikasi', planned: 700000 }
+        ],
+        notes: LPJ.SAMPLE_GEMINI_RECEIPTS
+      };
+      const expected = LPJ.computeAttestationHash(verifierLoadedPayload, LPJ.check(verifierLoadedPayload, 'uajm'));
+      $('verifierExpectedHash').value = expected;
+      $('verifierPreset').value = 'uajm';
+      $('btnRunVerification').click();
+    };
+
+    $('btnRunVerification').onclick = () => {
+      const isEn = curLang === 'en';
+      const payload = verifierLoadedPayload || read();
+      const expectedHash = ($('verifierExpectedHash').value || '').trim();
+      const preset = $('verifierPreset').value;
+      const res = LPJ.verifyLpjDossier(payload, expectedHash || null, preset);
+
+      const statusBadge = res.canApprove
+        ? '<span class="badge" style="background:#e6f4ea;color:#137333;font-size:14px;padding:6px 12px;">' + (isEn ? 'VERIFIED: READY FOR DISBURSEMENT' : 'LOLOS VERIFIKASI MEJA: SIAP DISETUJUI') + '</span>'
+        : '<span class="badge" style="background:#fce8e6;color:#c5221f;font-size:14px;padding:6px 12px;">' + (isEn ? 'ACTION REQUIRED: ADMINISTRATIVE DEFECTS' : 'PERLU REVISI: DITEMUKAN PELANGGARAN') + '</span>';
+
+      const hashBadge = res.hashMatch
+        ? '<span class="ok">' + (isEn ? 'Authentic (SHA-256 Hash Matched 100%)' : 'Otentik (Hash SHA-256 Cocok 100%)') + '</span>'
+        : '<span class="bad">' + (isEn ? 'TAMPERED: Document modified after export!' : 'PERINGATAN: Berkas telah dimodifikasi setelah diekspor!') + '</span>';
+
+      const balanceBadge = res.balanceVerified
+        ? '<span class="ok">' + (isEn ? 'Balanced (Endorsement = Realized Total)' : 'Seimbang (Pagu Lembar Pengesahan = Realisasi Nota)') + '</span>'
+        : '<span class="bad">' + (isEn ? 'Discrepancy Detected between Endorsement and Receipts' : 'Terdapat Selisih antara Lembar Pengesahan dan Total Nota') + '</span>';
+
+      let issuesListHtml = '';
+      if (res.issuesCount > 0) {
+        issuesListHtml = '<h4 style="margin:12px 0 6px;">' + (isEn ? 'Blocking Defect Findings:' : 'Temuan Pelanggaran yang Wajib Direvisi:') + '</h4><ol class="issues-list">' +
+          res.blockingErrors.map(e => '<li><span class="bad">[ERROR]</span> ' + esc(isEn && e.msgEn ? e.msgEn : e.msg) + '</li>').join('') +
+          res.warnings.map(w => '<li><span class="warn">[WARNING]</span> ' + esc(isEn && w.msgEn ? w.msgEn : w.msg) + '</li>').join('') +
+          '</ol>';
+      } else {
+        issuesListHtml = '<p class="ok" style="margin-top:10px;">' + (isEn ? 'Zero administrative errors. All statutory rules satisfied.' : 'Nol kesalahan administratif. Semua aturan statutoria terpenuhi.') + '</p>';
+      }
+
+      $('verifierResults').innerHTML = '<div style="background:var(--surface);border:1px solid var(--outline);border-radius:8px;padding:16px;">' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">' +
+          '<h3 style="margin:0;">' + (isEn ? 'Faculty Desk-Check Attestation Result' : 'Berita Acara Hasil Verifikasi Meja') + '</h3>' +
+          statusBadge +
+        '</div>' +
+        '<div class="summary-cards" style="margin:14px 0;">' +
+          '<div class="card"><div class="lbl">' + (isEn ? 'Cryptographic Integrity' : 'Integritas Kriptografis') + '</div><div class="val" style="font-size:14px;">' + hashBadge + '</div></div>' +
+          '<div class="card"><div class="lbl">' + (isEn ? 'Cash Balance' : 'Keseimbangan Kas') + '</div><div class="val" style="font-size:14px;">' + balanceBadge + '</div></div>' +
+          '<div class="card"><div class="lbl">' + (isEn ? 'Total Realized Expenses' : 'Total Realisasi Nota') + '</div><div class="val">' + rp(res.totalSpent) + '</div></div>' +
+          '<div class="card"><div class="lbl">' + (isEn ? 'Active Faculty Ruleset' : 'Regulasi Acuan') + '</div><div class="val" style="font-size:14px;">' + esc(res.presetUsed.toUpperCase()) + '</div></div>' +
+        '</div>' +
+        '<div style="font-family:monospace;font-size:12px;background:var(--surface-subtle);padding:8px 10px;border-radius:4px;word-break:break-all;">' +
+          '<b>SHA-256 Attestation:</b> ' + res.attestationHash +
+        '</div>' +
+        issuesListHtml +
+        '<div class="noprint" style="margin-top:14px;">' +
+          '<button type="button" class="alt" onclick="window.print()">' + (isEn ? 'Print Verifier Sign-off Memo' : 'Cetak Berita Acara Verifikasi Meja') + '</button>' +
+        '</div>' +
+      '</div>';
+    };
+  
     $('go').onclick = () => {
       const data = read();
       const r = last = LPJ.check(data, $('preset').value);
@@ -1148,6 +1430,7 @@
     <div class="card"><div class="lbl">${card2Lbl}</div><div class="val">${rp(r.spent)}</div></div>
     <div class="card"><div class="lbl">${card3Lbl}</div><div class="val">${data.approvedTotal != null ? rp(data.approvedTotal) : '-'}</div></div>
     <div class="card"><div class="lbl">${card4Lbl}</div><div class="val">${r.businessDays} ${isEn ? 'working days' : 'hari kerja'}</div></div>
+    <div class="card"><div class="lbl">${isEn ? 'Fiscal Literacy' : 'Literasi Fiskal'}</div><div class="val" style="color:var(--secondary)">${masteredConcepts.size} / ${Object.keys(LPJ.FISCAL_LEARNING_MODULES).length} ${isEn ? 'Mastered' : 'Dikuasai'}</div></div>
   </div>`;
 
       let issuesHtml = '';
@@ -1159,10 +1442,59 @@
           : `${r.issues.length} hal perlu diperbaiki sebelum diserahkan (${errCount} pelanggaran, ${warnCount} peringatan):`;
 
         issuesHtml = `<p class="${errCount > 0 ? 'bad' : 'warn'}">${headerTitle}</p>
-      <ol class="issues-list">${r.issues.map((i) => {
+      <ol class="issues-list">${r.issues.map((i, idx) => {
           const sevClass = i.severity === 'warning' ? 'warn' : 'bad';
           const msgText = isEn && i.msgEn ? i.msgEn : i.msg;
-          return `<li><span class="${sevClass}">[${i.severity ? i.severity.toUpperCase() : 'ERROR'}]</span> ${esc(msgText)} <span class="note">(${isEn ? 'Rule' : 'Aturan'}: <a href="${esc(i.source.url)}" target="_blank" rel="noopener">${esc(i.source.name)}</a>)</span></li>`;
+          const learnMod = LPJ.getLearningModule(i.rule);
+          let learnCard = '';
+          if (learnMod && learnMod.quiz) {
+            const modTitle = isEn ? learnMod.titleEn : learnMod.title;
+            const modConcept = isEn ? learnMod.conceptEn : learnMod.concept;
+            const qText = isEn ? learnMod.quiz.questionEn : learnMod.quiz.question;
+            const opts = isEn ? learnMod.quiz.optionsEn : learnMod.quiz.options;
+            const isMastered = masteredConcepts.has(i.rule);
+            const statusBadge = isMastered
+              ? '<span class="badge" style="background:#e6f4ea;color:#137333;font-size:11px;margin-left:6px;">' + (isEn ? 'Mastered' : 'Konsep Dikuasai') + '</span>'
+              : '';
+
+            learnCard = `
+              <div class="learning-card" style="margin-top:6px; padding:10px 12px; background:var(--surface-subtle); border-left:4px solid var(--primary); border-radius:4px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; cursor:pointer;" onclick="const el = document.getElementById('learn_${idx}'); el.style.display = el.style.display === 'none' ? 'block' : 'none';">
+                  <strong style="color:var(--primary); font-size:13px;">${isEn ? 'Fiscal Literacy Module' : 'Modul Edukasi Tata Kelola'}: ${esc(modTitle)}${statusBadge}</strong>
+                  <span style="font-size:12px; font-weight:600; text-decoration:underline; color:var(--primary);">${isEn ? 'Learn & Quiz' : 'Buka Modul & Kuis'}</span>
+                </div>
+                <div id="learn_${idx}" style="display:none; margin-top:8px; font-size:13px;">
+                  <p style="margin:4px 0 8px; color:var(--on-surface);">${esc(modConcept)}</p>
+                  <div style="background:var(--surface); padding:8px 10px; border:1px solid var(--outline); border-radius:4px;">
+                    <strong>${isEn ? 'Remediation Micro-Quiz' : 'Kuis Remediasi Pemahaman'}:</strong>
+                    <p style="margin:4px 0 6px;">${esc(qText)}</p>
+                    <div style="display:flex; flex-direction:column; gap:4px;">
+                      ${opts.map((opt, oIdx) => `
+                        <label style="font-size:12px; font-weight:normal; display:flex; align-items:center; gap:6px; cursor:pointer;">
+                          <input type="radio" name="quiz_${idx}" value="${oIdx}" style="width:auto; min-height:auto; margin:0;">
+                          ${esc(opt)}
+                        </label>
+                      `).join('')}
+                    </div>
+                    <button type="button" class="alt noprint" style="min-height:30px; padding:3px 10px; font-size:12px; margin-top:8px;" onclick="
+                      const sel = document.querySelector('input[name=\'quiz_${idx}\']:checked');
+                      const fb = document.getElementById('fb_${idx}');
+                      if (!sel) { fb.innerHTML = '<span class=\'warn\'>${isEn ? 'Please select an option' : 'Pilih salah satu jawaban'}</span>'; return; }
+                      const ev = LPJ.evaluateQuiz('${i.rule}', sel.value);
+                      if (ev.isCorrect) {
+                        fb.innerHTML = '<span class=\'ok\'>${isEn ? 'Correct!' : 'Benar!'} ' + (curLang === 'en' ? ev.explanationEn : ev.explanation) + '</span>';
+                        window.recordQuizMastery('${i.rule}');
+                      } else {
+                        fb.innerHTML = '<span class=\'bad\'>${isEn ? 'Incorrect. Try reviewing the statutory basis above.' : 'Belum tepat. Coba telaah kembali dasar aturannya di atas.'}</span>';
+                      }
+                    ">${isEn ? 'Check Answer' : 'Periksa Jawaban'}</button>
+                    <div id="fb_${idx}" style="margin-top:6px; font-size:12px;"></div>
+                  </div>
+                </div>
+              </div>
+            `;
+          }
+          return `<li><span class="${sevClass}">[${i.severity ? i.severity.toUpperCase() : 'ERROR'}]</span> ${esc(msgText)} <span class="note">(${isEn ? 'Rule' : 'Aturan'}: <a href="${esc(i.source.url)}" target="_blank" rel="noopener">${esc(i.source.name)}</a>)</span>${learnCard}</li>`;
         }).join('')}</ol>`;
       } else {
         issuesHtml = `<p class="ok">${isEn ? 'All checks passed. Report complies with selected rules.' : 'Laporan bersih. Seluruh pemeriksaan deterministik lolos tanpa pelanggaran aturan.'}</p>`;
@@ -1229,8 +1561,8 @@
           const imgUrl = n.imgData ? n.imgData : (n.sampleFile ? '/samples/' + encodeURIComponent(n.sampleFile) : '');
           const stampLbl = isEn ? (n.stamp ? 'Wet Stamp: Verified' : 'Wet Stamp: Missing') : (n.stamp ? 'Stempel: Ada' : 'Stempel: Belum Ada');
           const matLbl = isEn
-            ? (n.amount >= 5000000 ? (n.materai ? 'Meterai Rp10k: Verified' : 'Meterai Rp10k: Missing') : 'Meterai: Exempt (<Rp5M)')
-            : (n.amount >= 5000000 ? (n.materai ? 'Meterai Rp10k: Ada' : 'Meterai Rp10k: Belum Ada') : 'Meterai: Tidak Wajib (<Rp5jt)');
+            ? (n.amount >= 5000000 ? (n.materai ? 'Meterai Rp10k: Verified' : 'Meterai Rp10k: Missing') : 'Meterai: Exempt (<=Rp5M)')
+            : (n.amount >= 5000000 ? (n.materai ? 'Meterai Rp10k: Ada' : 'Meterai Rp10k: Belum Ada') : 'Meterai: Tidak Wajib (<=Rp5jt)');
           const thermLbl = isEn
             ? (n.thermal ? (n.scanned ? 'Thermal: Scanned' : 'Thermal: Unscanned!') : 'Paper: Non-Thermal')
             : (n.thermal ? (n.scanned ? 'Termal: Sudah Scan' : 'Termal: Belum Scan!') : 'Kertas: Non-Termal');

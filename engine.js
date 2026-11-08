@@ -29,8 +29,8 @@
       src: 'fibub'
     },
     materai: {
-      text: 'Setiap kuitansi/nota bernilai Rp5.000.000 atau lebih wajib dibubuhi meterai Rp10.000.',
-      textEn: 'Receipts of Rp5,000,000 or more require an official Rp10,000 revenue stamp (meterai).',
+      text: 'Kuitansi atau bukti pembayaran bernilai lebih dari Rp5.000.000 (> Rp5.000.000) wajib dibubuhi meterai Rp10.000 (UU No. 10 Tahun 2020 Pasal 3).',
+      textEn: 'Receipts or payment vouchers exceeding Rp5,000,000 (> Rp5,000,000) require an official Rp10,000 revenue stamp (Law 10/2020 Article 3).',
       src: 'ugmfeb'
     },
     thermal: {
@@ -116,7 +116,7 @@
       url: 'https://peraturan.bpk.go.id/Details/149827/uu-no-10-tahun-2020'
     },
     uajm: {
-      name: 'BKAM Universitas Atma Jaya Makassar & Jurnal Tematika UAJM',
+      name: 'BKAM Universitas Atma Jaya Makassar & Jurnal TEMATIKA (Siada & Tungadi, 2021, doi:10.56963/tematika.v9i1.119 - Studi Sistem Informasi Dokumentasi Portofolio Kemahasiswaan & Beban Administrasi Ormawa)',
       url: 'https://doi.org/10.56963/tematika.v9i1.119'
     }
   };
@@ -219,12 +219,12 @@
         );
       }
 
-      // Revenue stamp (meterai) check for amounts >= Rp5,000,000
-      if (on.has('materai') && amt >= 5000000 && !n.materai) {
+      // Revenue stamp (meterai) check for amounts strictly exceeding Rp5,000,000 per UU No. 10/2020 Pasal 3
+      if (on.has('materai') && amt > 5000000 && !n.materai) {
         add(
           'materai',
-          `${idxLabel} bernilai Rp${fmt(amt)} (>= Rp5.000.000) tetapi belum dibubuhi meterai Rp10.000.`,
-          `${idxLabelEn} amounts to Rp${fmt(amt)} (>= Rp5,000,000) but lacks an official Rp10,000 revenue stamp (meterai).`,
+          `${idxLabel} bernilai Rp${fmt(amt)} (> Rp5.000.000) tetapi belum dibubuhi meterai Rp10.000 sesuai UU No. 10 Tahun 2020 Pasal 3.`,
+          `${idxLabelEn} amounts to Rp${fmt(amt)} (> Rp5,000,000) but lacks an official Rp10,000 revenue stamp per Law No. 10/2020 Article 3.`,
           i
         );
       }
@@ -748,8 +748,8 @@ ${baseDraft}`;
       service: false,
       confidence: 0.96,
       sampleFile: 'sample_02_kuitansi_katering_meterai.png',
-      notesVision: 'Faktur katering resmi, stempel basah ungu, meterai Rp10.000 terverifikasi pada nominal >= 5jt.',
-      notesVisionEn: 'Official catering invoice, purple wet stamp, Rp10,000 revenue seal verified for amount >= 5M.'
+      notesVision: 'Faktur katering resmi, stempel basah ungu, meterai Rp10.000 terverifikasi pada nominal > 5jt per UU 10/2020.',
+      notesVisionEn: 'Official catering invoice, purple wet stamp, Rp10,000 revenue seal verified for amount > 5M per Law 10/2020.'
     },
     {
       refNo: 'ATK-0924',
@@ -770,6 +770,299 @@ ${baseDraft}`;
       notesVisionEn: 'Carbonless NCR cash receipt, store paid wet seal detected at bottom-right corner.'
     }
   ];
+
+  /* Interactive Fiscal Governance Learning Modules & Micro-Quizzes (Case 1: Smarter Campus and Learning) */
+  const FISCAL_LEARNING_MODULES = {
+    materai: {
+      ruleKey: 'materai',
+      title: 'Dasar Hukum Bea Meterai (UU No. 10 Tahun 2020)',
+      titleEn: 'Statutory Revenue Stamp Legal Basis (Law No. 10/2020)',
+      concept: 'Berdasarkan UU No. 10 Tahun 2020 Pasal 3 ayat (2) huruf g, dokumen yang menyatakan penerimaan uang dengan nilai nominal LEBIH DARI Rp5.000.000 (> Rp5.000.000) wajib dikenai Bea Meterai Rp10.000. Kuitansi tanpa meterai tidak memiliki keabsahan hukum perdata sebagai alat bukti pertanggungjawaban dalam audit kemahasiswaan.',
+      conceptEn: 'Under Law No. 10/2020 Article 3(2)(g), documents acknowledging receipt of funds strictly EXCEEDING Rp5,000,000 (> Rp5,000,000) require an official Rp10,000 revenue stamp (meterai) to possess full legal evidentiary enforceability in institutional audits.',
+      quiz: {
+        question: 'Kuitansi sewa sound system senilai Rp5.200.000 diajukan dalam LPJ tanpa meterai. Mengapa kuitansi ini wajib ditolak auditor fakultas?',
+        questionEn: 'A sound system rental receipt of Rp5,200,000 is submitted without a revenue stamp. Why must faculty auditors reject it?',
+        options: [
+          'A. Karena nominalnya lebih dari Rp5.000.000 sehingga wajib meterai Rp10.000 per UU 10/2020 Pasal 3.',
+          'B. Karena setiap pengeluaran di atas Rp1.000.000 wajib lapor ke kantor pajak pratama.',
+          'C. Karena kuitansi hanya sah jika dibayar dengan transfer antarbank pemerintah.'
+        ],
+        optionsEn: [
+          'A. Because the amount exceeds Rp5,000,000, triggering the mandatory Rp10,000 revenue stamp per Law 10/2020 Article 3.',
+          'B. Because every expense above Rp1,000,000 requires direct notification to local tax authorities.',
+          'C. Because receipts are only valid if paid via state-owned bank transfers.'
+        ],
+        correctIndex: 0,
+        explanation: 'Benar. Batas ambang undang-undang adalah bernilai LEBIH DARI Rp5.000.000. Nilai Rp5.200.000 melebihi ambang batas sehingga wajib dibubuhi meterai Rp10.000.',
+        explanationEn: 'Correct. The statutory threshold is strictly EXCEEDING Rp5,000,000. Rp5,200,000 triggers the mandatory Rp10,000 revenue stamp requirement.'
+      }
+    },
+    thermal: {
+      ruleKey: 'thermal',
+      title: 'Retensi Arsip Keuangan vs Degradasi Kertas Termal',
+      titleEn: 'Financial Archival Retention vs Thermal Paper Degradation',
+      concept: 'Kertas struk termal (SPBU/minimarket) menggunakan lapisan kimia bisphenol yang memudar dalam 3-6 bulan akibat panas dan cahaya. Menurut UU No. 43 Tahun 2009 tentang Kearsipan dan pedoman audit universitas, bukti transaksi keuangan wajib dapat dibaca minimal 5 tahun. Karena itu, struk termal wajib segera difotokopi atau dipindai digital.',
+      conceptEn: 'Thermal receipts utilize chemical coatings that fade within 3-6 months. Under national archival laws and university bylaws, financial records must remain legible for 5 years, mandating immediate photocopying or digital scanning.',
+      quiz: {
+        question: 'Mengapa auditor kemahasiswaan menolak meloloskan berkas yang hanya melampirkan struk termal asli tanpa salinan fotokopi/scan?',
+        questionEn: 'Why do university auditors reject dossiers containing only original thermal paper slips without a photocopy/scan?',
+        options: [
+          'A. Karena tulisan pada kertas termal akan hilang memudar sebelum masa retensi arsip audit 5 tahun selesai.',
+          'B. Karena struk termal dianggap tidak resmi oleh asosiasi percetakan nasional.',
+          'C. Karena mesin fotokopi kampus wajib digunakan untuk menghasilkan pendapatan fakultas.'
+        ],
+        optionsEn: [
+          'A. Because thermal ink will fade completely before the statutory 5-year audit archival retention window expires.',
+          'B. Because thermal paper is deemed invalid by the national commercial printing association.',
+          'C. Because campus copy machines must be utilized to generate university revenue.'
+        ],
+        correctIndex: 0,
+        explanation: 'Benar. Kertas termal rentan pudar secara kimiawi, sehingga bukti belanja berpotensi menjadi kertas putih kosong saat diaudit tahun berikutnya.',
+        explanationEn: 'Correct. Thermal coatings fade rapidly, risking blank evidence when audited by institutional inspectors in subsequent years.'
+      }
+    },
+    duplicateInvoice: {
+      ruleKey: 'duplicateInvoice',
+      title: 'Integritas Faktur & Pencegahan Double-Accounting',
+      titleEn: 'Invoice Integrity & Double-Accounting Prevention',
+      concept: 'Setiap transaksi memiliki nomor nota/faktur unik dari vendor. Duplikasi nomor referensi dalam satu LPJ mengindikasikan klaim ganda (double-claiming) atau nota fiktif yang melanggar prinsip akuntabilitas pengelolaan dana kemahasiswaan dan berpotensi menjadi temuan audit inspektorat.',
+      conceptEn: 'Every commercial transaction possesses a unique vendor reference number. Duplicate reference numbers indicate double-claiming or fabricated records, violating fiduciary accountability in campus fund management.',
+      quiz: {
+        question: 'Jika Nota #1 dan Nota #3 mencantumkan nomor invoice "INV-2026-88" yang sama dari toko yang sama, tindakan apa yang benar?',
+        questionEn: 'If Receipt #1 and Receipt #3 list the identical invoice number "INV-2026-88" from the same vendor, what is the corrective action?',
+        options: [
+          'A. Segera periksa apakah terjadi pencatatan ganda atas transaksi yang sama, atau minta nota pengganti bernomor unik ke vendor.',
+          'B. Biarkan saja asalkan jumlah total akhir di lembar pengesahan tetap cocok.',
+          'C. Tambahkan huruf "A" dan "B" secara mandiri menggunakan pulpen pada nomor nota toko.'
+        ],
+        optionsEn: [
+          'A. Verify whether the transaction was double-recorded, or request a unique replacement receipt from the merchant.',
+          'B. Leave it alone as long as the total sum matches the approved endorsement total.',
+          'C. Manually append letters "A" and "B" onto the vendor invoice using a ballpoint pen.'
+        ],
+        correctIndex: 0,
+        explanation: 'Benar. Pencatatan ganda harus dieliminasi atau dimintakan konfirmasi faktur terpisah resmi dari pihak vendor.',
+        explanationEn: 'Correct. Double-recorded items must be removed or verified with genuine separate vendor invoices.'
+      }
+    },
+    budgetVariance: {
+      ruleKey: 'budgetVariance',
+      title: 'Disiplin Anggaran (Voted Appropriation) & Mekanisme Addendum',
+      titleEn: 'Budget Discipline & Formal Addendum Mechanisms',
+      concept: 'Pagu anggaran yang disahkan dekanat/fakultas adalah batas alokasi resmi per pos belanja. Pergeseran realisasi melebihi ambang toleransi (>10%) tanpa persetujuan tertulis melanggar asas tertib anggaran. Bendahara wajib menyusun Surat Permohonan Addendum resmi sebelum LPJ diajukan.',
+      conceptEn: 'Approved budget line items constitute strict financial ceilings. Realized reallocations exceeding allowable thresholds (>10%) without written justification violate institutional appropriation rules, requiring a formal Addendum letter.',
+      quiz: {
+        question: 'Pos Konsumsi dianggarkan Rp1.000.000, tetapi realisasi belanja menjadi Rp1.400.000 (+40%). Bagaimana solusi tata kelola yang benar?',
+        questionEn: 'Consumption was budgeted at Rp1,000,000, but actual spending reached Rp1,400,000 (+40%). What is the correct governance solution?',
+        options: [
+          'A. Buat Surat Permohonan Addendum resmi yang menjelaskan alasan pergeseran operasional lapangan untuk ditandatangani Dosen Pembina/Pimpinan.',
+          'B. Ubah angka anggaran rencana di proposal awal secara diam-diam agar tampak seimbang.',
+          'C. Pindahkan kelebihan Rp400.000 ke pos dana siluman tanpa kuitansi.'
+        ],
+        optionsEn: [
+          'A. Draft a formal Budget Variance Addendum letter detailing field operational justifications for Faculty/Advisor sign-off.',
+          'B. Retroactively modify the original approved proposal numbers so they appear balanced.',
+          'C. Reallocate the Rp400,000 surplus into an unreceipted miscellaneous fund.'
+        ],
+        correctIndex: 0,
+        explanation: 'Benar. Pergeseran anggaran yang wajar dapat disetujui pimpinan melalui Addendum tertulis resmi dengan transparansi penuh.',
+        explanationEn: 'Correct. Legitimate budget variances can be ratified by leadership through a formal written Addendum maintaining full transparency.'
+      }
+    },
+    pph: {
+      ruleKey: 'pph',
+      title: 'Kewajiban Pemotongan Pajak Penghasilan (PPh Pasal 21/23)',
+      titleEn: 'Withholding Income Tax Obligations (PPh 21/23)',
+      concept: 'Pembayaran honorarium narasumber, juri lomba, atau jasa sewa menggunakan dana kegiatan universitas terikat kewajiban pemotongan PPh (PPh 21 untuk orang pribadi, PPh 23 untuk badan usaha/sewa alat). Bukti potong dan fotokopi KTP/NPWP penerima wajib dilampirkan.',
+      conceptEn: 'Honoraria paid to speakers, judges, or service providers using university funds are subject to statutory income tax withholding (PPh 21/23). Tax deduction slips and recipient ID (KTP/NPWP) copies are mandatory.',
+      quiz: {
+        question: 'Organisasi membayar honorarium narasumber workshop sebesar Rp1.500.000. Dokumen apa yang wajib disertakan dalam LPJ?',
+        questionEn: 'An organization pays a workshop speaker honorarium of Rp1,500,000. What documents must be attached in the LPJ?',
+        options: [
+          'A. Kuitansi honorarium bertanda tangan, bukti perhitungan/potong PPh 21, dan fotokopi identitas penerima (KTP/NPWP).',
+          'B. Cukup foto narasumber sedang berbicara di depan panggung.',
+          'C. Kartu nama narasumber dan tautan akun media sosialnya.'
+        ],
+        optionsEn: [
+          'A. Signed honorarium voucher, statutory PPh 21 tax deduction calculation/slip, and recipient ID copy (KTP/NPWP).',
+          'B. Only a photo of the guest speaker presenting on stage.',
+          'C. The speaker’s business card and social media profile link.'
+        ],
+        correctIndex: 0,
+        explanation: 'Benar. Kuitansi honorarium wajib dilengkapi bukti potong pajak dan identitas perpajakan penerima yang sah.',
+        explanationEn: 'Correct. Honoraria vouchers must be accompanied by tax deduction calculations and legitimate recipient tax IDs.'
+      }
+    },
+    deadline7work: {
+      ruleKey: 'deadline7work',
+      title: 'Batas Waktu Pelaporan 7 Hari Kerja (Siklus Pencairan)',
+      titleEn: '7-Working-Day Submission Deadline (Disbursement Cycle)',
+      concept: 'Biro Keuangan dan Kemahasiswaan menetapkan batas waktu pengumpulan LPJ (misal 7 hari kerja di FILKOM UB) untuk menutup siklus kas dan membuka pagu anggaran bagi kegiatan mahasiswa berikutnya. Keterlambatan memblokir pencairan dana ormawa lain.',
+      conceptEn: 'University student affairs bureaus enforce tight submission deadlines (e.g., 7 working days) to close accounting cycles and unlock budget disbursements for subsequent student events.',
+      quiz: {
+        question: 'Mengapa keterlambatan menyerahkan LPJ berakibat pada pembekuan pencairan dana kegiatan kemahasiswaan berikutnya?',
+        questionEn: 'Why does late LPJ submission result in disbursement freezes for upcoming student organization activities?',
+        options: [
+          'A. Karena laporan pertanggungjawaban kegiatan sebelumnya merupakan syarat administratif mutlak bagi pencairan uang muka kegiatan baru.',
+          'B. Sebagai denda berupa uang tunai yang harus disetor ke kas dekan.',
+          'C. Karena bank kampus menolak menerima uang tunai setelah hari ketujuh.'
+        ],
+        optionsEn: [
+          'A. Because settling the prior activity accountability report is an absolute regulatory prerequisite for releasing fresh event advances.',
+          'B. To generate cash penalty fines payable to the dean’s personal account.',
+          'C. Because campus bank branches refuse to process transactions after day seven.'
+        ],
+        correctIndex: 0,
+        explanation: 'Benar. Pertanggungjawaban uang muka sebelumnya harus diverifikasi tuntas sebelum bendahara fakultas menerbitkan dana baru.',
+        explanationEn: 'Correct. Full settlement of prior cash advances is mandatory before university finance officers can disburse subsequent grants.'
+      }
+    }
+  };
+
+  function getLearningModule(ruleKey) {
+    return FISCAL_LEARNING_MODULES[ruleKey] || null;
+  }
+
+  function evaluateQuiz(ruleKey, answerIndex) {
+    const mod = FISCAL_LEARNING_MODULES[ruleKey];
+    if (!mod || !mod.quiz) return { valid: false, error: 'Module not found' };
+    const isCorrect = +answerIndex === mod.quiz.correctIndex;
+    return {
+      valid: true,
+      ruleKey,
+      isCorrect,
+      explanation: mod.quiz.explanation,
+      explanationEn: mod.quiz.explanationEn
+    };
+  }
+
+  /* Intelligent Gemini 2.0 Flash Multimodal Receipt Parser */
+  async function parseReceiptWithGemini(fileOrBase64, apiKey, mimeType = 'image/jpeg') {
+    if (!apiKey || !apiKey.trim()) {
+      return {
+        mode: 'deterministic_heuristic',
+        receipt: {
+          refNo: 'NOTA-' + Math.floor(1000 + Math.random() * 9000),
+          date: new Date().toISOString().split('T')[0],
+          merchant: 'Toko Perlengkapan Kampus Sentosa',
+          item: 'Perlengkapan & ATK',
+          amount: 450000,
+          stamp: true,
+          thermal: false,
+          scanned: true,
+          materai: false,
+          combined: false,
+          pphIncluded: true,
+          service: false,
+          confidence: 0.92,
+          notesVision: 'Hasil ekstraksi heuristik lokal (Demo Mode tanpa API Key).'
+        }
+      };
+    }
+
+    let base64Data = '';
+    if (typeof fileOrBase64 === 'string') {
+      base64Data = fileOrBase64.replace(/^data:image\/[a-zA-Z]+;base64,/, '');
+    } else {
+      throw new Error('Unsupported image payload type');
+    }
+
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${encodeURIComponent(apiKey.trim())}`;
+    const prompt = `You are the RapiLPJ Intelligent Receipt Parser for Indonesian student organization reports.
+Extract structured fiscal metadata from this store or service receipt image.
+Output STRICT JSON ONLY without markdown backticks, with these exact keys:
+{
+  "refNo": string (receipt or invoice number),
+  "date": string (YYYY-MM-DD or today if unreadable),
+  "merchant": string (vendor or store name),
+  "item": string (brief category or item description),
+  "amount": number (exact integer total paid in IDR),
+  "stamp": boolean (true if ink store stamp/seal is visible),
+  "thermal": boolean (true if printed on thermal paper),
+  "scanned": boolean (true),
+  "materai": boolean (true if Rp10.000 revenue stamp is attached),
+  "pphIncluded": boolean (true if tax/PPh is recorded or not applicable),
+  "service": boolean (true if catering/honorarium/rental service),
+  "confidence": number (extraction confidence between 0.0 and 1.0)
+}`;
+
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{
+          parts: [
+            { text: prompt },
+            { inline_data: { mime_type: mimeType, data: base64Data } }
+          ]
+        }],
+        generationConfig: {
+          temperature: 0.1,
+          responseMimeType: 'application/json'
+        }
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`Gemini Multimodal Vision API HTTP ${response.status}`);
+    }
+
+    const json = await response.json();
+    const textOut = json &&
+      json.candidates &&
+      json.candidates[0] &&
+      json.candidates[0].content &&
+      json.candidates[0].content.parts &&
+      json.candidates[0].content.parts[0] &&
+      json.candidates[0].content.parts[0].text;
+
+    if (!textOut) throw new Error('Empty response from Gemini Vision');
+    const cleaned = textOut.replace(/^```json\s*/i, '').replace(/\s*```$/i, '').trim();
+    const parsed = JSON.parse(cleaned);
+
+    return {
+      mode: 'live_gemini_vision',
+      receipt: {
+        refNo: String(parsed.refNo || 'REC-' + Date.now().toString().slice(-4)),
+        date: String(parsed.date || new Date().toISOString().split('T')[0]),
+        merchant: String(parsed.merchant || 'Vendor'),
+        item: String(parsed.item || 'Operasional'),
+        amount: Math.round(+parsed.amount || 0),
+        stamp: Boolean(parsed.stamp),
+        thermal: Boolean(parsed.thermal),
+        scanned: true,
+        materai: Boolean(parsed.materai),
+        combined: false,
+        pphIncluded: parsed.pphIncluded !== false,
+        service: Boolean(parsed.service),
+        confidence: +parsed.confidence || 0.95,
+        notesVision: `Diekstrak via Gemini 2.0 Flash Multimodal Vision (Confidence: ${Math.round((+parsed.confidence || 0.95) * 100)}%).`
+      }
+    };
+  }
+
+  /* Faculty Verifier Desk-Check Verification Engine */
+  function verifyLpjDossier(draftData, expectedHash = null, preset = 'uajm') {
+    const data = typeof draftData === 'string' ? parseDraft(draftData) : (draftData.payload || draftData);
+    const auditRes = check(data, preset);
+    const computedHash = computeAttestationHash(data, auditRes);
+    const hashMatch = expectedHash ? (expectedHash.trim().toLowerCase() === computedHash.toLowerCase()) : true;
+
+    return {
+      verifiedAt: new Date().toISOString(),
+      presetUsed: preset,
+      hashMatch,
+      attestationHash: computedHash,
+      totalSpent: auditRes.spent,
+      totalPlanned: auditRes.planned,
+      approvedTotal: data.approvedTotal || 0,
+      balanceVerified: Math.abs((data.approvedTotal || 0) - auditRes.spent) === 0,
+      issuesCount: auditRes.issues.length,
+      blockingErrors: auditRes.issues.filter((i) => i.severity === 'error'),
+      warnings: auditRes.issues.filter((i) => i.severity === 'warning'),
+      canApprove: auditRes.issues.filter((i) => i.severity === 'error').length === 0 && hashMatch
+    };
+  }
 
   function exportDraft(data) {
     return JSON.stringify({
@@ -804,6 +1097,11 @@ ${baseDraft}`;
     callGeminiAdvisory,
     SAMPLE_GEMINI_RECEIPTS,
     exportDraft,
-    parseDraft
+    parseDraft,
+    FISCAL_LEARNING_MODULES,
+    getLearningModule,
+    evaluateQuiz,
+    parseReceiptWithGemini,
+    verifyLpjDossier
   };
 });
