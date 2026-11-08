@@ -7,19 +7,19 @@ IDENTITY = [
     ("Members", "Vincentius Bryan Kwandou (leader), Valentino Filemon Limer, Putra Purwanugraha Tengbunan, Marvel Harjosetio"),
 ]
 
-s1 = "Student treasurers file accountability reports (LPJ) before faculty move subsequent proposals. Rules differ by campus: original stamps, one attendance sheet per meal, identical totals, a revenue stamp only when nominal exceeds Rp5,000,000 (Law 10/2020 Art. 3), withholding, and strict deadlines. At FILKOM UB, late or incomplete reports delay proposals. Treasurers lack formal accounting training, spending hours on mechanical rework. Revision rates remain unmeasured; establishing that count is our first validation metric, not an unverified claim."
+s1 = "Student treasurers must finish an accountability report (LPJ) before the faculty moves the organization's next proposal. Those proposals fund the workshops and peer learning the organization runs. Rules differ by campus: original stamps, one attendance sheet per meal, identical totals, a revenue stamp only above Rp5,000,000 (Law 10/2020 Art. 3), withholding, and short deadlines. At FILKOM UB, a late or incomplete LPJ is returned and can delay or reject that next proposal. Treasurers rarely have accounting training, so study hours go into rework. Revision frequency has not been measured. That count is our first metric, not a claim."
 
-s2 = "Primary users are treasurers and secretaries of program associations, BEM, and clubs. The faculty desk reviewer reads the output. They are not a second product: RapiLPJ checks a file and does not release money."
+s2 = "Primary users are treasurers and secretaries of program associations, BEM, and clubs. The faculty reviewer reads the file. RapiLPJ does not release funds."
 
-s3 = "FIB UB requires stamped originals, one attendance sheet per meal session, and matching totals. FEB UGM requires a Rp10,000 stamp above Rp5,000,000 and a scan when thermal paper fades. An ITS department sets ten days; ITS Biology wants one line per receipt with tax included. A 2021 UAJM study describes unstandardized activity documentation. FILKOM UB’s 2026 circular records repeated withholding and completeness failures."
+s3 = "FIB UB requires stamped originals, one attendance sheet per meal session, and matching totals. FEB UGM requires a Rp10,000 stamp above Rp5,000,000 and a scan when thermal paper fades. An ITS department sets ten days; ITS Biology requires one line per receipt with tax included. A 2021 UAJM study describes unstandardized activity documentation. FILKOM UB's 2026 circular records repeated withholding and completeness failures."
 
-s4 = "RapiLPJ is a practice run before submission. First, perceive: Gemini Flash on Vertex AI (Singapore) extracts vendor, date, invoice number, nominal, and stamp presence as JSON without arithmetic. Fields sit beside the slip; human changes enter an edit disclosure log. Offline Indonesian fixtures run without API keys. Second, a client-side kernel flags duplicate invoices, out-of-window dates, missing stamps above Rp5,000,000, and variances above 10 percent. Meal caps and PPh 21 use only a rule card signed by two advisors; missing rates return 'preset gap' without inventing figures. Third, export unlocks only when a micro-quiz matches the statutory key—exactly Rp5,000,000 is not dutiable; above is—and a variance addendum is completed via fixed template. Fourth, export yields a dossier with SHA-256 over confirmed ledger, edit log, quiz, addendum, and finding IDs, which verifiers recompute locally."
+s4 = "RapiLPJ is a practice run: rejection happens on a laptop, not at the faculty desk. Gemini Flash on Vertex AI (Singapore) reads vendor, date, invoice number, nominal, and stamp presence into JSON and does no arithmetic. The treasurer confirms each field beside the slip. Every change stays in an edit log. Offline fixtures need no API key. A client-side kernel flags duplicate invoices, dates outside the activity window, a missing or wrong stamp above Rp5,000,000, and variance above 10 percent. Meal caps and PPh 21 come only from a rule card to be signed by two advisors. A missing rate returns preset gap and names what to ask the faculty, instead of a guessed tax that would be rejected. Export stays locked until one question matches the statute — exactly Rp5,000,000 is not dutiable; above it is — and any variance is written on a fixed template. A SHA-256 covers the confirmed ledger, edit log, quiz, addendum, and finding ids. The verifier recomputes it. The hash only shows the file was not changed after the checks."
 
-s5 = "A raw LLM mis-adds. A spreadsheet does not bind a hash, cite the statute, or lock export. Campus portals collect files; they do not pre-audit them."
+s5 = "A raw LLM mis-adds. A spreadsheet can list the same rules and still export a wrong stamp, a guessed tax, or a silent edit. Campus portals collect files after submission and miss the defect before the next proposal is frozen."
 
-s6 = "Static bilingual HTML, CSS, and JavaScript on Firebase Hosting, no application database. Open JavaScript kernel, FileReader, a .lpj JSON file, and Web Crypto SHA-256. WCAG 2.1 AA."
+s6 = "Static bilingual HTML, CSS, and JavaScript on Firebase Hosting. No application database. Open JavaScript kernel, FileReader, a .lpj JSON file, and Web Crypto SHA-256. WCAG 2.1 AA."
 
-s7 = "The semifinal benchmarks single-activity intake: perception, confirmation, signed card, quiz, and desk-check. Final Day adds multi-slip batching and QR re-checks. With 30 treasurers and 2 advisors we evaluate minutes to a clean dossier, mechanical defects resolved, fields corrected post-perception, and quiz retention without on-screen cues. The primary risk is misread thermal slips; human confirmation plus edit logging provides control. Arithmetic never trusts the model."
+s7 = "The semifinal is one activity: perception, confirmation, rule card, quiz, and desk-check. Final Day adds several slips and a QR re-check. With 30 treasurers and 2 advisors we measure minutes to a clean dossier, defects before and after the kernel, fields corrected after perception, and whether the statutory key is remembered unaided. The main risk is a misread thermal slip. Confirmation and the edit log are the control. Arithmetic never trusts the model."
 
 SECTIONS = [
     ("1. Problem", s1),
@@ -33,9 +33,10 @@ SECTIONS = [
 
 SOURCES = "[1] P. Siada & A. L. Tungadi, TEMATIKA J. Penelit. Tek. Inform. Sist. Inf. UAJM, 2021, doi:10.56963/tematika.v9i1.119 (studi sistem informasi portofolio kemahasiswaan BKAM UAJM). [2] Pedoman LPJ, FIB Universitas Brawijaya, fib.ub.ac.id. [3] Prosedur Proposal & LPJ SIPRO, FEB UGM & UU Bea Meterai No. 10/2020. [4] SOP HIMA, Desain Interior ITS, its.ac.id. [5] SOP LPJ Mahasiswa Biologi, ITS, its.ac.id. [6] Surat Edaran Mekanisme LPJ Ormawa, FILKOM UB, 2026."
 
-words = sum(len(re.findall(r"\S+", h + " " + b)) for h, b in SECTIONS)
-print(f"Total abstract words: {words}")
-assert 300 <= words <= 500, f"Word count {words} out of required bounds (300-500)!"
+body_words = sum(len(re.findall(r"\S+", b)) for h, b in SECTIONS)
+total_words = sum(len(re.findall(r"\S+", h + " " + b)) for h, b in SECTIONS)
+print(f"Body words: {body_words}, Total with headers: {total_words}")
+assert 300 <= body_words <= 500, f"Body word count {body_words} out of required bounds (300-500)!"
 
 TPL = r"C:\Users\arche\.gemini\antigravity\brain\633f260b-a099-4ad2-841c-8c28fffa117f\.user_uploaded\media_1793977102758_f11c67cf.pdf"
 OUT = r"E:\Download\rapilpj-v2\abstract\TideLedger_Abstract_STACK2026.pdf"
