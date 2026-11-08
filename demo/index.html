@@ -399,36 +399,6 @@
       margin-top: 2px;
     }
 
-    
-    .agent-banner {
-      background: var(--surface-subtle);
-      border: 1px solid var(--primary);
-      border-left: 4px solid var(--primary);
-      border-radius: 8px;
-      padding: 16px 20px;
-      margin-top: 16px;
-    }
-    .agent-banner h3 {
-      margin: 0 0 6px;
-      font-size: 16px;
-      color: var(--primary);
-    }
-    .pipeline-steps {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin: 10px 0;
-    }
-    .pipeline-step {
-      font-size: 12px;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 4px;
-      background: var(--surface);
-      border: 1px solid var(--outline);
-      color: var(--on-surface);
-    }
-
     .attestation-box {
       background: var(--surface-subtle);
       border: 1px solid var(--outline);
@@ -636,7 +606,8 @@
     <header class="top">
       <div>
         <h1 id="t_title">RapiLPJ v2</h1>
-        <p class="sub" id="t_sub">Pemeriksa Laporan Pertanggungjawaban (LPJ) berarsitektur Neuro-Simbolik: Kernel Audit Aritmetika Deterministik 100% Luring + Asisten Tata Kelola &amp; Penyusun Bundel PDF Terindeks.</p>
+        <p class="sub" id="t_sub">Pemeriksa Laporan Pertanggungjawaban (LPJ) berarsitektur Neuro-Simbolik: Kernel Audit
+          Aritmetika Deterministik 100% Luring + Asisten Tata Kelola &amp; Penyusun Bundel PDF Terindeks.</p>
         <div class="badge-bar">
           <span class="badge" id="t_b1">Arsitektur Neuro-Simbolik</span>
           <span class="badge" id="t_b2">Kernel Deterministik Klien + Asisten Tata Kelola</span>
@@ -644,11 +615,14 @@
         </div>
       </div>
       <div class="header-actions noprint">
-        <a href="/" id="t_demoBtn" class="alt"
+        <button type="button" class="alt" id="btnInstantDemo" style="background:#e6f4ea; border:1px solid #137333; color:#137333; font-weight:700;">Demo 1-Klik (Tanpa API Key)</button>
+        <a href="/demo" id="t_demoBtn" class="alt"
           style="text-decoration:none; display:inline-flex; align-items:center; min-height:44px; padding:10px 16px; border:1px solid var(--primary); border-radius:6px; color:var(--primary); font-size:14px; font-weight:600;">Mode
           Demo &amp; Sampel</a>
-        <button type="button" class="alt" id="langBtn" aria-label="Ganti Bahasa / Switch Language">Bahasa: ID | EN</button>
-        <button type="button" class="alt" id="themeBtn" aria-label="Ubah Tema Terang Gelap / Toggle Theme">Tema: Terang</button>
+        <button type="button" class="alt" id="langBtn" aria-label="Ganti Bahasa / Switch Language">Bahasa: ID |
+          EN</button>
+        <button type="button" class="alt" id="themeBtn" aria-label="Ubah Tema Terang Gelap / Toggle Theme">Tema:
+          Terang</button>
       </div>
     </header>
     <div class="persona-tabs noprint" style="display:flex; gap:8px; margin: 12px 0 16px; background:var(--surface); padding:6px; border-radius:8px; border:1px solid var(--outline);">
@@ -658,25 +632,14 @@
 
     <div id="viewTreasurer">
 
-    <section class="agent-banner noprint">
-      <h3 id="t_agent_hdr">Simulasi Ekstraksi Nota Fisik &amp; Asisten Tata Kelola (Sandbox Demo)</h3>
-      <p class="note" id="t_agent_sub">Mendemonstrasikan alur pembacaan 3 berkas nota fisik di folder <code>samples/</code> (Dataset Pra-Ekstraksi Luring sesuai Aturan Transparansi STACK 2026) serta kompilasi otomatis lampiran gambar ke dalam bundel PDF.</p>
-      <div class="pipeline-steps">
-        <span class="pipeline-step" id="t_pipe1">1. Persepsi Dokumen Nota</span>
-        <span class="pipeline-step" id="t_pipe2">2. Verifikasi Stempel &amp; Meterai</span>
-        <span class="pipeline-step" id="t_pipe3">3. Pemetaan ke Pos RAB</span>
-        <span class="pipeline-step" id="t_pipe4">4. Kompilasi Lampiran PDF &amp; SHA-256</span>
-      </div>
-      <button type="button" id="btnGeminiScan">Muat 3 Sampel Nota Fisik Riil (Dataset Pra-Ekstraksi)</button>
-    </section>
-
     <section>
       <h2 id="t_s1">1. Kegiatan &amp; Regulasi Fakultas</h2>
       <div class="grid">
         <label><span id="t_lbl_preset">Aturan yang dipakai</span>
           <select id="preset">
             <option value="uajm" id="opt_uajm">BKAM Universitas Atma Jaya Makassar (Basis Kampus Pengembang)</option>
-            <option value="standard" id="opt_std">Standar Nasional Ormawa &amp; UU Bea Meterai (Direkomendasikan)</option>
+            <option value="standard" id="opt_std">Standar Nasional Ormawa &amp; UU Bea Meterai (Direkomendasikan)
+            </option>
             <option value="all" id="opt_all">Semua aturan (Paling Ketat)</option>
             <option value="fibub" id="opt_fib">FIB Universitas Brawijaya</option>
             <option value="ugmfeb" id="opt_ugm">FEB UGM</option>
@@ -708,6 +671,17 @@
             kegiatan</span></label>
         <label class="chk"><input type="checkbox" data-d="assignment"> <span id="t_doc_ass">Surat tugas / SK
             kepanitiaan</span></label>
+      </div>
+
+      <div id="ruleCardAnchorBox" style="margin-top:12px; padding:10px 14px; background:var(--surface-subtle); border:1px solid var(--outline); border-radius:6px; font-size:13px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
+          <div>
+            <strong id="t_ruleCardHdr">Kartu Aturan Baku Dosen Pembina:</strong>
+            <span class="badge" style="background:#e8f0fe; color:#1a73e8; font-weight:700;">UAJM 2026 (v1.0.0)</span>
+            <span class="note" id="t_ruleCardSigners" style="display:inline-block; margin-left:6px;">Ditandatangani 2 Dosen (Dr. Paulus Siada &amp; Agustinus Tungadi)</span>
+          </div>
+          <span style="font-family:monospace; font-size:11px; color:var(--on-surface-muted);">Anchor Hash: <span id="t_ruleCardHashVal">28206eb3...eda2</span></span>
+        </div>
       </div>
 
       <div class="rules-box" id="rulesBox">
@@ -751,7 +725,7 @@
               <th class="col-chk" id="t_th_stamp" title="Stempel / Cap basah">Stempel</th>
               <th class="col-chk" id="t_th_therm" title="Struk pudar (kertas termal)">Termal</th>
               <th class="col-chk" id="t_th_scan" title="Sudah difotokopi / scan">Dipindai</th>
-              <th class="col-chk" id="t_th_mat" title="Meterai Rp10.000 (wajib >= Rp5.000.000)">Meterai</th>
+              <th class="col-chk" id="t_th_mat" title="Meterai Rp10.000 (wajib > Rp5.000.000)">Meterai</th>
               <th class="col-chk" id="t_th_comb" title="Nota gabungan (dilarang)">Gabung</th>
               <th class="col-chk" id="t_th_pph" title="Termasuk perhitungan PPh">PPh</th>
               <th class="col-chk" id="t_th_srv" title="Pengeluaran jasa / honorarium">Jasa</th>
@@ -777,6 +751,7 @@
           <button type="button" class="alt" id="btnSampleSPBU" style="min-height:34px; padding:4px 10px; font-size:12px; margin:0;">Sampel SPBU (Termal)</button>
           <button type="button" class="alt" id="btnSampleKatering" style="min-height:34px; padding:4px 10px; font-size:12px; margin:0;">Sampel Katering (Meterai >5jt)</button>
           <button type="button" class="alt" id="btnSampleATK" style="min-height:34px; padding:4px 10px; font-size:12px; margin:0;">Sampel ATK (Stempel)</button>
+          <button type="button" class="alt" id="btnSampleIndomaret" style="min-height:34px; padding:4px 10px; font-size:12px; margin:0; border-color:var(--primary); font-weight:700;">Sampel Indomaret (Termal &gt;5jt)</button>
         </div>
         <div id="geminiScanPreview" style="display:none; margin-top:10px; padding:12px; background:var(--surface); border:1px solid var(--outline); border-radius:6px;">
           <div style="display:flex; flex-wrap:wrap; gap:14px; align-items:flex-start;">
@@ -794,7 +769,6 @@
     <section>
       <div class="noprint" style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
         <button type="button" id="go">Periksa LPJ</button>
-        <button type="button" class="alt" id="ex">Muat Kasus Uji Pelanggaran</button>
         <button type="button" class="alt" id="btnExportDraft">Unduh Berkas Draf (.lpj)</button>
         <button type="button" class="alt" id="btnImportDraft">Buka Berkas Draf (.lpj)</button>
         <input type="file" id="draftFileInput" accept=".lpj,.json" style="display:none">
@@ -836,12 +810,12 @@
       </section>
     </div>
     <p class="note" style="margin-top:16px" id="t_footer_note">Aturan diverifikasi dari 5 pedoman resmi fakultas (FIB
-      UB, FEB UGM, HIMA Desain Interior ITS, Biologi ITS, FILKOM UB), penelitian BKAM UAJM, serta UU No. 10 Tahun 2020 tentang Bea Meterai.
+      UB, FEB UGM, HIMA Desain Interior ITS, Biologi ITS, FILKOM UB), penelitian BKAM UAJM, serta UU No. 10 Tahun 2020
+      tentang Bea Meterai.
       Keputusan verifikasi akhir tetap berada pada bagian kemahasiswaan fakultas masing-masing.</p>
   </main>
 
-  <script src="/engine.js"></script>
-  <script>if (typeof LPJ === "undefined") { document.write('<script src="../engine.js"><\/script>'); }</script>
+  <script src="engine.js"></script>
   <script>
     const $ = (id) => document.getElementById(id);
     const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -858,15 +832,7 @@
         sub: 'Pemeriksa Laporan Pertanggungjawaban (LPJ) berarsitektur Neuro-Simbolik: Kernel Audit Aritmetika Deterministik 100% Luring + Asisten Tata Kelola & Penyusun Bundel PDF Terindeks.',
         b1: 'Arsitektur Neuro-Simbolik',
         b2: 'Kernel Deterministik Klien + Asisten Tata Kelola',
-        btn_demo: 'Halaman Utama',
-        agent_hdr: 'Simulasi Ekstraksi Nota Fisik & Asisten Tata Kelola (Sandbox Demo)',
-        agent_sub: 'Mendemonstrasikan alur pembacaan 3 berkas nota fisik di folder samples/ (Dataset Pra-Ekstraksi Luring sesuai Aturan Transparansi STACK 2026) serta kompilasi otomatis lampiran gambar ke dalam bundel PDF.',
-        pipe1: '1. Persepsi Dokumen Nota',
-        pipe2: '2. Verifikasi Stempel & Meterai',
-        pipe3: '3. Pemetaan ke Pos RAB',
-        pipe4: '4. Kompilasi Lampiran PDF & SHA-256',
-        btn_scan: 'Muat 3 Sampel Nota Fisik Riil (Dataset Pra-Ekstraksi)',
-        btn_ex: 'Muat Kasus Uji Pelanggaran',
+        btn_demo: 'Mode Demo & Sampel',
         btn_lang: 'Bahasa: ID (Ke EN)',
         btn_theme_light: 'Tema: Terang (Ke Gelap)',
         btn_theme_dark: 'Tema: Gelap (Ke Terang)',
@@ -963,15 +929,7 @@
         sub: 'Neuro-Symbolic LPJ Auditor: 100% Offline Deterministic Arithmetic Kernel + Fiscal Governance Co-Pilot & Automated PDF Dossier Compiler.',
         b1: 'Neuro-Symbolic Architecture',
         b2: 'Client Deterministic Kernel + Governance Co-Pilot',
-        btn_demo: 'Main Workspace',
-        agent_hdr: 'Physical Receipt Extraction Simulation & Governance Sandbox',
-        agent_sub: 'Demonstrates parsing of the 3 physical receipt files in samples/ (Offline Pre-Extracted Dataset per STACK 2026 Rule #7 disclosure) and automatic compilation of receipt images into the PDF dossier.',
-        pipe1: '1. Document Receipt Perception',
-        pipe2: '2. Stamp & Revenue Seal Check',
-        pipe3: '3. Budget Category Mapping',
-        pipe4: '4. PDF Appendix & SHA-256 Seal',
-        btn_scan: 'Load 3 Physical Receipt Samples (Pre-Extracted Dataset)',
-        btn_ex: 'Load Violation Test Case',
+        btn_demo: 'Demo & Sample Mode',
         btn_lang: 'Language: EN (To ID)',
         btn_theme_light: 'Theme: Light (To Dark)',
         btn_theme_dark: 'Theme: Dark (To Light)',
@@ -1083,14 +1041,6 @@
       $('t_b1').textContent = d.b1;
       $('t_b2').textContent = d.b2;
       $('t_demoBtn').textContent = d.btn_demo;
-      $('t_agent_hdr').textContent = d.agent_hdr;
-      $('t_agent_sub').textContent = d.agent_sub;
-      $('t_pipe1').textContent = d.pipe1;
-      $('t_pipe2').textContent = d.pipe2;
-      $('t_pipe3').textContent = d.pipe3;
-      $('t_pipe4').textContent = d.pipe4;
-      $('btnGeminiScan').textContent = d.btn_scan;
-      $('ex').textContent = d.btn_ex;
       $('langBtn').textContent = d.btn_lang;
       $('themeBtn').textContent = curTheme === 'dark' ? d.btn_theme_dark : d.btn_theme_light;
       $('t_s1').textContent = d.s1;
@@ -1227,6 +1177,9 @@
       } else if (n.scanName) {
         scanInfo.textContent = n.scanName;
       }
+      if (n.rawExtracted) {
+        tr.dataset.rawExtracted = JSON.stringify(n.rawExtracted);
+      }
       fileInput.onchange = () => {
         const file = fileInput.files && fileInput.files[0];
         if (file) {
@@ -1282,6 +1235,9 @@
           if (t.dataset.sampleFile) n.sampleFile = t.dataset.sampleFile;
           if (t.dataset.scanName) n.scanName = t.dataset.scanName;
           if (t.dataset.imgData) n.imgData = t.dataset.imgData;
+          if (t.dataset.rawExtracted) {
+            try { n.rawExtracted = JSON.parse(t.dataset.rawExtracted); } catch(e) {}
+          }
           t.querySelectorAll('[data-f]').forEach((c) => { n[c.dataset.f] = c.checked; });
           return n;
         })
@@ -1358,6 +1314,36 @@
       previewExtractedReceipt(s, '/samples/' + s.sampleFile);
     };
 
+    $('btnSampleIndomaret').onclick = () => {
+      const s = LPJ.SAMPLE_GEMINI_RECEIPTS[3];
+      previewExtractedReceipt(s, '/samples/' + s.sampleFile);
+    };
+
+    $('btnInstantDemo').onclick = () => {
+      $('preset').value = 'uajm';
+      $('eventDate').value = '2026-10-01';
+      $('submitDate').value = '2026-10-08';
+      $('approvedTotal').value = '6500000';
+      $('varianceTolerance').value = '10';
+      $('consumptionSessions').value = '2';
+      $('attendanceSheets').value = '2';
+      document.querySelectorAll('input[data-d]').forEach(c => c.checked = true);
+      
+      $('bud').innerHTML = '';
+      addB({ item: 'Transportasi & Bahan Bakar', planned: 300000 });
+      addB({ item: 'Konsumsi', planned: 5500000 });
+      addB({ item: 'Banner & Publikasi', planned: 700000 });
+
+      $('nts').innerHTML = '';
+      LPJ.SAMPLE_GEMINI_RECEIPTS.forEach(s => {
+        const item = { ...s, rawExtracted: { amount: s.amount, stamp: s.stamp, date: s.date } };
+        addN(item);
+      });
+
+      $('go').click();
+      showSaveStatus(curLang === 'en' ? 'Instant 1-Click Demo Loaded (4 Receipts)' : 'Demo 1-Klik Berhasil Dimuat (4 Kuitansi Riil)');
+    };
+
     $('geminiFileInput').onchange = (e) => {
       const file = e.target.files && e.target.files[0];
       if (!file) return;
@@ -1367,6 +1353,7 @@
         try {
           const res = await LPJ.parseReceiptWithGemini(base64Data, sessionGeminiKey, file.type || 'image/jpeg');
           const rec = res.receipt;
+          rec.rawExtracted = JSON.parse(JSON.stringify(rec));
           rec.imgData = base64Data;
           previewExtractedReceipt(rec, base64Data);
         } catch (err) {
@@ -1378,7 +1365,18 @@
 
     $('btnApplyGeminiReceipt').onclick = () => {
       if (!pendingGeminiReceipt) return;
-      addN(pendingGeminiReceipt);
+      const rec = { ...pendingGeminiReceipt };
+      if (!rec.rawExtracted) {
+        rec.rawExtracted = {
+          amount: rec.amount,
+          date: rec.date,
+          merchant: rec.merchant,
+          item: rec.item,
+          stamp: rec.stamp,
+          materai: rec.materai
+        };
+      }
+      addN(rec);
       $('geminiScanPanel').style.display = 'none';
       $('geminiScanPreview').style.display = 'none';
       pendingGeminiReceipt = null;
@@ -1441,9 +1439,17 @@
         ? '<span class="ok">' + (isEn ? 'Authentic (SHA-256 Hash Matched 100%)' : 'Otentik (Hash SHA-256 Cocok 100%)') + '</span>'
         : '<span class="bad">' + (isEn ? 'TAMPERED: Document modified after export!' : 'PERINGATAN: Berkas telah dimodifikasi setelah diekspor!') + '</span>';
 
+      const presetCardBadge = res.presetTampered
+        ? '<span class="bad">' + (isEn ? 'TAMPERED: Preset rule card modified!' : 'KARTU ATURAN PALSU: Tidak cocok tanda tangan dosen pembina!') + '</span>'
+        : '<span class="ok">' + (isEn ? 'Verified Faculty Rule Card (UAJM 2026)' : 'Kartu Aturan Terverifikasi (UAJM 2026)') + '</span>';
+
       const balanceBadge = res.balanceVerified
         ? '<span class="ok">' + (isEn ? 'Balanced (Endorsement = Realized Total)' : 'Seimbang (Pagu Lembar Pengesahan = Realisasi Nota)') + '</span>'
         : '<span class="bad">' + (isEn ? 'Discrepancy Detected between Endorsement and Receipts' : 'Terdapat Selisih antara Lembar Pengesahan dan Total Nota') + '</span>';
+
+      const overrideCard = res.manualOverridesCount > 0
+        ? '<div class="card" style="border:2px solid var(--warning);"><div class="lbl">' + (isEn ? 'Manual Overrides (Threat Alert)' : 'Koreksi Manual Bendahara') + '</div><div class="val" style="color:var(--warning);font-size:13px;">' + res.manualOverridesCount + (isEn ? ' receipt(s) modified from AI. Physical check mandatory!' : ' nota diubah dari AI. Wajib cek fisik!') + '</div></div>'
+        : '<div class="card"><div class="lbl">' + (isEn ? 'Dual-Record Audit Trail' : 'Jejak Audit Ganda AI') + '</div><div class="val ok" style="font-size:13px;">' + (isEn ? '100% Direct AI Confirmation' : '100% Ekstraksi Terkonfirmasi') + '</div></div>';
 
       let issuesListHtml = '';
       if (res.issuesCount > 0) {
@@ -1462,9 +1468,10 @@
         '</div>' +
         '<div class="summary-cards" style="margin:14px 0;">' +
           '<div class="card"><div class="lbl">' + (isEn ? 'Cryptographic Integrity' : 'Integritas Kriptografis') + '</div><div class="val" style="font-size:14px;">' + hashBadge + '</div></div>' +
+          '<div class="card"><div class="lbl">' + (isEn ? 'Rule Card Authority' : 'Otoritas Kartu Aturan') + '</div><div class="val" style="font-size:14px;">' + presetCardBadge + '</div></div>' +
           '<div class="card"><div class="lbl">' + (isEn ? 'Cash Balance' : 'Keseimbangan Kas') + '</div><div class="val" style="font-size:14px;">' + balanceBadge + '</div></div>' +
           '<div class="card"><div class="lbl">' + (isEn ? 'Total Realized Expenses' : 'Total Realisasi Nota') + '</div><div class="val">' + rp(res.totalSpent) + '</div></div>' +
-          '<div class="card"><div class="lbl">' + (isEn ? 'Active Faculty Ruleset' : 'Regulasi Acuan') + '</div><div class="val" style="font-size:14px;">' + esc(res.presetUsed.toUpperCase()) + '</div></div>' +
+          overrideCard +
         '</div>' +
         '<div style="font-family:monospace;font-size:12px;background:var(--surface-subtle);padding:8px 10px;border-radius:4px;word-break:break-all;">' +
           '<b>SHA-256 Attestation:</b> ' + res.attestationHash +
@@ -1624,8 +1631,8 @@
           const imgUrl = n.imgData ? n.imgData : (n.sampleFile ? '/samples/' + encodeURIComponent(n.sampleFile) : '');
           const stampLbl = isEn ? (n.stamp ? 'Wet Stamp: Verified' : 'Wet Stamp: Missing') : (n.stamp ? 'Stempel: Ada' : 'Stempel: Belum Ada');
           const matLbl = isEn
-            ? (n.amount >= 5000000 ? (n.materai ? 'Meterai Rp10k: Verified' : 'Meterai Rp10k: Missing') : 'Meterai: Exempt (<Rp5M)')
-            : (n.amount >= 5000000 ? (n.materai ? 'Meterai Rp10k: Ada' : 'Meterai Rp10k: Belum Ada') : 'Meterai: Tidak Wajib (<Rp5jt)');
+            ? (n.amount >= 5000000 ? (n.materai ? 'Meterai Rp10k: Verified' : 'Meterai Rp10k: Missing') : 'Meterai: Exempt (<=Rp5M)')
+            : (n.amount >= 5000000 ? (n.materai ? 'Meterai Rp10k: Ada' : 'Meterai Rp10k: Belum Ada') : 'Meterai: Tidak Wajib (<=Rp5jt)');
           const thermLbl = isEn
             ? (n.thermal ? (n.scanned ? 'Thermal: Scanned' : 'Thermal: Unscanned!') : 'Paper: Non-Thermal')
             : (n.thermal ? (n.scanned ? 'Termal: Sudah Scan' : 'Termal: Belum Scan!') : 'Kertas: Non-Termal');
@@ -1704,55 +1711,10 @@
       window.print();
     };
 
-    
-    $('btnGeminiScan').onclick = () => {
-      $('eventDate').value = '2026-10-01';
-      $('submitDate').value = '2026-10-08';
-      $('approvedTotal').value = 6100000;
-      $('varianceTolerance').value = 10;
-      $('consumptionSessions').value = 1;
-      $('attendanceSheets').value = 1;
-      $('bud').innerHTML = '';
-      $('nts').innerHTML = '';
-      [
-        { item: 'Transportasi & Bahan Bakar', planned: 300000 },
-        { item: 'Konsumsi', planned: 5200000 },
-        { item: 'Banner & Publikasi', planned: 600000 }
-      ].forEach(addB);
-      document.querySelectorAll('[data-d]').forEach((c) => { c.checked = true; });
-      LPJ.SAMPLE_GEMINI_RECEIPTS.forEach((sample) => { addN(sample); });
-      $('go').click();
-    };
-
-    $('ex').onclick = () => {
-      Object.entries({
-        eventDate: '2026-10-01',
-        submitDate: '2026-10-14',
-        approvedTotal: 6500000,
-        varianceTolerance: 10,
-        consumptionSessions: 2,
-        attendanceSheets: 1
-      }).forEach(([k, v]) => { $(k).value = v; });
-      $('bud').innerHTML = '';
-      $('nts').innerHTML = '';
-      [
-        { item: 'Konsumsi', planned: 1000000 },
-        { item: 'Banner', planned: 600000 },
-        { item: 'Sewa sound system', planned: 5000000 }
-      ].forEach(addB);
-      document.querySelectorAll('[data-d]').forEach((c, i) => { c.checked = i < 2; });
-      [
-        { refNo: 'NOTA-01', date: '2026-10-01', item: 'Konsumsi', amount: 1000000, stamp: true, pphIncluded: true, sampleFile: 'sample_01_struk_termal_spbu.png' },
-        { refNo: 'NOTA-02', date: '2026-10-02', item: 'Banner', amount: 750000, stamp: true, thermal: true, scanned: false, pphIncluded: true, sampleFile: 'sample_03_nota_atk_stempel.png' },
-        { refNo: 'NOTA-03', date: '2026-10-01', item: 'Sewa sound system', amount: 5000000, stamp: false, materai: false, service: true, recipientId: false, sampleFile: 'sample_02_kuitansi_katering_meterai.png' }
-      ].forEach(addN);
-      $('go').click();
-    };
-
     $('addB').onclick = () => addB();
     $('addN').onclick = () => addN();
 
-    const AUTOSAVE_KEY = 'rapilpj_v2_demo_draft_data';
+    const AUTOSAVE_KEY = 'rapilpj_v2_draft_data';
     let autoSaveTimer = null;
 
     function showSaveStatus(msg) {

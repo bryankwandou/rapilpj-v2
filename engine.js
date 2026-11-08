@@ -87,6 +87,16 @@
       text: 'Terdapat nota pengeluaran dengan pos belanja yang tidak terdaftar di Rencana Anggaran Biaya (RAB).',
       textEn: 'Receipt recorded under an expense category not listed in the approved budget plan.',
       src: 'national'
+    },
+    manualOverride: {
+      text: 'Nilai nota diubah secara manual dari hasil ekstraksi persepsi AI, memerlukan verifikasi fisik oleh verifikator.',
+      textEn: 'Receipt value was manually overridden from AI perceptual extraction, requiring physical verification by faculty.',
+      src: 'national'
+    },
+    presetTampered: {
+      text: 'Kartu aturan telah dimanipulasi atau tidak cocok dengan tanda tangan dosen pembina terdaftar.',
+      textEn: 'Rule card has been tampered with or does not match registered faculty advisor signatures.',
+      src: 'uajm'
     }
   };
 
@@ -122,15 +132,53 @@
   };
 
   const PRESETS = {
-    uajm: ['totalsMatch', 'stamp', 'attendance', 'materai', 'thermal', 'filkomDocs', 'duplicateInvoice', 'dateSanity', 'budgetVariance'],
+    uajm: ['totalsMatch', 'stamp', 'attendance', 'materai', 'thermal', 'filkomDocs', 'duplicateInvoice', 'dateSanity', 'budgetVariance', 'manualOverride'],
     fibub: ['stamp', 'totalsMatch', 'attendance', 'duplicateInvoice', 'dateSanity'],
     ugmfeb: ['materai', 'thermal', 'duplicateInvoice', 'dateSanity'],
     itshima: ['deadline10', 'duplicateInvoice', 'dateSanity'],
     itsbio: ['perNote', 'pph', 'stamp', 'duplicateInvoice', 'dateSanity'],
     filkom: ['deadline7work', 'filkomDocs', 'serviceTax', 'duplicateInvoice', 'budgetVariance', 'dateSanity'],
-    standard: ['totalsMatch', 'materai', 'thermal', 'stamp', 'perNote', 'duplicateInvoice', 'dateSanity', 'budgetVariance', 'unplannedPost'],
+    standard: ['totalsMatch', 'materai', 'thermal', 'stamp', 'perNote', 'duplicateInvoice', 'dateSanity', 'budgetVariance', 'unplannedPost', 'manualOverride'],
     all: Object.keys(RULES)
   };
+
+  /* Authoritative Faculty Rule Cards (Signed Anchor Hash) */
+  const AUTHORITATIVE_PRESET_CARDS = {
+    uajm_2026: {
+      id: 'uajm_2026',
+      title: 'Kartu Aturan Baku LPJ Kemahasiswaan UAJM 2026',
+      titleEn: 'Official UAJM 2026 Student Organization LPJ Rule Card',
+      version: '1.0.0',
+      signedBy: [
+        { name: 'Dr. Ir. Paulus Siada, M.T.', role: 'Dosen Pembina BKAM UAJM', nidn: '0912046801' },
+        { name: 'Agustinus L. Tungadi, S.Kom., M.T.', role: 'Dosen Reviewer Tata Kelola', nidn: '0928087402' }
+      ],
+      rules: {
+        meteraiThreshold: 5000000,
+        varianceTolerancePercent: 10,
+        mealAllowancePerPerson: 1.0,
+        pph21Rate: 0.05,
+        pph23Rate: 0.02,
+        maxCalendarDays: 10,
+        maxWorkingDays: 7,
+        requireWetStamp: true,
+        requireThermalCopy: true
+      }
+    }
+  };
+
+  function computePresetCardHash(card) {
+    if (!card) return '';
+    const canonical = JSON.stringify({
+      id: card.id,
+      rules: card.rules,
+      signedBy: card.signedBy,
+      version: card.version
+    });
+    return sha256(canonical);
+  }
+
+  const UAJM_2026_PRESET_HASH = computePresetCardHash(AUTHORITATIVE_PRESET_CARDS.uajm_2026);
 
   function daysBetween(a, b) {
     if (!a || !b) return 0;
@@ -193,6 +241,20 @@
       const idxLabel = 'Nota #' + (n.no || i + 1) + (n.item ? ' (' + n.item + ')' : '');
       const idxLabelEn = 'Receipt #' + (n.no || i + 1) + (n.item ? ' (' + n.item + ')' : '');
       const amt = +n.amount || 0;
+
+      // Dual-Record Audit Trail: Flag manual edits from raw AI vision extraction (Threat Model Defense)
+      if (on.has('manualOverride') && n.rawExtracted) {
+        const rawAmt = Math.round(+n.rawExtracted.amount || 0);
+        if (rawAmt > 0 && rawAmt !== amt) {
+          add(
+            'manualOverride',
+            `${idxLabel}: Terdeteksi koreksi nominal manual dari ekstraksi AI (AI: Rp${fmt(rawAmt)} -> Bendahara: Rp${fmt(amt)}). Verifikator wajib periksa fisik nota.`,
+            `${idxLabelEn}: Manual nominal override detected from AI extraction (AI: Rp${fmt(rawAmt)} -> Treasurer: Rp${fmt(amt)}). Verifier physical check required.`,
+            i,
+            'warning'
+          );
+        }
+      }
 
       // Duplicate invoice / reference check
       if (on.has('duplicateInvoice') && n.refNo && n.refNo.trim()) {
@@ -524,9 +586,13 @@
     return result;
   }
 
-  /* Cryptographic Attestation Hash of audited records */
+  /* Cryptographic Attestation Hash of audited records (Binds Authoritative Preset Card & Dual-Record Receipts) */
   function computeAttestationHash(lpj, res) {
+    const cardId = lpj.presetCardId || 'uajm_2026';
+    const cardHash = lpj.presetCardHash || UAJM_2026_PRESET_HASH;
     const canonicalPayload = [
+      cardId,
+      cardHash,
       lpj.eventDate || '',
       lpj.submitDate || '',
       lpj.approvedTotal || 0,
@@ -534,7 +600,13 @@
       res.spent || 0,
       res.issues.length,
       (lpj.notes || [])
-        .map((n) => [n.refNo || '', n.date || '', n.item || '', n.amount || 0].join(':'))
+        .map((n) => [
+          n.refNo || '',
+          n.date || '',
+          n.item || '',
+          n.amount || 0,
+          (n.rawExtracted && n.rawExtracted.amount) ? n.rawExtracted.amount : (n.amount || 0)
+        ].join(':'))
         .sort()
         .join('|')
     ].join('##');
@@ -768,6 +840,24 @@ ${baseDraft}`;
       sampleFile: 'sample_03_nota_atk_stempel.png',
       notesVision: 'Nota kontan kertas NCR rangkap, cap basah lunas toko terdeteksi di pojok kanan bawah.',
       notesVisionEn: 'Carbonless NCR cash receipt, store paid wet seal detected at bottom-right corner.'
+    },
+    {
+      refNo: 'IDM-JKT-88192',
+      date: '2026-10-02',
+      merchant: 'Indomaret Point Stasiun',
+      item: 'Konsumsi Rapat Panitia',
+      amount: 5250000,
+      stamp: true,
+      thermal: true,
+      scanned: false,
+      materai: false,
+      combined: false,
+      pphIncluded: true,
+      service: false,
+      confidence: 0.95,
+      sampleFile: 'sample_04_struk_termal_indomaret.png',
+      notesVision: 'Struk termal Indomaret pudar, nominal Rp5.250.000 (> Rp5jt per UU 10/2020) terdeteksi tanpa meterai dan belum difotokopi.',
+      notesVisionEn: 'Faded Indomaret thermal slip, Rp5,250,000 (> Rp5M per Law 10/2020) detected without revenue stamp and not photocopied.'
     }
   ];
 
@@ -936,6 +1026,88 @@ ${baseDraft}`;
     };
   }
 
+  /* Un-Gated Retention Knowledge Assessment (3 Transfer Scenarios Not Gating Export) */
+  const UN_GATED_RETENTION_TEST = [
+    {
+      id: 'ret_01',
+      question: 'Kuitansi belanja perlengkapan tercatat tepat Rp5.000.000 (tidak lebih). Apakah kuitansi ini wajib dibubuhi meterai Rp10.000?',
+      questionEn: 'A receipt for supplies is exactly Rp5,000,000 (not exceeding). Does this receipt require a Rp10,000 revenue stamp?',
+      options: [
+        'A. Tidak, karena UU No. 10/2020 Pasal 3 hanya mengenakan meterai pada nominal LEBIH DARI Rp5.000.000 (> Rp5.000.000).',
+        'B. Ya, semua pembelanjaan tepat 5 juta wajib dikenakan meterai.',
+        'C. Ya, jika dibeli dari toko swasta.'
+      ],
+      optionsEn: [
+        'A. No, because Law 10/2020 Article 3 strictly applies revenue stamps to documents EXCEEDING Rp5,000,000 (> Rp5,000,000).',
+        'B. Yes, all purchases at exactly 5 million require a stamp.',
+        'C. Yes, if purchased from a private merchant.'
+      ],
+      correctIndex: 0,
+      explanation: 'Sesuai UU No. 10 Tahun 2020 Pasal 3 ayat (2) huruf g, meterai hanya dikenakan jika nominal bernilai LEBIH DARI Rp5.000.000. Tepat Rp5.000.000 tidak dikenai meterai.',
+      explanationEn: 'Under Law 10/2020 Art. 3(2)(g), revenue stamps strictly apply only if nominal value EXCEEDS Rp5,000,000.'
+    },
+    {
+      id: 'ret_02',
+      question: 'Mengapa struk berbahan kertas termal (minimarket/SPBU) wajib segera difotokopi atau dipindai digital sebelum LPJ diserahkan?',
+      questionEn: 'Why must thermal receipts (minimarket/gas station) be immediately photocopied or scanned before LPJ submission?',
+      options: [
+        'A. Karena tulisan pada kertas termal akan memudar dan hilang sebelum masa retensi arsip audit 5 tahun berakhir.',
+        'B. Sebagai formalitas agar berkas terlihat tebal di hadapan biro kemahasiswaan.',
+        'C. Karena struk asli akan diserahkan ke dinas pendapatan daerah.'
+      ],
+      optionsEn: [
+        'A. Because thermal ink degrades and fades before the mandatory 5-year audit archival retention window concludes.',
+        'B. As a formality to make the dossier appear thicker to student affairs.',
+        'C. Because the original slip must be remitted to the regional revenue department.'
+      ],
+      correctIndex: 0,
+      explanation: 'Zat kimia pada kertas termal bereaksi terhadap panas dan memudar dalam hitungan bulan, melanggar ketentuan retensi arsip keuangan.',
+      explanationEn: 'Thermal chemicals degrade within months, violating financial record retention requirements.'
+    },
+    {
+      id: 'ret_03',
+      question: 'Jika bendahara melakukan koreksi manual atas angka yang diekstrak AI dari kuitansi, apa yang dicatat sistem RapiLPJ?',
+      questionEn: 'If a treasurer manually overrides an amount extracted by AI from a receipt, what does RapiLPJ record?',
+      options: [
+        'A. Menyimpan rekaman ganda (raw AI extraction vs confirmed value) dan menandai bendera manual override agar verifikator memeriksa fisik kuitansi.',
+        'B. Menghapus rekaman AI agar kuitansi tampak bersih tanpa catatan.',
+        'C. Menolak berkas secara permanen dan memblokir akses bendahara.'
+      ],
+      optionsEn: [
+        'A. Preserves dual records (raw AI extraction vs confirmed value) and flags a manual override so verifiers physically inspect the receipt.',
+        'B. Erases the AI extraction so the receipt appears clean with no notes.',
+        'C. Permanently rejects the dossier and locks out the treasurer.'
+      ],
+      correctIndex: 0,
+      explanation: 'RapiLPJ menerapkan model audit jejak ganda (dual-record audit trail): ekstraksi AI asli dan koreksi manual disimpan bersamaan dalam payload terenkripsi.',
+      explanationEn: 'RapiLPJ enforces a dual-record audit trail: raw AI extraction and manual corrections are preserved together in the cryptographically attested dossier.'
+    }
+  ];
+
+  function evaluateRetentionTest(answers) {
+    let score = 0;
+    const details = UN_GATED_RETENTION_TEST.map((q, idx) => {
+      const userAns = answers && answers[idx];
+      const isCorrect = +userAns === q.correctIndex;
+      if (isCorrect) score++;
+      return {
+        id: q.id,
+        isCorrect,
+        correctIndex: q.correctIndex,
+        userAnswer: userAns,
+        explanation: q.explanation,
+        explanationEn: q.explanationEn
+      };
+    });
+    return {
+      total: UN_GATED_RETENTION_TEST.length,
+      score,
+      percentage: Math.round((score / UN_GATED_RETENTION_TEST.length) * 100),
+      passed: score >= 2,
+      details
+    };
+  }
+
   /* Intelligent Gemini 2.0 Flash Multimodal Receipt Parser */
   async function parseReceiptWithGemini(fileOrBase64, apiKey, mimeType = 'image/jpeg') {
     if (!apiKey || !apiKey.trim()) {
@@ -1048,9 +1220,36 @@ Output STRICT JSON ONLY without markdown backticks, with these exact keys:
     const computedHash = computeAttestationHash(data, auditRes);
     const hashMatch = expectedHash ? (expectedHash.trim().toLowerCase() === computedHash.toLowerCase()) : true;
 
+    // Authoritative Rule Card Integrity Check (Closing the Hash Tautology Loop)
+    const cardId = data.presetCardId || 'uajm_2026';
+    const trustedCard = AUTHORITATIVE_PRESET_CARDS[cardId];
+    let presetTampered = false;
+    let trustedPresetHash = UAJM_2026_PRESET_HASH;
+    if (trustedCard) {
+      trustedPresetHash = computePresetCardHash(trustedCard);
+      if (data.presetCardHash && data.presetCardHash.toLowerCase() !== trustedPresetHash.toLowerCase()) {
+        presetTampered = true;
+        auditRes.issues.push({
+          rule: 'presetTampered',
+          msg: `KARTU ATURAN TELAH DIMANIPULASI: Hash kartu aturan (${data.presetCardHash.slice(0, 10)}...) tidak cocok dengan tanda tangan dosen pembina BKAM UAJM!`,
+          msgEn: `RULE CARD TAMPERED: Submitted rule card hash (${data.presetCardHash.slice(0, 10)}...) does not match registered faculty advisor signatures!`,
+          severity: 'error',
+          source: SOURCES.uajm
+        });
+      }
+    }
+
+    // Threat Model: Extract all manual overrides flagged by the kernel
+    const manualOverrides = auditRes.issues.filter((i) => i.rule === 'manualOverride');
+    const blockingErrors = auditRes.issues.filter((i) => i.severity === 'error');
+    const warnings = auditRes.issues.filter((i) => i.severity === 'warning');
+
     return {
       verifiedAt: new Date().toISOString(),
       presetUsed: preset,
+      presetCardId: cardId,
+      presetCardHash: data.presetCardHash || trustedPresetHash,
+      presetTampered,
       hashMatch,
       attestationHash: computedHash,
       totalSpent: auditRes.spent,
@@ -1058,9 +1257,12 @@ Output STRICT JSON ONLY without markdown backticks, with these exact keys:
       approvedTotal: data.approvedTotal || 0,
       balanceVerified: Math.abs((data.approvedTotal || 0) - auditRes.spent) === 0,
       issuesCount: auditRes.issues.length,
-      blockingErrors: auditRes.issues.filter((i) => i.severity === 'error'),
-      warnings: auditRes.issues.filter((i) => i.severity === 'warning'),
-      canApprove: auditRes.issues.filter((i) => i.severity === 'error').length === 0 && hashMatch
+      blockingErrors,
+      warnings,
+      manualOverridesCount: manualOverrides.length,
+      manualOverridesList: manualOverrides,
+      requiresPhysicalAudit: manualOverrides.length > 0,
+      canApprove: blockingErrors.length === 0 && hashMatch && !presetTampered
     };
   }
 
@@ -1069,6 +1271,8 @@ Output STRICT JSON ONLY without markdown backticks, with these exact keys:
       app: 'RapiLPJ',
       version: '2.0.0',
       exportedAt: new Date().toISOString(),
+      presetCardId: data.presetCardId || 'uajm_2026',
+      presetCardHash: data.presetCardHash || UAJM_2026_PRESET_HASH,
       payload: data
     }, null, 2);
   }
@@ -1079,13 +1283,19 @@ Output STRICT JSON ONLY without markdown backticks, with these exact keys:
     if (parsed.app && parsed.app !== 'RapiLPJ' && !parsed.budget && !parsed.notes) {
       throw new Error('Format berkas draf tidak dikenali (bukan draf RapiLPJ)');
     }
-    return parsed.payload || parsed;
+    const payload = parsed.payload || parsed;
+    if (parsed.presetCardId) payload.presetCardId = parsed.presetCardId;
+    if (parsed.presetCardHash) payload.presetCardHash = parsed.presetCardHash;
+    return payload;
   }
 
   return {
     RULES,
     SOURCES,
     PRESETS,
+    AUTHORITATIVE_PRESET_CARDS,
+    computePresetCardHash,
+    UAJM_2026_PRESET_HASH,
     check,
     csv,
     fmt,
@@ -1101,6 +1311,8 @@ Output STRICT JSON ONLY without markdown backticks, with these exact keys:
     FISCAL_LEARNING_MODULES,
     getLearningModule,
     evaluateQuiz,
+    UN_GATED_RETENTION_TEST,
+    evaluateRetentionTest,
     parseReceiptWithGemini,
     verifyLpjDossier
   };

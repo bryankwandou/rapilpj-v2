@@ -165,5 +165,74 @@ L.callGeminiAdvisory('', overBudgetLpj, overRes, 'BKAM UAJM', 'en').then(async (
   assert.equal(tamperedVerifierRes.hashMatch, false, 'Tampered hash must be rejected');
   assert.equal(tamperedVerifierRes.canApprove, false, 'Tampered dossier cannot be approved');
 
-  console.log('ALL TESTS PASSED (19/19 SUCCESS)');
+  // Test 20: Authoritative Rule Card Integrity & Anti-Tautology Check
+  const validWithCard = JSON.parse(JSON.stringify(validLpj));
+  validWithCard.presetCardId = 'uajm_2026';
+  validWithCard.presetCardHash = L.UAJM_2026_PRESET_HASH;
+  const cardVerifierRes = L.verifyLpjDossier(validWithCard, null, 'uajm');
+  assert.equal(cardVerifierRes.presetTampered, false, 'Legitimate card hash must be accepted');
+
+  const tamperedCardLpj = JSON.parse(JSON.stringify(validLpj));
+  tamperedCardLpj.presetCardId = 'uajm_2026';
+  tamperedCardLpj.presetCardHash = 'ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff';
+  const tamperedCardRes = L.verifyLpjDossier(tamperedCardLpj, null, 'uajm');
+  assert.equal(tamperedCardRes.presetTampered, true, 'Tampered preset card must be detected');
+  assert.equal(tamperedCardRes.canApprove, false, 'Tampered card dossier cannot be approved');
+  assert(tamperedCardRes.blockingErrors.some(e => e.rule === 'presetTampered'), 'Must flag presetTampered error');
+
+  // Test 21: Threat Model / Adversarial Treasurer (Manual Overwrite Audit Trail)
+  const adversarialLpj = JSON.parse(JSON.stringify(validLpj));
+  adversarialLpj.notes.push({
+    no: 3,
+    refNo: 'INV-ADV-01',
+    item: 'Konsumsi Rapat',
+    amount: 50000, // Treasurer manually typed 50k
+    rawExtracted: {
+      amount: 500000, // AI extracted 500k from physical receipt
+      merchant: 'Warung Nasi',
+      date: '2026-10-02'
+    },
+    stamp: true,
+    pphIncluded: true
+  });
+  const advAudit = L.check(adversarialLpj, 'standard');
+  const advOverrideIssue = advAudit.issues.find(i => i.rule === 'manualOverride');
+  assert(advOverrideIssue, 'Must flag manualOverride when confirmed amount differs from AI extraction');
+  assert(advOverrideIssue.msg.includes('500.000'), 'Override warning must detail original AI extracted amount');
+  assert(advOverrideIssue.msg.includes('50.000'), 'Override warning must detail treasurer confirmed amount');
+
+  const advVerifier = L.verifyLpjDossier(adversarialLpj, null, 'standard');
+  assert.equal(advVerifier.manualOverridesCount, 1, 'Verifier must count manual overrides');
+  assert.equal(advVerifier.requiresPhysicalAudit, true, 'Manual override must trigger mandatory physical inspection');
+
+  // Test 22: Indomaret retail thermal receipt fixture check
+  const idmReceipt = L.SAMPLE_GEMINI_RECEIPTS.find(r => r.refNo === 'IDM-JKT-88192');
+  assert(idmReceipt, 'Must provide Indonesian Indomaret retail thermal receipt fixture');
+  assert.equal(idmReceipt.amount, 5250000);
+  assert.equal(idmReceipt.thermal, true);
+  assert.equal(idmReceipt.scanned, false);
+  const idmLpj = JSON.parse(JSON.stringify(validLpj));
+  idmLpj.notes.push(idmReceipt);
+  const idmRes = L.check(idmLpj, 'uajm');
+  assert(idmRes.issues.some(i => i.rule === 'materai'), 'Indomaret > 5M receipt must trigger UU 10/2020 revenue stamp rule');
+  assert(idmRes.issues.some(i => i.rule === 'thermal'), 'Unscanned Indomaret thermal slip must trigger thermal copy rule');
+
+  // Test 23: Un-Gated Retention Knowledge Assessment (Objective Post-Audit Evaluation)
+  assert.equal(L.UN_GATED_RETENTION_TEST.length, 3, 'Must provide 3 un-gated retention assessment questions');
+  const retPerfect = L.evaluateRetentionTest([0, 0, 0]);
+  assert.equal(retPerfect.score, 3);
+  assert.equal(retPerfect.percentage, 100);
+  assert.equal(retPerfect.passed, true);
+  const retFailed = L.evaluateRetentionTest([1, 1, 1]);
+  assert.equal(retFailed.score, 0);
+  assert.equal(retFailed.passed, false);
+
+  // Test 24: Dual-record export and parse roundtrip
+  const exportedAdv = L.exportDraft(adversarialLpj);
+  const parsedAdv = L.parseDraft(exportedAdv);
+  assert.equal(parsedAdv.presetCardId, 'uajm_2026');
+  assert.equal(parsedAdv.presetCardHash, L.UAJM_2026_PRESET_HASH);
+  assert.equal(parsedAdv.notes[2].rawExtracted.amount, 500000);
+
+  console.log('ALL TESTS PASSED (24/24 SUCCESS)');
 });
