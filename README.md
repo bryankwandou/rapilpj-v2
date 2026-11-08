@@ -26,20 +26,20 @@ RapiLPJ bridges operational efficiency and student learning through a dual-perso
 
 During campus audits, the adversary is often not an external attacker, but a hurried or adversarial student treasurer attempting to evade funding freezes or bypass rules:
 
-### A. Closing the Hash Tautology (Authoritative Rule Card Anchor Hash)
-- **Vulnerability:** If a treasurer controls the rule parameters in browser memory (e.g. changing the PPh tax rate or meal allowance), the browser kernel passes, generates a new SHA-256 hash, and a naive verifier screen reports "Hash Matches 100%".
-- **RapiLPJ Defense:** The rule card is an authoritative preset signed by registered faculty advisors (`Dr. Paulus Siada & Agustinus Tungadi, UAJM`). The authoritative rule card carries an immutable cryptographic anchor hash:
+### A. Out-of-Band Rule Card Hash Anchor (Closing the Hash Tautology)
+- **Vulnerability:** If a treasurer controls rule parameters in browser memory, the browser kernel passes, generates a new SHA-256 hash, and a naive verifier screen reports "Hash Matches 100%".
+- **RapiLPJ Defense:** The rule card is an authoritative preset signed by registered faculty advisors (`Dr. Paulus Siada & Agustinus Tungadi, UAJM`). Faculty advisors publish the authoritative rule card reference hash out-of-band (e.g. on the official faculty portal):
   `UAJM_2026_PRESET_HASH = 28206eb3423e605c29cc6f5b1e74a1ffe2881da1f7f663199d8d8519d4f1eda2`
-  The exported `.lpj` dossier embeds this preset hash. The Verifier Desk-Check screen independently hashes the authoritative faculty rules and rejects any `.lpj` where rule parameters or thresholds were tampered with (`PRESET_TAMPERED: Fatal Error`).
+  The Verifier Desk-Check screen independently evaluates submitted `.lpj` files against this out-of-band published hash, immediately exposing any unilateral modification to tax rates or threshold parameters (`PRESET_TAMPERED: Fatal Error`).
 
-### B. Dual-Record Audit Trail (Countering Adversarial Manual Overwrites)
-- **Vulnerability:** If Gemini extracts Rp500,000 from a receipt, but an adversarial treasurer manually types Rp50,000 to evade a budget ceiling or stamp duty, a naive system signs off on the treasurer's lie.
-- **RapiLPJ Defense:** RapiLPJ enforces a **Dual-Record Audit Trail**. The dossier preserves BOTH `rawExtracted` (the direct output of Gemini 2.0 Flash Multimodal Vision) and `confirmedValue` (the treasurer's entered figure). If any field is modified, the kernel flags a `manualOverride` warning, binds both values into the attestation hash, and alerts the verifier desk:
+### B. Dual-Record Edit Disclosure (Countering Adversarial Manual Overwrites)
+- **Vulnerability:** If Gemini extracts Rp500,000 from a receipt, but an adversarial treasurer manually types Rp50,000 to evade a budget ceiling or stamp duty, a naive system signs off on the treasurer's input.
+- **RapiLPJ Defense:** RapiLPJ enforces an explicit **Dual-Record Edit Disclosure Log**. The dossier records BOTH `rawExtracted` (the direct output of Gemini Flash Multimodal Vision) and `confirmedValue` (the treasurer's entered figure). Rather than claiming unforgeable proof, this functions as an auditable disclosure: any manual discrepancy triggers a `manualOverride` warning, binds both values into the attestation payload, and alerts the verifier desk:
   *"Terdeteksi koreksi nominal manual: AI mengekstrak Rp500.000 -> Bendahara menginput Rp50.000. Verifikator wajib memeriksa fisik nota asli."*
 
-### C. 1-Click Zero-Key Instant Demo & Enterprise Privacy Architecture
+### C. 1-Click Zero-Key Instant Demo & Institutional Google Cloud Path
 - **Instant Hackathon Evaluation:** Juries and student testers can test the complete multimodal vision, kernel audit, quiz gates, and verifier portal in 1 click using pre-loaded real Indonesian receipts (Indomaret thermal slip, catering invoice >Rp5M, and bookstore stamp voucher) without requiring personal Gemini API keys.
-- **Enterprise Google Cloud Path:** For institutional deployments, RapiLPJ routes via **Firebase App Check** to **Google Cloud Vertex AI (Gemini 2.0 Flash in `asia-southeast1` Jakarta)** under university Google Workspace agreements, providing contractual **Zero Data Retention (ZDR)** and VPC Service Controls.
+- **Institutional Google Cloud Path:** For university-wide deployments, RapiLPJ routes via **Firebase Hosting** and **Firebase App Check** to **Google Cloud Vertex AI (Gemini Flash in `asia-southeast1` Singapore)** under institutional non-training terms of university Google Workspace for Education agreements.
 
 ### D. Objective Learning Measurement vs Gate Artifacts
 - **Remediation Gate:** Requires 100% mastery of statutory rationale before unlocking dossier export, measuring *Attempts-to-Pass*.
@@ -68,7 +68,7 @@ Rather than ungrounded claims of "eliminating rejections", RapiLPJ evaluates imp
                      v                                       |
     +----------------------------------+                     |
     | 1. PERCEPTUAL INTAKE (AI AGENT)  |                     |
-    |    Google Gemini 2.0 Flash Vision|                     |
+    |    Google Gemini Flash Multimodal|                     |
     |----------------------------------|                     |
     | - Multimodal physical perception |                     |
     | - Extracts structured fiscal JSON|                     |
