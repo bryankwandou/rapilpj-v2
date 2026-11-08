@@ -51,6 +51,12 @@ RapiLPJ eliminates the trade-off between generative AI hallucinations in arithme
     | - NEVER calculates totals/math   |                     |
     +----------------------------------+                     |
                      |                                       |
+                     v                                       |
+    +----------------------------------+                     |
+    | [Human Confirmation Gate]        |                     |
+    | Side-by-side treasurer review    |                     |
+    +----------------------------------+                     |
+                     |                                       |
                      v                                       v
     +----------------------------------+   +----------------------------------+
     | 2. DETERMINISTIC AUDIT KERNEL    |   | 3. FISCAL LEARNING & CO-PILOT    |
@@ -59,8 +65,9 @@ RapiLPJ eliminates the trade-off between generative AI hallucinations in arithme
     | - 100% Client-side RAM execution |   | - Statutory Micro-Quizzes        |
     | - Zero arithmetic hallucinations |   | - Interactive explain-back cards |
     | - Law 10/2020 (>Rp5M meterai)    |   | - Autonomous Addendum generator  |
-    | - Duplicate invoice detection    |   | - Bilingual EN/ID & Dark/Light   |
-    | - Budget variance (>10%) bounds  |   | - Offline fallback (0 API cost)  |
+    | - 1:1 Attendance & 5% PPh tax    |   | - Bilingual EN/ID & Dark/Light   |
+    | - Duplicate invoice detection    |   | - Offline fallback (0 API cost)  |
+    | - Budget variance (>10%) bounds  |   |                                  |
     | - SHA-256 cryptographic seal     |   |                                  |
     +----------------------------------+   +----------------------------------+
                      |                                       |
@@ -76,20 +83,20 @@ RapiLPJ eliminates the trade-off between generative AI hallucinations in arithme
 1. **Completed & 100% Live Client-Side Features:**
    - **Deterministic Audit Kernel (`engine.js`):** 100% live in browser memory. Audits 15 statutory and faculty rules, working-day deadlines, duplicate invoices, budget variances, and pure-JS SHA-256 cryptographic attestation.
    - **Interactive Fiscal Governance Learning Loop (`FISCAL_LEARNING_MODULES`):** 100% live. Each infraction opens statutory foundations and remediation micro-quizzes, tracking the treasurer's verified concept mastery.
-   - **Intelligent Multimodal Receipt Parser (`parseReceiptWithGemini`):** Integrates Gemini 2.0 Flash Multimodal Vision API directly in browser memory (client BYOK) with a robust heuristic fallback for offline operation.
-   - **Faculty Desk-Check Verifier Portal (`viewVerifier`):** 100% live. Verifies `.lpj` payload hashes and rulesets in <1s, rendering printable sign-off checklists.
+   - **Intelligent Multimodal Receipt Parser (`parseReceiptWithGemini`):** Integrates Gemini 2.0 Flash Multimodal Vision API directly in browser memory (client BYOK) with mandatory side-by-side human confirmation before committing rows to the deterministic kernel, transmitting receipt images solely to the user-authenticated Gemini API endpoint.
+   - **Faculty Desk-Check Verifier Portal (`viewVerifier`):** 100% live. Verifies `.lpj` payload hashes and rulesets in <1s, recommending clearance or flagging itemized discrepancies.
    - **Offline `.lpj` Draft Persistence & Crash-Guard:** 100% live portable state container.
    - **Auto-Constructed PDF Dossier with Indexed Evidence Appendix:** 100% live.
 2. **Simulated / Pre-Extracted Sandbox Data (`/demo`):**
    - In `/demo`, sample receipts represent pre-extracted datasets (`LPJ.SAMPLE_GEMINI_RECEIPTS`) paired with physical receipt photos in `samples/` for offline judge evaluation.
 3. **Planned for Semifinal & Final Day Build Sessions:**
-   - Multi-page PDF batch OCR processing and QR-verifiable digital advisor counter-signatures.
+   - Multi-page document batching and QR-verifiable digital advisor counter-signatures.
 
 ---
 
 ## 4. Supported Faculty Rule Sets & Empirical Sources
 
-1. **BKAM Universitas Atma Jaya Makassar** — Empirical baseline from home campus faculty research on student activity documentation and administrative burdens ([Siada & Tungadi, TEMATIKA UAJM 2021, DOI: 10.56963/tematika.v9i1.119](https://doi.org/10.56963/tematika.v9i1.119)).
+1. **BKAM Universitas Atma Jaya Makassar** — Empirical baseline from home campus faculty research documenting unstandardized extracurricular documentation and manual record-keeping at the Student Affairs Bureau ([Siada & Tungadi, TEMATIKA UAJM 2021, DOI: 10.56963/tematika.v9i1.119](https://doi.org/10.56963/tematika.v9i1.119)).
 2. **FIB Universitas Brawijaya** — Original receipt seals, attendance lists per meal, exact total reconciliation ([Pedoman LPJ FIB UB](https://fib.ub.ac.id/wp-content/uploads/2024/03/PEDOMAN-LAPORAN-PERTANGGUNG-JAWABAN.pdf)).
 3. **FEB Universitas Gadjah Mada** — Revenue stamps on receipts exceeding Rp5,000,000, mandatory photocopy for fading thermal slips ([Prosedur SIPRO FEB UGM](https://bpm.feb.ugm.ac.id/wp-content/uploads/sites/1535/2021/09/DONE-Prosedur-Pengajuan-Proposal-dan-LPJ-ke-SIPRO.pdf)).
 4. **HIMA Desain Interior ITS** — 10-calendar-day submission deadline ([SOP HIMA Interior ITS](https://www.its.ac.id/interior/wp-content/uploads/sites/37/2018/10/SOP-HIMA.pdf)).
