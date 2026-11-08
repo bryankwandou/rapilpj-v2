@@ -22,12 +22,12 @@ RapiLPJ bridges operational efficiency and student learning through a dual-perso
 
 ---
 
-## 2. Realistic Baseline Metrics & Target Impact
+## 2. Realistic Baseline Metrics & Pilot Evaluation Plan
 
-Rather than ungrounded claims of "eliminating rejections", RapiLPJ targets three measurable operational and pedagogical metrics:
-1. **Turnaround Cycle Time:** Compresses administrative review cycles from a baseline of **7–14 calendar days** (manual iterative revisions between students and faculty staff) down to **under 1 business day** for pre-verified submissions.
-2. **Mechanical Defect Reduction:** Targets an **>80% reduction in mechanical administrative errors** prior to desk evaluation (100% pre-submission detection of unbudgeted items, duplicate invoice collisions, and missing revenue stamps on transactions >Rp5,000,000).
-3. **Fiscal Governance Literacy:** Transforms passive rejection notes into active learning through embedded remediation micro-quizzes, tracking verified student comprehension across statutory bylaws (Law 10/2020, archival retention, and voted appropriations).
+Rather than ungrounded claims of "eliminating rejections", RapiLPJ evaluates impact across three concrete empirical metrics in its pilot with 30 treasurers and 2 faculty advisors at Universitas Atma Jaya Makassar:
+1. **Treasurer Preparation Time (Minutes):** Measures the active duration spent by student treasurers compiling, formatting, and reconciling receipts into an auditable dossier before vs. after using RapiLPJ.
+2. **Mechanical Defect Count Reduction:** Measures the reduction in itemized bookkeeping defects (unbudgeted items, duplicate invoice collisions, missing revenue stamps on transactions >Rp5,000,000, meal attendance ratios, and PPh tax withholding) resolved prior to desk submission.
+3. **Pre/Post Fiscal Governance Literacy Scores:** Measures the verified improvement in treasurer comprehension of statutory university compliance bylaws (Law 10/2020, archival durability, and voted appropriations) evaluated before and after completing the gated remediation micro-quizzes.
 
 ---
 
