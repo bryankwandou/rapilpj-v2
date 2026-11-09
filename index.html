@@ -702,8 +702,9 @@
           peninjauan manual dan kewajiban scan struk termal), (3) konfirmasi berdampingan oleh bendahara di mana koreksi
           manual masuk ke jejak audit ganda (*dual-record*), (4) audit deterministik kernel klien untuk faktur ganda,
           tanggal di luar masa persiapan kegiatan, meterai hukum, dan selisih pagu &gt;10% dengan rekomendasi proaktif,
-          dan (5) Gemini Advisory menerjemahkan temuan ke bahasa sederhana dan draf addendum untuk ditinjau bendahara. Kartu aturan
-          JSON versi resmi disetujui fakultas menentukan persyaratan khusus tiap kampus; hash jangkar mendeteksi
+          dan (5) Gemini Advisory menerjemahkan temuan ke bahasa sederhana dan draf addendum untuk ditinjau bendahara.
+          Kartu aturan
+          JSON versi resmi disetujui fakultas menentukan persyaratan administratif khusus tiap kampus; hash jangkar mendeteksi
           perubahan aturan tanpa izin, sementara kemahasiswaan dan 2 dosen pembina menyetujui setiap versinya. Berkas
           dikunci segel SHA-256 untuk verifikasi meja instan tanpa panggilan server luar. Input manual luring tersedia
           sebagai fallback darurat nir-jaringan.</p>
@@ -1362,22 +1363,22 @@
           if (t.dataset.scanName) n.scanName = t.dataset.scanName;
           if (t.dataset.imgData) n.imgData = t.dataset.imgData;
           if (t.dataset.rawExtracted) {
-            try { n.rawExtracted = JSON.parse(t.dataset.r awExt ra cted) ; } catch(e) {}
+            try { n.rawExtracted = JSON.parse(t.dataset .r aw Ext ra cted) ; } catch(e) {}
           }
           t.querySelectorAll('[data-f]').forEach((c) => { n[c.dataset.f] = c.checked; });
           return n;
         })
       };
-    }  lett = null;
+   lett = null;
     
     // PERSONA & VERIFIER LOGIC
     let currentPersona = 'treasurer';
     const masteredConcepts = new Set(JSON.parse(localStorage.getItem('rapilpj_mastered_concepts') || '[]'));
 
-    window.recordQui zMast ery = function(ruleKey) {
+    window.recordQui  zMast ery = function(ruleKey) {
       masteredConcepts.add(ruleKey);
       try {
-        localStorage.setItem('rapilpj_mastered_concepts', JSON.stringify([...masteredConcep ts])) ; 
+        localStorage.setItem('rapilpj_mastered_concepts', JSON.stringify([...masteredConce p ts] )) ; 
        } catch(e) {}
       if (last) $('go').click();
     };
@@ -1459,7 +1460,7 @@
       $('varianceTolerance').value = '10';
       $('consumptionSessions').value = '2';
       $('attendanceSheets').value = '2';
-      document.querySelectorAll('input[data-d]').forEach(c he true);
+      document.querySelectorAll('input[data-d]').forEachtrue);
       
       $('bud').innerHTML = '';
       addB({ item: 'Transportasi & Bahan Bakar', planned: 300000 });
@@ -1526,7 +1527,7 @@
         try {
           verifierLoadedPayload = LPJ.parseDraft(evt.target.result);
           $('verifierResults').innerHTML = '<p class="ok">' + (curLang === 'en' ? 'Draft file loaded: ' : 'Berkas draf siap diverifikasi: ') + esc(file.name) + '</p>'; 
-         } catch(err) {
+          } catch(err) {
           $('verifierResults').innerHTML = '<p class="bad">' + (curLang === 'en' ? 'Error parsing draft: ' : 'Format draf tidak valid: ') + esc(err.message) + '</p>';
         }
       };
@@ -1602,21 +1603,18 @@
       }
 
       $('verifierResults').innerHTML = '<div style="background:var(--surface);border:1px solid var(--outline);border-radius:8px;padding:16px;">' +
-        '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wr         ' +
-          '<h3 style="margin:0;">' + (isEn ? 'Faculty Desk-Check Attestation Result' : 'Berita Acara Hasil Verifikasi Meja         +
-          statusBadge +
+        '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wr          
+          '<h3 style="margin:0;">' + (isEn ? 'Faculty Desk-Check Attestation Result' : 'Berita Acara Hasil Verifikasi Meja                   statusBadge +
         '</div>' +
-        '<div class="summary-cards" style="margin         
-          '<div class="card"><div class="lbl">' + (isEn ? 'Cryptographic Integrity' : 'Integritas Kriptografis') + '</div><div class="val" style="font-size:14px;">' + hashBadge + '</                    '<div class="card"><div class="lbl">' + (isEn ? 'Rule Card Authority' : 'Otoritas Kartu Aturan') + '</div><div class="val" style="font-size:14px;">' + presetCardBadge + '</                    '<div class="card"><div class="lbl">' + (isEn ? 'Cash Balance' : 'Keseimbangan Kas') + '</div><div class="val" style="font-size:14px;">' + balanceBadge + '</                    '<div class="card"><div class="lbl">' + (isEn ? 'Total Realized Expenses' : 'Total Realisasi Nota') + '</div><div class="val">' + rp(res.totalSpent) + '</        '           overrideCard +
+        '<div class="summary-cards" style="margin                  '<div class="card"><div class="lbl">' + (isEn ? 'Cryptographic Integrity' : 'Integritas Kriptografis') + '</div><div class="val" style="font-size:14px;">' + hashBadge + '</                   <div class="card"><div class="lbl">' + (isEn ? 'Rule Card Authority' : 'Otoritas Kartu Aturan') + '</div><div class="val" style="font-size:14px;">' + presetCardBadge + '</                        class="card"><div class="lbl">' + (isEn ? 'Cash Balance' : 'Keseimbangan Kas') + '</div><div class="val" style="font-size:14px;">' + balanceBadge + '</                           ss="card"><div class="lbl">' + (isEn ? 'Total Realized Expenses' : 'Total Realisasi Nota') + '</div><div class="val">' + rp(res.totalSpent) + '</        '           ove        +
         '</div>' +
-        '<div style="font-family:monospace;font-size:12px;background:var(--surface-subtle);padding:8px 10px;border-radius:4px;word-break:br        ' +         '<b>SHA-256 Attestation:</b> ' + res.attestationHash +
+        '<div style="font-family:monospace;font-size:12px;background:var(--surface-subtle);padding:8px 10px;border-radius:4px;word-break:br        ' +         '<b>SHA        tation:</b> ' + res.attestationHash +
         '</div>' +
         issuesListHtml +
         '<div class="noprint" style="margin-t        ' +
-         <button type="button" class="alt" onclick="window.print()">' + (isEn ? 'Print Verifier Sign-off Memo' : 'Cetak Berita Acara Verifikasi Meja') + '</button>' +
+         <button ty        " class="alt" onclick="window.print()">' + (isEn ? 'Print Verifier Sign-off Memo' : 'Cetak Berita Acara Verifikasi Meja') + '</button>' +
              div>' +         '</v>';
-    };
-     $('go').onclick = () => {
+              $('go').onclic= () => {
       const data = read();
       const r = last = LPJ.check(data, $('preset').value);
       const isEn = curLang === 'en';
