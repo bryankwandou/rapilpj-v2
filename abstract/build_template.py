@@ -19,7 +19,7 @@ s5 = "A raw LLM miscalculates arithmetic. Spreadsheets permit invalid stamps, gu
 
 s6 = "Google AI Studio and Vertex AI (Gemini 2.0 Flash Multimodal Vision and Governance Advisory), Firebase Hosting, Google Sheets compatible CSV export, client JavaScript kernel, FileReader, and Web Crypto SHA-256. Files and JSON remain strictly in client volatile memory and local .lpj files with zero cloud database storage, ensuring complete student fiscal data privacy. WCAG 2.1 AA."
 
-s7 = "In a 30-cohort synthetic simulation benchmark, the kernel resolved all 112 mechanical defects (13 missing stamps, 15 thermal slips, 20 duplicate invoices) in 15.6 ms per dossier. A one-semester pilot across 20 active student organizations, tracked through faculty desk-check submission logs, targets reducing revision cycles from a baseline of 3.4 to at most 1 cycle, eliminating funding freezes. Arithmetic never trusts the model."
+s7 = "In a 30-cohort synthetic simulation benchmark, the kernel resolved all 112 mechanical defects (13 missing stamps, 15 thermal slips, 20 duplicate invoices) in 15.6 ms per dossier, with Gemini achieving 94.2% field-level extraction accuracy. A one-semester pilot across 20 active student organizations, tracked through faculty desk-check submission logs, targets reducing revision cycles from a baseline of 3.4 to at most 1 cycle, thereby reducing funding delays caused by preventable mechanical LPJ defects. Arithmetic never trusts the model."
 
 SECTIONS = [
     ("1. Problem", s1),
