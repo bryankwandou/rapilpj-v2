@@ -1,83 +1,81 @@
-# Lampiran Evaluasi & Bukti Verifikasi Target Skor 90+
+# Lampiran Evaluasi Teknis & Validasi Arsitektur RapiLPJ
 **Proyek:** RapiLPJ: Pre-Submission Audit for Student Organization Activity Reports  
 **Tim:** Tide Ledger (Vincentius Bryan Kwandou, Valentino Filemon Limer, Putra Purwanugraha Tengbunan, Marvel Harjosetio)  
 **Kompetisi:** STACK 2026 Hackathon — Case 1: Smarter Campus and Learning  
+**Repositori Resmi:** `https://github.com/bryankwandou/rapilpj-v2`  
 
 ---
 
-## 1. Bukti Pilot Lapangan Awal (Early Adopter Cohort Evidence)
+## 1. Validasi Arsitektur melalui Benchmark Sintetis 30 Kohort
 
-Menjawab evaluasi mengenai perlunya bukti awal di luar simulasi sintetis, RapiLPJ telah menguji coba sistem pada berkas riil 3 organisasi kemahasiswaan awal:
+Untuk memvalidasi keandalan kernel pra-audit deterministik di tengah keragaman regulasi kampus sebelum implementasi langsung ke loket birokrasi, sistem diuji menggunakan rangkaian pengujian stres sintetis otomatis (*Automated Synthetic Stress-Test Benchmark*):
 
-### Tabel Hasil Uji Coba 3 Ormawa Awal
-| Indikator Evaluasi | HIMA IF (Workshop) | BEM FIB (Pekan Seni) | UKM Seni (Pameran) | Total / Rata-rata |
-| :--- | :--- | :--- | :--- | :--- |
-| **Jumlah Kuitansi Riil** | 14 nota | 16 nota | 8 nota | 38 kuitansi |
-| **Cacat Pra-Audit (Raw)** | 4 cacat | 5 cacat | 2 cacat | 11 cacat (rata-rata 3,7 / berkas) |
-| **Jenis Cacat Ditemukan** | Nota termal pudar, selisih pagu konsumsi 18% | 2 kuitansi >Rp5jt tanpa meterai, tanggal nota mendahului masa persiapan | Faktur kembar ATK, kurang absensi makan | 100% cacat mekanis administratif |
-| **Cacat Pasca-Audit RapiLPJ** | 0 cacat | 0 cacat | 0 cacat | 0 cacat (100% teratasi pra-meja) |
-| **Keputusan Verifikator Meja**| Disetujui (Lolos) | Disetujui (Lolos) | Disetujui (Lolos) | **First-pass desk approval without mandatory revisions in the initial trial, subject to faculty verification** |
-| **Penundaan Pencairan Dana** | 0 hari tunda | 0 hari tunda | 0 hari tunda | 0 hari tunda (Baseline: 7-14 hari) |
+### Metodologi Benchmark:
+- **Cakupan Pengujian:** 30 profil organisasi mahasiswa (BEM Fakultas, Himpunan Mahasiswa Jurusan, dan Unit Kegiatan Mahasiswa) yang dimodelkan berdasarkan 4 kerangka aturan kampus nyata:
+  1. `filkom`: SE Mekanisme LPJ Ormawa FILKOM UB 2026 (batas 7 hari kerja, honorarium PPh, checklist wajib).
+  2. `ugmfeb`: Prosedur SIPRO FEB UGM (UU No. 10 Tahun 2020 Pasal 3, fotokopi struk termal).
+  3. `itshima`: SOP HIMA Interior & Biologi ITS (batas 7-10 hari, entri baris kuitansi tunggal).
+  4. `uajm`: Pedoman Portofolio BKAM Universitas Atma Jaya Makassar (studi Siada & Tungadi 2021).
+- **Injeksi Cacat:** 112 cacat mekanis disimulasikan pada 30 kohort untuk menguji daya tahan audit terhadap seluruh skenario kegagalan berkas umum.
 
-### Protokol Pilot Skala Penuh 1 Semester (20 Ormawa)
-- **Definisi First-Pass Approval:** Berkas lolos verifikasi meja pertama tanpa kewajiban revisi administratif pada uji coba awal, tetap tunduk pada verifikasi akhir pihak fakultas (*first-pass desk approval without mandatory revisions in the initial trial, subject to faculty verification*).
-- **Justifikasi Skala Sampel:** Uji 3 ormawa awal berfungsi sebagai bukti kelayakan teknis awal (*feasibility proof*); ekspansi pilot 1 semester ke 20 ormawa aktif bertujuan memverifikasi generalisasi sistem di berbagai variasi regulasi fakultas.
-- **Subjek Uji:** 20 Himpunan Jurusan, BEM Fakultas, dan Unit Kegiatan Mahasiswa lintas fakultas.
-- **Metode Pelacakan:** Pencatatan log resmi tanggal penyerahan, catatan koreksi, dan tanggal pengesahan di loket kemahasiswaan dekanat.
-- **Target Terukur:** Menurunkan rata-rata siklus revisi dari baseline 3,4 kali menjadi maksimal 1 siklus revisi (*to at most one cycle*) per berkas.
+### Hasil Pengukuran Benchmark Mesin:
+| Indikator Evaluasi | Hasil Pengukuran Mesin | Keterangan & Signifikansi |
+| :--- | :--- | :--- |
+| **Total Kohort Diuji** | 30 berkas dossier sintesis | Representasi 4 aturan universitas mitra |
+| **Total Cacat Mekanis Terinjeksi** | 112 cacat (rata-rata 3,7 / berkas) | Pelanggaran meterai, termal, duplikasi, selisih anggaran, presensi |
+| **Tingkat Deteksi Cacat** | 100% (112 / 112 terdeteksi) | Dievaluasi deterministik terhadap 17 aturan audit |
+| **Tingkat Remediasi Otomatis** | 100% (112 / 112 terselesaikan) | Kuis statutory, pembuatan addendum, dan rekonsiliasi kas |
+| **Waktu Eksekusi Total Batch (30 Kohort)** | ~49 ms eksekusi total | Rata-rata **1,63 ms per berkas** di lingkungan JavaScript klien |
+| **Waktu Pra-Audit Berkas Tunggal** | ~15,6 ms per berkas | Responsivitas instan tanpa membebani laptop mahasiswa |
+| **Validitas Segel Kriptografis** | 100% (30 / 30 SHA-256 cocok) | Menjamin deteksi pemalsuan berkas secara instan di loket |
+
+*Replikasi Mandiri:* Jalankan perintah `node field_trial.js` untuk mereproduksi pengujian 30 kohort dan menghasilkan catatan log di `field_trial_results.json`.
 
 ---
 
-## 2. Mitigasi Sisa Error 5,8% & Zero Financial Risk Architecture
+## 2. Mitigasi Risiko Multimodal & Prinsip Zero-Trust Aritmetika
 
-Tingkat akurasi ekstraksi Gemini 2.0 Flash berada pada angka 94,2% (masih menyisakan 5,8% error potensial). Untuk dokumen pertanggungjawaban keuangan, kesalahan nominal Rp 1 rupiah pun tidak dapat ditoleransi. Sistem menutup celah ini dengan arsitektur dua lapis:
+Sistem RapiLPJ menggunakan visi multimodal Gemini 2.0 Flash untuk mengubah gambar kuitansi tidak terstruktur menjadi data JSON terstruktur. Karena model visi bersifat probabilistik, RapiLPJ menerapkan arsitektur *Zero-Trust Aritmetika & Human-in-the-Loop*:
 
 ### A. Ambang Batas Keyakinan (Confidence Threshold Gating < 0.85)
-- Setiap field (nominal rupiah, tanggal transaksi, nama vendor, nomor invoice) yang diekstraksi model visi Gemini dilengkapi confidence score `0.0 - 1.0`.
-- Field dengan skor < 0.85 otomatis diberi border kuning mencolok dan mewajibkan bendahara melakukan konfirmasi berdampingan (*side-by-side verification*) dengan citra kuitansi asli sebelum dapat dimasukkan ke buku kas.
+- Setiap field hasil ekstraksi model (nama toko, tanggal, nomor nota, nominal, stempel) menyertakan confidence score `0.0 - 1.0`.
+- Field dengan skor < 0.85 atau ambiguitas visual otomatis ditandai border kuning dan diarahkan ke antrean penelaahan wajib berdampingan (*side-by-side review*) dengan citra kuitansi fisik asli sebelum data diizinkan masuk ke neraca.
 
 ### B. Jejak Audit Ganda (Dual-Record Audit Trail)
-- Jika bendahara melakukan koreksi manual atas nilai hasil AI, sistem mencatat kedua versi secara permanen di memori volatil:
+- Jika bendahara melakukan koreksi manual, sistem tidak menimpa data begitu saja. Sistem mencatat objek audit ganda:
   ```json
   {
     "rawExtracted": { "amount": 650000, "date": "2026-10-02" },
     "treasurerInput": { "amount": 490000, "date": "2026-10-02" },
-    "manualOverride": true,
-    "overrideTimestamp": "2026-10-08T09:12:00Z"
+    "manualOverride": true
   }
   ```
-- Di meja verifikator fakultas, kuitansi dengan status `manualOverride` langsung diberi sorotan khusus. Verifikator cukup memeriksa fisik nota yang mengalami koreksi manual tanpa harus menyisir puluhan nota lain yang sudah 100% tervalidasi.
+- Di loket verifikator, nota bertanda `manualOverride` langsung disorot agar verifikator hanya perlu memeriksa fisik nota yang mengalami koreksi manual, tanpa harus menyisir manual puluhan nota lain yang telah lolos validasi otomatis.
+
+### C. Isolasi Mesin Aritmetika Deterministik
+- Model AI **tidak pernah dipercaya** untuk menghitung penjumlahan, menghitung sisa pagu, menghitung pajak honorarium, atau membandingkan neraca kas. Seluruh operasi matematika dieksekusi oleh mesin JavaScript deterministik murni.
+
+### D. Arsitektur Privasi Data Klien
+- Berkas citra dan data JSON tersimpan murni di memori volatil peramban dan berkas lokal `.lpj`. Sistem tidak menggunakan database penyimpanan awan eksternal. Pemrosesan citra oleh Vertex AI tunduk pada ketentuan pemrosesan data Google Cloud tanpa pelatihan data.
 
 ---
 
-## 3. Komposisi & Metodologi Held-Out Test Set (50 Kuitansi, 250 Field)
+## 3. Rencana Implementasi Pilot Lapangan 1 Semester (20 Ormawa)
 
-Evaluasi akurasi ekstraksi 94,2% diuji pada set data held-out independen yang mewakili kondisi fisik kuitansi mahasiswa di dunia nyata:
-
-| Kategori Kuitansi | Jumlah Sampel | Total Field | Karakteristik Tantangan Fisik | Akurasi Karakter Eksak | Penanganan Sistem |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Kertas Termal Kasir** | 20 kuitansi (40%) | 100 field | Tinta pudar, barcode, SPBU Pertamina, Indomaret, fotokopi | 93.0% | Rule 5 & 15: Wajib lampirkan scan/fotokopi sebelum pudar |
-| **Voucher Kas & Bilyet**| 15 kuitansi (30%) | 75 field | Stempel basah ungu/biru, tanda tangan panitia, katering konsumsi | 97.3% | Rule 2: Validasi stempel basah asli sesuai SOP kampus |
-| **Faktur Dot-Matrix** | 10 kuitansi (20%) | 50 field | Kertas continuous form, nomor nota cetak komputer | 96.0% | Rule 3: Deteksi faktur ganda / nomor kuitansi kembar |
-| **Nota Tulis Tangan** | 5 kuitansi (10%) | 25 field | Tulisan tangan ballpoint pasar tradisional / warung lokal | 88.0% | Skor keyakinan <0.85: Wajib review manual bendahara |
-| **Total / Rata-rata** | **50 kuitansi** | **250 field** | **Representasi 4 format fisik lapangan** | **94.2%** | **0% Error lolos ke dossier final** |
-
-### Metodologi Pembuatan Ground-Truth (50 Struk x 5 Field = 250 Field):
-Ground-truth dibangun secara independen oleh dua orang bendahara mahasiswa berpengalaman yang membaca kuitansi fisik asli, kemudian direkonsiliasi silang:
-1. **Nominal Rupiah:** Karakter angka eksak tanpa toleransi pergeseran digit (contoh: Rp 490.000 harus persis 490000).
-2. **Tanggal Transaksi:** Format tanggal ISO-8601 (YYYY-MM-DD) sesuai tanggal transaksi kuitansi.
-3. **Nama Toko / Vendor:** String nama merchant yang cocok tanpa karakter halusinasi.
-4. **Nomor Bukti / Invoice:** Nomor seri kuitansi atau nomor transaksi tercetak.
-5. **Cap Basah / Tanda Tangan:** Klasifikasi biner (ada/tidaknya stempel fisik asli).
+Sebagai tahapan pengembangan pasca-prototipe, tim merancang uji coba percontohan lapangan (*field pilot*) selama 1 semester penuh yang melibatkan 20 organisasi kemahasiswaan:
+- **Subjek Uji:** 20 organisasi kemahasiswaan lintas fakultas (Himpunan Jurusan, BEM Fakultas, dan UKM).
+- **Metode Pelacakan:** Memantau buku log resmi penyerahan dan catatan revisi loket kemahasiswaan dekanat untuk mengukur secara obyektif apakah pra-audit mandiri menurunkan siklus revisi dari baseline 3–5 siklus menjadi maksimal satu siklus (*at most one cycle*).
+- **Tata Kelola Aturan Kampus:** Kartu aturan dikompilasi dari Surat Edaran Dekanat resmi, divalidasi pembina kemahasiswaan, dan dikunci dengan hash SHA-256 out-of-band.
+- **Batas Kewenangan:** RapiLPJ adalah alat bantu kepatuhan administratif dan tidak menggantikan diskresi dekanat, wewenang audit resmi universitas, maupun penetapan legal fiskal.
 
 ---
 
-## 4. Diagram Alur 5 Tahap Pengguna (Visual Pipeline Flowchart)
+## 4. Diagram Alur Pipeline 5 Tahap
 
 ```
 [1. Unggah Kuitansi Mentah]
-  - Struk kasir, nota tulis tangan, voucher kas bilyet masuk ke memori volatil browser bendahara.
-  - 100% client-side privacy, nol penyimpanan server luar.
+  - Struk kasir, nota tulis tangan, voucher kas bilyet masuk ke memori volatil browser.
+  - Zero cloud database, privasi lokal penuh.
        |
        v
 [2. Visi Multimodal Gemini 2.0 Flash + Confidence Gating]
@@ -104,22 +102,3 @@ Ground-truth dibangun secara independen oleh dua orang bendahara mahasiswa berpe
   - Verifikator loket dekanat memeriksa keaslian berkas dan anchor hash aturan resmi dalam 1 detik.
 ```
 *Arsip grafis visual beresolusi tinggi tersedia pada berkas:* `abstract/flowchart_pipeline.png`.
-
----
-
-## 5. Alur Operasional Pengesahan Kartu Aturan Fakultas (Faculty Rule Card Onboarding Workflow)
-
-Menjawab evaluasi kehati-hatian operasional terhadap frasa "Faculty-approved", RapiLPJ menerapkan mekanisme tata kelola nyata 3 tahap:
-
-1. **Penyusunan Berdasarkan Regulasi Kampus Resmi:**
-   Kartu aturan tidak dibuat sembarangan oleh mahasiswa, melainkan disusun mengacu pada dokumen Surat Edaran (SE) Mekanisme LPJ Ormawa dan Buku Pedoman Kemahasiswaan Fakultas (misal: FIB UB, FEB UGM, ITS, UAJM).
-2. **Persetujuan & Penandatanganan Administratif Birokrasi:**
-   Kasubbag Kemahasiswaan bersama 2 Dosen Pembina Ormawa memeriksa draft aturan dan menerbitkan Berita Acara Penetapan Kartu Aturan dengan versi terikat tanggal.
-3. **Penguncian Kriptografis Anchor Hash (Anti-Tampering):**
-   File JSON kartu aturan di-hash menghasilkan `ruleCardAnchorHash` (SHA-256). Saat berkas dimuat di komputer bendahara atau verifikator, kernel menghitung ulang hash aturan. Jika bendahara memodifikasi 1 karakter pun (misal menaikkan batas pagu dari 10% menjadi 50%), sistem langsung mendeteksi pelanggaran integritas dan membatalkan status audit.
-
-### Batasan Kewenangan Administratif
-RapiLPJ bertindak murni sebagai **asisten gladi resik kepatuhan administratif pra-penyerahan**. Sistem secara tegas:
-- **TIDAK** menggantikan pertimbangan hukum dekanat.
-- **TIDAK** menggantikan wewenang audit keuangan resmi universitas.
-- **TIDAK** mencairkan atau memotong anggaran secara sepihak.

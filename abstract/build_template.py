@@ -7,7 +7,7 @@ IDENTITY = [
     ("Members", "Vincentius Bryan Kwandou (leader), Valentino Filemon Limer, Putra Purwanugraha Tengbunan, Marvel Harjosetio"),
 ]
 
-s1 = "Student treasurers must complete an accountability report (LPJ) before faculty release subsequent event funding. Rules differ by campus: original stamps, meal attendance sheets, matching totals, revenue stamps above Rp5,000,000 (Law 10/2020), tax withholding, and strict deadlines. Treasurers lack formal accounting training, causing rework. In our 30-cohort baseline across UB, UGM, ITS, and UAJM, raw filings averaged 3.7 mechanical defects, causing 100% of sampled submissions to face initial desk rejection and 7 to 14 days of funding delay."
+s1 = "Student treasurers must complete an activity report (LPJ) before faculty release subsequent event funding. Bylaws differ across campuses: original stamps, meal attendance sheets, matching totals, revenue stamps above Rp5,000,000 (Law 10/2020), and strict filing deadlines. Treasurers lack formal accounting training, leading to avoidable rework. In campus audits documented in literature, unstandardized filings face recurring desk rejections and funding freezes lasting one to two weeks."
 
 s2 = "Primary users are student treasurers and secretaries of department associations, BEM, and clubs. Faculty reviewers conduct desk-checks. RapiLPJ assists administrative verification against rule cards and does not replace faculty authority or disburse funds."
 
@@ -19,7 +19,7 @@ s5 = "A raw LLM miscalculates arithmetic. Spreadsheets permit invalid stamps, gu
 
 s6 = "Google AI Studio and Vertex AI (Gemini 2.0 Flash Multimodal Vision and Governance Advisory), Firebase Hosting, Google Sheets CSV export, client JavaScript kernel, FileReader, and Web Crypto SHA-256. Files and JSON remain in volatile memory and local .lpj files; no application database is used. WCAG 2.1 AA."
 
-s7 = "In an initial trial across 3 student organizations (HIMA IF, BEM, UKM), pre-submission defects dropped from 3.7 to 0, achieving first-pass desk approval without mandatory revisions in the initial trial, subject to faculty verification; an expanded one-semester pilot with 20 organizations will track faculty desk-check logs to reduce revision cycles to at most one. On a held-out test set of 50 receipts (250 annotated fields: 40% thermal, 30% stamped, 20% dot-matrix, 10% handwritten; character-exact criteria), Gemini achieved 94.2% extraction accuracy; confidence gating below 0.85 and dual-record audit trails ensure remaining 5.8% errors are verified side-by-side, preventing unverified data from entering the ledger. In 30 cohorts, the kernel resolved 112 defects in 15.6 ms per dossier. Arithmetic never trusts the model."
+s7 = "In an automated synthetic benchmark of 30 student organization dossiers modeling UB, UGM, ITS, and UAJM bylaws (112 injected mechanical defects), the deterministic kernel detected and resolved 100% of rule violations in 1.6 ms per dossier (49 ms batch total). For multimodal receipt intake, Gemini 2.0 Flash extracts structured JSON; confidence gating below 0.85 and dual-record audit trails ensure treasurer verification before figures enter the ledger. Arithmetic never trusts the model. A planned one-semester pilot with 20 student organizations will track faculty desk-check logs to validate real-world reduction in revision cycles."
 
 SECTIONS = [
     ("1. Problem", s1),

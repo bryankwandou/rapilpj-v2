@@ -16,7 +16,7 @@
     "overridesDisclosed": 8,
     "initialFacultyApprovalRate": "0%",
     "finalFacultyApprovalRate": "100%",
-    "totalExecutionMs": 48.9974
+    "totalExecutionMs": 296.2632
   },
   "cohorts": [
     {
@@ -33,7 +33,7 @@
       "varianceFixed": false,
       "attestationHash": "89f214f1cadcfffb...",
       "verifierApproved": true,
-      "durationMs": 4.866
+      "durationMs": 10.0863
     },
     {
       "cohort": "T02",
@@ -49,7 +49,7 @@
       "varianceFixed": true,
       "attestationHash": "ba29736e6879a7dc...",
       "verifierApproved": true,
-      "durationMs": 27.8053
+      "durationMs": 260.9677
     },
     {
       "cohort": "T03",
@@ -65,7 +65,7 @@
       "varianceFixed": false,
       "attestationHash": "9df81ae9ca17467d...",
       "verifierApproved": true,
-      "durationMs": 0.4195
+      "durationMs": 0.6287
     },
     {
       "cohort": "T04",
@@ -81,7 +81,7 @@
       "varianceFixed": true,
       "attestationHash": "c807c268c492d6a6...",
       "verifierApproved": true,
-      "durationMs": 0.3518
+      "durationMs": 0.5058
     },
     {
       "cohort": "T05",
@@ -97,7 +97,7 @@
       "varianceFixed": false,
       "attestationHash": "cc1bd3d1c4455c7e...",
       "verifierApproved": true,
-      "durationMs": 0.3749
+      "durationMs": 0.6727
     },
     {
       "cohort": "T06",
@@ -113,7 +113,7 @@
       "varianceFixed": true,
       "attestationHash": "d81b4f42020c5b53...",
       "verifierApproved": true,
-      "durationMs": 0.3107
+      "durationMs": 0.4574
     },
     {
       "cohort": "T07",
@@ -129,7 +129,7 @@
       "varianceFixed": false,
       "attestationHash": "94257db78e9722b9...",
       "verifierApproved": true,
-      "durationMs": 0.2453
+      "durationMs": 1.1056
     },
     {
       "cohort": "T08",
@@ -145,7 +145,7 @@
       "varianceFixed": true,
       "attestationHash": "46a40871c87c0c2c...",
       "verifierApproved": true,
-      "durationMs": 0.6692
+      "durationMs": 0.3889
     },
     {
       "cohort": "T09",
@@ -161,7 +161,7 @@
       "varianceFixed": false,
       "attestationHash": "f438a579f551966e...",
       "verifierApproved": true,
-      "durationMs": 0.3066
+      "durationMs": 0.4176
     },
     {
       "cohort": "T10",
@@ -177,7 +177,7 @@
       "varianceFixed": true,
       "attestationHash": "9ace083e6bf14104...",
       "verifierApproved": true,
-      "durationMs": 1.1677
+      "durationMs": 0.9673
     },
     {
       "cohort": "T11",
@@ -193,7 +193,7 @@
       "varianceFixed": false,
       "attestationHash": "f57791550c0930de...",
       "verifierApproved": true,
-      "durationMs": 0.5619
+      "durationMs": 0.8718
     },
     {
       "cohort": "T12",
@@ -209,7 +209,7 @@
       "varianceFixed": true,
       "attestationHash": "8377eed55b2de0f1...",
       "verifierApproved": true,
-      "durationMs": 0.5113
+      "durationMs": 0.8261
     },
     {
       "cohort": "T13",
@@ -225,7 +225,7 @@
       "varianceFixed": false,
       "attestationHash": "3ca79a68c56feedf...",
       "verifierApproved": true,
-      "durationMs": 0.4574
+      "durationMs": 0.5101
     },
     {
       "cohort": "T14",
@@ -241,7 +241,7 @@
       "varianceFixed": true,
       "attestationHash": "c22413a167ae2537...",
       "verifierApproved": true,
-      "durationMs": 0.3426
+      "durationMs": 0.8291
     },
     {
       "cohort": "T15",
@@ -257,7 +257,7 @@
       "varianceFixed": false,
       "attestationHash": "d39fcc45616be241...",
       "verifierApproved": true,
-      "durationMs": 1.0552
+      "durationMs": 0.8824
     },
     {
       "cohort": "T16",
@@ -273,7 +273,7 @@
       "varianceFixed": true,
       "attestationHash": "d1620fee73761139...",
       "verifierApproved": true,
-      "durationMs": 1.3821
+      "durationMs": 0.5639
     },
     {
       "cohort": "T17",
@@ -289,7 +289,7 @@
       "varianceFixed": false,
       "attestationHash": "f0bfcbea22c682ec...",
       "verifierApproved": true,
-      "durationMs": 0.3326
+      "durationMs": 0.5238
     },
     {
       "cohort": "T18",
@@ -305,7 +305,7 @@
       "varianceFixed": true,
       "attestationHash": "5f0f79a305e1b767...",
       "verifierApproved": true,
-      "durationMs": 0.4979
+      "durationMs": 0.8405
     },
     {
       "cohort": "T19",
@@ -321,7 +321,7 @@
       "varianceFixed": false,
       "attestationHash": "1529cef152e1c91d...",
       "verifierApproved": true,
-      "durationMs": 0.3385
+      "durationMs": 0.453
     },
     {
       "cohort": "T20",
@@ -337,7 +337,7 @@
       "varianceFixed": true,
       "attestationHash": "0bca3b7691f404ce...",
       "verifierApproved": true,
-      "durationMs": 0.4796
+      "durationMs": 0.4417
     },
     {
       "cohort": "T21",
@@ -353,7 +353,7 @@
       "varianceFixed": false,
       "attestationHash": "151051ac21f2c228...",
       "verifierApproved": true,
-      "durationMs": 0.9283
+      "durationMs": 0.6253
     },
     {
       "cohort": "T22",
@@ -369,7 +369,7 @@
       "varianceFixed": true,
       "attestationHash": "31fe96b25edc2dd0...",
       "verifierApproved": true,
-      "durationMs": 0.605
+      "durationMs": 0.8713
     },
     {
       "cohort": "T23",
@@ -385,7 +385,7 @@
       "varianceFixed": false,
       "attestationHash": "7c59713c9a491961...",
       "verifierApproved": true,
-      "durationMs": 0.3769
+      "durationMs": 5.7813
     },
     {
       "cohort": "T24",
@@ -401,7 +401,7 @@
       "varianceFixed": true,
       "attestationHash": "8d3bf217c0c918c2...",
       "verifierApproved": true,
-      "durationMs": 1.5719
+      "durationMs": 0.9436
     },
     {
       "cohort": "T25",
@@ -417,7 +417,7 @@
       "varianceFixed": false,
       "attestationHash": "b7e5ed57eefea8b5...",
       "verifierApproved": true,
-      "durationMs": 0.3807
+      "durationMs": 0.6096
     },
     {
       "cohort": "T26",
@@ -433,7 +433,7 @@
       "varianceFixed": true,
       "attestationHash": "4c29efc74f671b62...",
       "verifierApproved": true,
-      "durationMs": 0.2801
+      "durationMs": 0.4921
     },
     {
       "cohort": "T27",
@@ -449,7 +449,7 @@
       "varianceFixed": false,
       "attestationHash": "e26a0afc9a57b738...",
       "verifierApproved": true,
-      "durationMs": 0.3125
+      "durationMs": 0.4964
     },
     {
       "cohort": "T28",
@@ -465,7 +465,7 @@
       "varianceFixed": true,
       "attestationHash": "b6f9c29a68ce9514...",
       "verifierApproved": true,
-      "durationMs": 0.4942
+      "durationMs": 1.3102
     },
     {
       "cohort": "T29",
@@ -481,7 +481,7 @@
       "varianceFixed": false,
       "attestationHash": "e8dd8a2cd79caf98...",
       "verifierApproved": true,
-      "durationMs": 0.5115
+      "durationMs": 0.583
     },
     {
       "cohort": "T30",
@@ -497,7 +497,7 @@
       "varianceFixed": true,
       "attestationHash": "7787cfec4fd4ec94...",
       "verifierApproved": true,
-      "durationMs": 0.3338
+      "durationMs": 0.4948
     }
   ]
 }

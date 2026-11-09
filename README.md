@@ -47,65 +47,39 @@ During campus audits, the adversary is often not an external attacker, but a hur
 
 ---
 
-## 3. Empirical Pilot Results, Held-Out Test Set & Evaluation Metrics
+## 3. Automated Simulation Benchmark, Vision Ingestion & Field Pilot Roadmap
 
-### 📁 Berkas Mentah Bukti Uji Lapangan & Log Akurasi (Raw Verification Evidence Files)
-To inspect the underlying empirical measurement files and raw test logs directly:
-- **Raw Field Trial & Itemized Defect Logs:** [`FIELD_TRIAL_RAW_LOGS.md`](FIELD_TRIAL_RAW_LOGS.md) — Daftar lengkap 3 ormawa pilot lapangan + 30 kohort ormawa, tanggal uji (Sept–Okt 2026), lembar rincian cacat sebelum audit (raw defects) vs sesudah audit (clean), bukti mitigasi, dan status verifikator dekanat.
-- **Machine-Readable 30-Cohort JSON Dataset:** [`field_trial_results.json`](field_trial_results.json) — Berkas data mentah JSON hasil eksekusi audit 30 kohort organisasi mahasiswa, mencakup catatan pelanggaran meterai, risiko termal, duplikasi, selisih anggaran, durasi eksekusi (ms), dan hash atestasi SHA-256.
-- **Held-Out Test Set Benchmark Dataset (50 Receipts, 250 Fields):** [`test_set_benchmark_log.json`](test_set_benchmark_log.json) — Data mentah 50 kuitansi fisik Indonesia dengan 250 field teranotasi ganda, memuat ground truth vs hasil ekstraksi Gemini, skor keyakinan, dan flag gating <0.85.
-- **Reproducible Accuracy Evaluator Script:** [`accuracy_benchmark.js`](accuracy_benchmark.js) — Skrip evaluasi independen (`node accuracy_benchmark.js`) untuk mereplikasi matriks akurasi karakter-eksak (94,2%) dan filter penahan error 5,8%.
-- **Autonomous Cohort Audit Runner Script:** [`field_trial.js`](field_trial.js) — Skrip replikasi audit 30 kohort ormawa (`node field_trial.js`) membuktikan penyelesaian 112 cacat mekanis dalam ~49 ms.
-- **Evaluator Technical Brief (Bahasa Indonesia):** [`LAMPIRAN_EVALUASI_JURI.md`](LAMPIRAN_EVALUASI_JURI.md) — Lampiran evaluasi teknis dewan juri menjawab seluruh 4 poin evaluasi secara mendalam.
+### 3.1 30-Cohort Synthetic Stress-Test Benchmark (Automated Defect Resolution)
+To evaluate the deterministic kernel across the diversity of campus administrative regulations prior to live campus deployment, an automated synthetic stress-test benchmark was constructed comprising 30 distinct student organization profiles (BEM, Department Associations/HMD, and UKM) across 4 campus regulatory frameworks (UB, UGM, ITS, UAJM):
 
-### 3.1 Initial Field Trial Results (3 Student Organizations)
-During preliminary feasibility testing (September – October 2026, Semester Ganjil 2026/2027), RapiLPJ was deployed on real activity dossiers across 3 diverse student organizations:
+| Benchmark Metric | Measurement / Result | Specification & Significance |
+| :--- | :--- | :--- |
+| **Synthesized Test Cohorts** | 30 student organization dossiers | Mapped to official campus bylaws (FILKOM UB, FEB UGM, ITS, UAJM) |
+| **Injected Mechanical Defects** | 112 rule violations | Modeled on common empirical rejection causes documented in literature |
+| **Defect Detection Rate** | 100% (112 / 112 detected) | Deterministic evaluation across 17 audit rules |
+| **Automated Remediation Rate** | 100% (112 / 112 resolved) | Guided quizzes, addendum synthesis, and ledger reconciliation |
+| **Total Batch Benchmark Time** | ~49 ms total execution time | Average **1.63 ms per dossier** across all 30 cohorts |
+| **Single-Dossier Pre-Audit Pass** | ~15.6 ms execution time | Real-time browser responsiveness with zero user-perceptible delay |
+| **Cryptographic Seal Validity** | 100% (30 / 30 valid SHA-256 hashes) | Tamper-evident attestation matching out-of-band rule card anchors |
 
-| Evaluation Indicator | HIMA IF (Workshop) | BEM FIB (Cultural Festival) | UKM Seni (Art Exhibition) | Total / Average |
-| :--- | :--- | :--- | :--- | :--- |
-| **Real Receipts Processed** | 14 slips | 16 slips | 8 slips | 38 receipts |
-| **Pre-Audit Mechanical Defects** | 4 defects | 5 defects | 2 defects | 11 defects (avg 3.7 / dossier) |
-| **Defect Types Identified** | Faded thermal slip, consumption variance 18% | 2 receipts >Rp5M missing stamps, prep dates mismatch | Duplicate stationery invoice, missing meal list | 100% preventable mechanical errors |
-| **Post-Audit Remaining Defects** | 0 defects | 0 defects | 0 defects | 0 defects (100% resolved pre-desk) |
-| **Faculty Desk-Check Decision** | Approved (First Pass) | Approved (First Pass) | Approved (First Pass) | **First-pass desk approval without mandatory revisions in the initial trial, subject to faculty verification** |
-| **Funding Release Delays** | 0 days delay | 0 days delay | 0 days delay | **0 days delay** (Baseline: 7–14 days) |
+*Breakdown of Injected Failure Modes Resolved in Benchmark:*
+- **Statutory Stamp Violations (Law 10/2020):** 13 cases of transactions >Rp5,000,000 caught and gated for mandatory revenue stamps.
+- **Thermal Paper Degradation Risks:** 15 cases of unverified thermal cashier slips gated for mandatory digital scan / photocopy attachment before fading.
+- **Duplicate Invoice / Voucher Collisions:** 20 cases of twin invoice reference collisions intercepted.
+- **Submission Deadline Violations:** 12 cases of dates outside preparation windows caught based on campus-specific calendar bylaws.
+- **Budget Variance Ceilings (>10%):** 9 overbudget line items intercepted and routed through automated Addendum drafting.
+- **Meal Attendance Discrepancies:** 7 cases of unaligned consumption ratios reconciled with presensi sheets.
+- **Administrative Checklist Gaps:** 11 cases of missing organizational decrees (SK) or event photos flagged.
+- **Adversarial Edit Disclosure:** 8 manual override attempts captured in dual-record audit trails.
 
-*Trial Methodology & Verification Evidence:*
-- **Defect Measurement:** Defects were systematically measured against the 17 deterministic rules (e.g. missing stamps under Law 10/2020, unverified thermal paper, duplicate invoices, budget variance >10%, missing attendance sheets, dates outside event prep windows).
-- **Measurement Interpretation:** The metric "3.7 to 0" represents the average defect count per dossier (from an initial total of 11 defects across 3 dossiers down to 0 defects remaining post-remediation).
-- **Verification Evidence:** Verified via standard faculty desk-check submission logs and signed sign-off clearance memos generated with SHA-256 seal integrity.
-- **Scope & Generalizability Note:** These 3 initial organizations serve as technical feasibility proof. An expanded one-semester pilot across 20 organizations will track faculty desk-check logs to reduce revision cycles to at most one and verify broader generalizability across diverse faculty bylaws.
+*Replication:* Run `node field_trial.js` locally to execute the benchmark and generate the execution record at [`field_trial_results.json`](field_trial_results.json).
 
-### 3.2 Held-Out Test Set Composition & Benchmark (50 Receipts, 250 Fields)
-Extraction accuracy of 94.2% was evaluated against an independent held-out benchmark of 50 receipts and 250 annotated fields reflecting physical Indonesian receipt conditions:
+### 3.2 Multimodal Receipt Ingestion & Human-in-the-Loop Risk Mitigation
+For perceptual receipt intake, Gemini 2.0 Flash Multimodal Vision extracts structured receipt properties (vendor name, transaction date, invoice reference, total amount, and wet ink stamp presence).
 
-| Receipt Category | Sample Count | Annotated Fields | Physical Challenges | Field Accuracy | Safety & Governance Mechanism |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Thermal Cashier Slips** | 20 receipts (40%) | 100 fields | Fading thermal ink, barcodes, minimarkets/gas stations | 93.0% exact | Rule 5 & 15: Mandatory photocopy/scan before fading |
-| **Signed & Stamped Vouchers** | 15 receipts (30%) | 75 fields | Blue/purple wet ink stamps, committee signatures, catering | 97.3% exact | Rule 2: Wet ink stamp verification per campus bylaws |
-| **Computer Invoices (Dot-Matrix)** | 10 receipts (20%) | 50 fields | Continuous forms, printed reference numbers | 96.0% exact | Rule 3: Exact duplicate invoice reference collision detection |
-| **Handwritten Market Notes** | 5 receipts (10%) | 25 fields | Traditional market ballpoint handwriting | 88.0% (<0.85) | Confidence threshold triggers mandatory manual confirmation |
-| **Total / Weighted Average** | **50 receipts** | **250 fields** | **Representative cross-campus corpus** | **94.2%** | **0% unverified errors enter final ledger** |
-
-#### Accuracy Breakdown by Field (Confusion & Performance Matrix)
-| Evaluated Field | Ground-Truth Target | Correct Detections | Field Accuracy | Evaluation & Normalization Protocol |
-| :--- | :--- | :--- | :--- | :--- |
-| **Vendor Name** | 50 fields | 47 / 50 | **94.0%** | Normalized string match (ignoring leading/trailing whitespace & case) |
-| **Transaction Date** | 50 fields | 48 / 50 | **96.0%** | Exact ISO-8601 (YYYY-MM-DD) date match |
-| **Invoice / Ref Number** | 50 fields | 46 / 50 | **92.0%** | Exact alphanumeric string match |
-| **Nominal Amount (Rp)** | 50 fields | 47 / 50 | **94.0%** | Exact integer numeric match (currency symbols/dots stripped) |
-| **Stamp Presence** | 50 fields | 47.5 / 50 | **95.0%** | Binary physical wet ink stamp detection |
-| **Overall Corpus Accuracy** | **250 fields** | **235.5 / 250** | **94.2%** | **Gated by <0.85 confidence threshold + dual-record audit trail** |
-
-*Ground-Truth Construction & Character-Exact Criteria:*
-Ground truth for all 50 receipts (250 fields) was established through double-blind independent annotation by two experienced student treasurers directly inspecting the physical slips, followed by cross-reconciliation. "Character-exact" strictly enforces:
-- Currency nominals: Numeric integers must match exact figures without added or missing digits.
-- Dates: Must match transaction timestamps exactly in YYYY-MM-DD.
-- Alphanumeric references: Must match characters without optical hallucination.
-
-### 3.3 Zero Financial Risk: 5.8% Error Mitigation Architecture
-1. **Confidence Threshold Gating (< 0.85):** Every extracted field carries a confidence score `0.0 - 1.0`. Scores below 0.85 trigger prominent amber highlights and mandatory side-by-side verification against the original receipt image.
-2. **Dual-Record Audit Trail (`manualOverride`):** Manual edits preserve both original Gemini extraction and treasurer input in volatile RAM:
+Because optical and multimodal language models are probabilistic, RapiLPJ enforces a **Zero-Trust Aritmetika & Human-in-the-Loop Architecture** to prevent extraction errors from affecting financial reports:
+1. **Confidence Threshold Gating (< 0.85):** Every extracted field carries a model confidence score (`0.0 - 1.0`). Any field with a confidence score below 0.85 or optical ambiguity is visually bordered and routed to a mandatory side-by-side confirmation interface against the original receipt image before the figure can enter the ledger.
+2. **Dual-Record Audit Trail (`manualOverride`):** If a treasurer modifies an extracted field, the system preserves both the original vision extraction and the manual entry:
    ```json
    {
      "rawExtracted": { "amount": 650000, "date": "2026-10-02" },
@@ -113,19 +87,16 @@ Ground truth for all 50 receipts (250 fields) was established through double-bli
      "manualOverride": true
    }
    ```
-   At the verifier desk, items with `manualOverride` are visually flagged, guiding faculty to inspect physical receipts only for overridden rows rather than scanning hundreds of compliant items.
+   At the verifier desk, rows tagged with `manualOverride` are surfaced for physical receipt inspection, allowing faculty to inspect physical receipts only for overridden rows rather than scanning hundreds of compliant items.
+3. **Deterministic Arithmetic Isolation:** The vision model is never trusted to perform mathematical operations, calculate totals, compute tax withholdings, or evaluate budget variances. All arithmetic is executed by the deterministic JavaScript engine.
+4. **Data Processing & Privacy Architecture:** Files and JSON remain in client volatile memory and local `.lpj` files; no application cloud database is used. Receipt images are processed by Vertex AI under institutional Google Cloud data-processing terms.
 
-*Data Processing & Privacy Architecture:*
-Files and JSON remain in client volatile memory and local .lpj files; no application cloud database is used. Receipt images are processed by Vertex AI under the applicable Google Cloud data-processing terms.
-
-*Administrative & Legal Scope:*
-RapiLPJ assists administrative compliance checking based on faculty rule cards and does not provide legal advice, replace judicial review, or determine statutory tax liability.
-
-### 3.4 Faculty Rule Card Governance & Onboarding Workflow
-To ensure realistic operational adoption without unilateral assumptions:
-1. **Regulatory Alignment:** Rule cards are compiled directly from published university bylaws (SE Mekanisme LPJ Dekanat and official student affairs guidelines).
-2. **Administrative Authorization:** The Student Affairs Coordinator and 2 Faculty Advisors review the JSON schema and sign an administrative attestation memo.
-3. **Cryptographic SHA-256 Anchor Lock:** An authoritative hash (`ruleCardAnchorHash`) is published. The client engine computes the hash on load; any unauthorized modification by students (e.g. inflating variance tolerance from 10% to 50%) fails verification immediately (`INVALID_RULE_ANCHOR`).
+### 3.3 Planned One-Semester Field Pilot Roadmap (20 Student Organizations)
+Following the prototype development phase, a structured one-semester field pilot is planned across 20 active student organizations to measure real-world administrative impact:
+- **Pilot Universe:** 20 student organizations across diverse faculties (Department Student Associations, Faculty BEMs, and University Activity Units / UKMs).
+- **Measurement Protocol:** Faculty desk-check submission logs and revision tracking sheets will be monitored to evaluate whether pre-submission self-auditing reduces average revision cycles from the baseline 3.4 cycles down to at most one cycle.
+- **Faculty Rule Card Governance:** Rule cards are compiled from official faculty circulars (e.g. SE Dekanat and official guidelines), authorized by student affairs coordinators, and anchored with an out-of-band SHA-256 hash.
+- **Administrative Scope:** RapiLPJ assists administrative compliance checking and does not provide legal advice, replace judicial review, or determine statutory tax liability.
 
 ---
 

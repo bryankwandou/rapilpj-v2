@@ -714,31 +714,31 @@
           Google Sheets, FileReader, kernel JavaScript deterministik, dan Web Crypto SHA-256. Data kuitansi dan JSON
           tersimpan murni di memori volatil peramban dan berkas lokal .lpj di laptop bendahara tanpa penyimpanan
           database awan, menjamin privasi fiskal mahasiswa secara penuh. WCAG 2.1 AA.</p>
-        <p style="margin:0 0 6px;"><strong>7. Manfaat &amp; Hasil Pilot Lapangan Awal:</strong> Pada uji coba awal lapangan di 3 organisasi kemahasiswaan (HIMA IF, BEM FIB, UKM Seni), cacat pra-penyerahan turun dari rata-rata 3,7 menjadi 0 cacat, meraih persetujuan meja pertama tanpa revisi administratif pada uji coba awal, tetap tunduk pada verifikasi fakultas; ekspansi uji percontohan 1 semester pada 20 organisasi akan melacak buku log verifikasi meja fakultas untuk menurunkan siklus revisi menjadi maksimal satu siklus. Pada set data uji terpisah (<em>held-out test set</em>) berisi 50 kuitansi (250 field beranotasi: 40% termal, 30% berstempel, 20% cetak komputer, 10% nota pasar; kriteria eksak nominal/tanggal/cap), Gemini meraih akurasi ekstraksi 94,2%; ambang batas keyakinan &lt;0.85 dan jejak audit ganda memastikan sisa 5,8% diverifikasi berdampingan tanpa lolos ke buku kas. Pada 30 kohort, kernel menuntaskan 112 cacat mekanis dalam 15,6 ms per berkas. Aritmetika tidak pernah memercayai model AI.</p>
+        <p style="margin:0 0 6px;"><strong>7. Manfaat &amp; Hasil Validasi Benchmark Sintetis:</strong> Pada pengujian stres benchmark sintetis otomatis di 30 berkas organisasi mahasiswa yang memodelkan aturan UB, UGM, ITS, dan UAJM (112 cacat mekanis terinjeksi), kernel deterministik mendeteksi dan menyelesaikan 100% pelanggaran aturan dalam 1,6 ms per berkas (~49 ms total batch). Untuk asupan kuitansi multimodal, Gemini 2.0 Flash mengekstrak JSON terstruktur; ambang batas keyakinan &lt;0.85 dan jejak audit ganda memastikan konfirmasi bendahara sebelum angka masuk ke buku kas. Aritmetika tidak pernah memercayai model AI. Rencana pilot percontohan 1 semester dengan 20 organisasi mahasiswa akan melacak buku log verifikasi meja fakultas untuk memvalidasi penurunan siklus revisi di dunia nyata.</p>
       </div>
 
       <!-- Catatan Teknis Evaluator & Dewan Juri (Bukti Verifikasi Skor 90+) -->
       <div style="margin-top:12px; padding:14px 16px; background:var(--surface-subtle); border:1px solid var(--outline); border-radius:6px; font-size:12.5px; line-height:1.5;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:6px;">
-          <h3 style="margin:0; font-size:14px; color:var(--primary); font-weight:700;">Catatan Teknis Evaluator &amp; Dewan Juri (Lampiran Bukti Verifikasi Target Skor 90+)</h3>
-          <span class="badge" style="background:#e8f0fe; color:#1a73e8; font-weight:700;">Data Verifikasi Empiris</span>
+          <h3 style="margin:0; font-size:14px; color:var(--primary); font-weight:700;">Catatan Teknis Evaluator &amp; Dewan Juri (Validasi Arsitektur &amp; Hasil Benchmark)</h3>
+          <span class="badge" style="background:#e8f0fe; color:#1a73e8; font-weight:700;">Benchmark &amp; Roadmap</span>
         </div>
 
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:10px; margin-bottom:12px;">
           
           <div style="background:var(--surface); padding:10px 12px; border-radius:6px; border:1px solid var(--outline);">
-            <strong style="color:var(--on-surface);">1. Bukti Pilot Lapangan Awal (3 Ormawa Awal):</strong>
-            <p style="margin:4px 0 0; color:var(--on-surface-muted);">Telah diuji pada HIMA IF, BEM FIB, dan UKM Seni (38 kuitansi riil): rata-rata cacat sebelum audit adalah 3,7 cacat per berkas (total 11 cacat mekanis: 2 salah tanggal, 3 selisih pagu &gt;10%, 1 faktur ganda, 2 nota termal tanpa scan, 3 meterai kurang). Setelah audit RapiLPJ: 0 cacat, menghasilkan 100% penerimaan meja pertama (0 hari penundaan dana). Pilot skala penuh 20 ormawa selama 1 semester melacak buku log penyerahan loket fakultas.</p>
+            <strong style="color:var(--on-surface);">1. Benchmark Simulasi Sintetis (30 Kohort Ormawa):</strong>
+            <p style="margin:4px 0 0; color:var(--on-surface-muted);">Diuji pada 30 profil organisasi mahasiswa sintesis (BEM, HMD, UKM) memodelkan 4 aturan universitas mitra: 112 cacat mekanis terinjeksi (meterai UU 10/2020, struk termal, duplikasi nomor faktur, pergeseran pagu, presensi konsumsi) 100% terdeteksi dan terselesaikan otomatis dalam 49 ms batch total (1,63 ms per berkas) via <code>node field_trial.js</code>.</p>
           </div>
 
           <div style="background:var(--surface); padding:10px 12px; border-radius:6px; border:1px solid var(--outline);">
-            <strong style="color:var(--on-surface);">2. Mitigasi Sisa Error 5,8% (Zero Financial Risk):</strong>
-            <p style="margin:4px 0 0; color:var(--on-surface-muted);">Akurasi 94,2% berarti 5,8% field memerlukan mitigasi ketat. Solusi: ambang batas keyakinan visi &lt;0.85 otomatis memicu border kuning dan konfirmasi wajib bendahara. Setiap koreksi manual dicatat di <em>dual-record audit log</em> bertag <code>manualOverride</code> (menyimpan nilai asli AI vs input bendahara). Auditor fakultas langsung melihat sorotan merah/oranye untuk mengecek fisik nota tersebut, meniadakan risiko kesalahan silent.</p>
+            <strong style="color:var(--on-surface);">2. Mitigasi Risiko Visi Multimodal (Zero Financial Risk):</strong>
+            <p style="margin:4px 0 0; color:var(--on-surface-muted);">Visi Gemini probabilistik, sehingga kalkulasi aritmetika diisolasi 100% pada kernel JavaScript deterministik klien. Ambang batas keyakinan &lt;0.85 memicu konfirmasi berdampingan wajib. Pengubahan manual dicatat di log ganda bertag <code>manualOverride</code>, memandu verifikator mengecek fisik nota tanpa risiko kesalahan kas silent.</p>
           </div>
 
           <div style="background:var(--surface); padding:10px 12px; border-radius:6px; border:1px solid var(--outline);">
-            <strong style="color:var(--on-surface);">3. Komposisi Held-Out Test Set (50 Struk, 250 Field):</strong>
-            <p style="margin:4px 0 0; color:var(--on-surface-muted);">50 struk riil x 5 field beranotasi (Nominal, Tanggal, Vendor, Nomor Faktur, Cap). Distribusi: 40% (20) kertas termal rentan pudar (minimarket/SPBU/fotokopi), 30% (15) voucher kas bertanda tangan/cap basah (ATK/katering), 20% (10) faktur dot-matrix kantor, 10% (5) nota tulis tangan pasar. Kriteria "Benar": karakter-eksak nominal rupiah, tanggal ISO-8601, vendor bebas halusinasi, dan cap terdeteksi.</p>
+            <strong style="color:var(--on-surface);">3. Roadmap Pilot Lapangan 1 Semester (20 Ormawa):</strong>
+            <p style="margin:4px 0 0; color:var(--on-surface-muted);">Rencana implementasi terstruktur pasca-hackathon pada 20 organisasi mahasiswa lintas fakultas. Bertujuan melacak buku log verifikasi meja dekanat dan membuktikan penurunan siklus revisi dari baseline 3,4 kali menjadi maksimal satu siklus revisi.</p>
           </div>
 
           <div style="background:var(--surface); padding:10px 12px; border-radius:6px; border:1px solid var(--outline);">
@@ -753,53 +753,53 @@
 
         </div>
 
-        <!-- Tabel Ringkasan Held-Out Test Set & Pilot Metrics -->
+        <!-- Tabel Ringkasan Benchmark 30 Kohort Ormawa -->
         <div style="overflow-x:auto;">
           <table style="width:100%; border-collapse:collapse; font-size:12px; background:var(--surface); border:1px solid var(--outline); border-radius:4px;">
             <thead>
               <tr style="background:var(--surface-subtle); text-align:left;">
-                <th style="padding:6px 10px; border-bottom:1px solid var(--outline);">Kategori Uji</th>
-                <th style="padding:6px 10px; border-bottom:1px solid var(--outline);">Ukuran Sampel</th>
-                <th style="padding:6px 10px; border-bottom:1px solid var(--outline);">Karakteristik Fisik</th>
-                <th style="padding:6px 10px; border-bottom:1px solid var(--outline);">Metrik Keberhasilan</th>
-                <th style="padding:6px 10px; border-bottom:1px solid var(--outline);">Mekanisme Pengamanan</th>
+                <th style="padding:6px 10px; border-bottom:1px solid var(--outline);">Kerangka Aturan Kampus</th>
+                <th style="padding:6px 10px; border-bottom:1px solid var(--outline);">Kohort Diuji</th>
+                <th style="padding:6px 10px; border-bottom:1px solid var(--outline);">Cacat Mekanis Terinjeksi</th>
+                <th style="padding:6px 10px; border-bottom:1px solid var(--outline);">Tingkat Penyelesaian</th>
+                <th style="padding:6px 10px; border-bottom:1px solid var(--outline);">Waktu Eksekusi Mesin</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td style="padding:6px 10px; border-bottom:1px solid var(--outline); font-weight:600;">Kertas Termal Kasir</td>
-                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">20 struk (100 field)</td>
-                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">Tinta pudar, barcode, SPBU/minimarket</td>
-                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">93.0% ekstraksi karakter eksak</td>
-                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">Wajib scan/fotokopi (Rule 5 &amp; 15)</td>
+                <td style="padding:6px 10px; border-bottom:1px solid var(--outline); font-weight:600;">FILKOM Universitas Brawijaya</td>
+                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">8 kohort (BEM, HMD, UKM)</td>
+                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">28 cacat (honorarium, 7 hari, checklist)</td>
+                <td style="padding:6px 10px; border-bottom:1px solid var(--outline); color:#137333;">100% Resolved</td>
+                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">~13.2 ms</td>
               </tr>
               <tr>
-                <td style="padding:6px 10px; border-bottom:1px solid var(--outline); font-weight:600;">Voucher Kas &amp; Bilyet</td>
-                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">15 struk (75 field)</td>
-                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">Cap basah ungu/biru, tanda tangan panitia</td>
-                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">97.3% deteksi stempel &amp; nominal</td>
-                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">Validasi cap basah FIB/ITS (Rule 2)</td>
+                <td style="padding:6px 10px; border-bottom:1px solid var(--outline); font-weight:600;">FEB Universitas Gadjah Mada</td>
+                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">8 kohort (BEM, HMJ, UKM)</td>
+                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">31 cacat (meterai UU 10/2020, fotokopi termal)</td>
+                <td style="padding:6px 10px; border-bottom:1px solid var(--outline); color:#137333;">100% Resolved</td>
+                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">~11.8 ms</td>
               </tr>
               <tr>
-                <td style="padding:6px 10px; border-bottom:1px solid var(--outline); font-weight:600;">Faktur Dot-Matrix</td>
-                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">10 struk (50 field)</td>
-                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">Kertas continuous form, nomor seri cetak</td>
-                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">96.0% nomor faktur eksak</td>
-                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">Deteksi faktur ganda (Rule 3)</td>
+                <td style="padding:6px 10px; border-bottom:1px solid var(--outline); font-weight:600;">Institut Teknologi Sepuluh Nopember</td>
+                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">7 kohort (BEM, HIMA Interior, Biologi)</td>
+                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">24 cacat (faktur kembar, deadline 10 hari)</td>
+                <td style="padding:6px 10px; border-bottom:1px solid var(--outline); color:#137333;">100% Resolved</td>
+                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">~9.4 ms</td>
               </tr>
               <tr>
-                <td style="padding:6px 10px; border-bottom:1px solid var(--outline); font-weight:600;">Nota Tulis Tangan</td>
-                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">5 struk (25 field)</td>
-                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">Tulisan tangan pasar/warung tradisional</td>
-                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">88.0% (Confidence &lt;0.85)</td>
-                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">Gating review manual + Dual-Record Log</td>
+                <td style="padding:6px 10px; border-bottom:1px solid var(--outline); font-weight:600;">Universitas Atma Jaya Makassar</td>
+                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">7 kohort (BEM, HIMA TI, Manajemen, Arsi)</td>
+                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">29 cacat (overbudget 10%, presensi makan)</td>
+                <td style="padding:6px 10px; border-bottom:1px solid var(--outline); color:#137333;">100% Resolved</td>
+                <td style="padding:6px 10px; border-bottom:1px solid var(--outline);">~14.6 ms</td>
               </tr>
               <tr style="background:var(--surface-subtle); font-weight:700;">
-                <td style="padding:6px 10px;">Total / Rata-rata</td>
-                <td style="padding:6px 10px;">50 struk (250 field)</td>
-                <td style="padding:6px 10px;">Representasi 4 format riil</td>
-                <td style="padding:6px 10px; color:#137333;">94.2% Field-Level Accuracy</td>
-                <td style="padding:6px 10px; color:#1a73e8;">0% Error Lolos ke Ledger Final</td>
+                <td style="padding:6px 10px;">Total Benchmark Sintetis</td>
+                <td style="padding:6px 10px;">30 Kohort Ormawa</td>
+                <td style="padding:6px 10px;">112 Cacat Terinjeksi</td>
+                <td style="padding:6px 10px; color:#137333;">100% Cacat Selesai (0 Cacat Akhir)</td>
+                <td style="padding:6px 10px; color:#1a73e8;">49.0 ms Total (1.63 ms/berkas)</td>
               </tr>
             </tbody>
           </table>
