@@ -703,9 +703,7 @@
           manual masuk ke jejak audit ganda (*dual-record*), (4) audit deterministik kernel klien untuk faktur ganda,
           tanggal di luar masa persiapan kegiatan, kriteria meterai administratif, dan selisih pagu &gt;10% dengan rekomendasi proaktif,
           dan (5) Gemini Advisory menerjemahkan temuan ke bahasa sederhana dan draf addendum untuk ditinjau bendahara.
-          Kartu aturan
-          JSON versi resmi disetujui fakultas menentukan persyaratan administratif khusus tiap kampus; hash jangkar mendeteksi
-          perubahan aturan tanpa izin, sementara kemahasiswaan dan 2 dosen pembina menyetujui setiap versinya. Berkas
+          Kartu aturan JSON berversi mengodekan panduan administratif kampus yang disahkan melalui Surat Edaran resmi fakultas dan dikunci dengan hash jangkar SHA-256 untuk mencegah manipulasi mahasiswa. Berkas
           dikunci segel SHA-256 untuk verifikasi meja instan tanpa panggilan server luar. Input manual luring tersedia
           sebagai fallback darurat nir-jaringan.</p>
         <p style="margin:0 0 6px;"><strong>5. Diferensiasi:</strong> Raw LLM sering salah hitung aritmetika. Spreadsheet
@@ -746,6 +744,11 @@
           <div style="background:var(--surface); padding:10px 12px; border-radius:6px; border:1px solid var(--outline);">
             <strong style="color:var(--on-surface);">4. Batasan Kepatuhan Administratif vs Wewenang:</strong>
             <p style="margin:4px 0 0; color:var(--on-surface-muted);">RapiLPJ bertindak murni sebagai asisten gladi resik administratif yang mengecek kepatuhan teknis berkas terhadap kartu aturan (<em>rule card</em>) resmi kampus. Sistem secara tegas tidak menggantikan pertimbangan hukum dekanat, wewenang audit formal kemahasiswaan, maupun keputusan pencairan anggaran.</p>
+          </div>
+
+          <div style="background:var(--surface); padding:10px 12px; border-radius:6px; border:1px solid var(--outline);">
+            <strong style="color:var(--on-surface);">5. Alur Operasional Pengesahan Kartu Aturan Fakultas:</strong>
+            <p style="margin:4px 0 0; color:var(--on-surface-muted);">Mekanisme 3 tahap: (1) Perumusan aturan mengacu pada Surat Edaran (SE) / Pedoman LPJ resmi dekanat, (2) Penetapan dan penandatanganan hash jangkar SHA-256 oleh Kasubbag Kemahasiswaan &amp; Dosen Pembina, (3) Validasi klien otomatis: jika mahasiswa mengedit isi rule card lokal (misal menaikkan batas pagu), hash langsung mismatch dan audit otomatis dibatalkan.</p>
           </div>
 
         </div>
