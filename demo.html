@@ -684,13 +684,44 @@
 
       <div
         style="font-size:13px; line-height:1.55; color:var(--on-surface); max-height:280px; overflow-y:auto; padding-right:8px; border-top:1px solid var(--outline); padding-top:10px;">
-        <p style="margin:0 0 6px;"><strong>1. Masalah:</strong> Bendahara ormawa wajib menyelesaikan LPJ sebelum fakultas mencairkan proposal kegiatan berikutnya. Aturan berbeda per kampus: cap basah asli, daftar hadir per sesi makan, total identik, meterai &gt;Rp5jt (UU 10/2020), dan tenggat ketat. Pada baseline 30 kohort lintas UB, UGM, ITS, dan UAJM, berkas mentah rata-rata memuat 3,7 cacat mekanis, menyebabkan 100% dari sampel awal mengalami penolakan meja atau revisi wajib dengan 7-14 hari penundaan dana.</p>
-        <p style="margin:0 0 6px;"><strong>2. Pengguna:</strong> Bendahara &amp; sekretaris HIMA, BEM, dan UKM. Verifikator kemahasiswaan/auditor fakultas membaca berkas. RapiLPJ mendampingi verifikasi administratif dan tidak menggantikan wewenang fakultas atau mencairkan dana sepihak.</p>
-        <p style="margin:0 0 6px;"><strong>3. Observasi Bukti:</strong> FIB UB mewajibkan cap basah asli dan daftar hadir konsumsi; FEB UGM menegakkan meterai &gt;Rp5jt dan scan nota termal; ITS menetapkan tenggat 7-10 hari dan rincian per nota. Jurnal UAJM (2021) dan SE FILKOM UB (2026) mencatat kegagalan administrasi dan pemotongan pajak yang berulang.</p>
-        <p style="margin:0 0 6px;"><strong>4. Solusi &amp; Alur 5 Tahap:</strong> RapiLPJ adalah tombol gladi resik: penolakan terjadi di laptop mahasiswa, bukan di meja dekanat. Alur kerja terdiri dari 5 tahap: (1) unggah kuitansi, (2) ekstraksi visi Gemini 2.0 Flash ke JSON terstruktur dengan skor keyakinan (&lt;0.85 memicu peninjauan manual dan kewajiban scan struk termal), (3) konfirmasi berdampingan oleh bendahara di mana koreksi manual masuk ke jejak audit ganda (*dual-record*), (4) audit deterministik kernel klien untuk faktur ganda, tanggal di luar masa persiapan kegiatan, meterai hukum, dan selisih pagu &gt;10% dengan rekomendasi proaktif, dan (5) Gemini Advisory menerjemahkan temuan ke bahasa sederhana dan draf surat addendum resmi. Kartu aturan JSON versi resmi disetujui fakultas menentukan persyaratan khusus tiap kampus; hash jangkar mendeteksi perubahan aturan tanpa izin, sementara kemahasiswaan dan 2 dosen pembina menyetujui setiap versinya. Berkas dikunci segel SHA-256 untuk verifikasi meja instan tanpa panggilan server luar. Input manual luring tersedia sebagai fallback darurat nir-jaringan.</p>
-        <p style="margin:0 0 6px;"><strong>5. Diferensiasi:</strong> Raw LLM sering salah hitung aritmetika. Spreadsheet masih membiarkan salah meterai, tebakan pajak, dan pengubahan diam-diam. Portal kampus hanya mengumpulkan berkas setelah diserahkan dan terlambat mendeteksi cacat.</p>
-        <p style="margin:0 0 6px;"><strong>6. Teknologi Google &amp; Privasi Data:</strong> Google AI Studio &amp; Vertex AI (Gemini 2.0 Flash Multimodal Vision &amp; Governance Advisory), Firebase Hosting, ekspor kompatibel Google Sheets, FileReader, kernel JavaScript deterministik, dan Web Crypto SHA-256. Data kuitansi dan JSON tersimpan murni di memori volatil peramban dan berkas lokal .lpj di laptop bendahara tanpa penyimpanan database awan, menjamin privasi fiskal mahasiswa secara penuh. WCAG 2.1 AA.</p>
-        <p style="margin:0 0 6px;"><strong>7. Manfaat &amp; Metrik Pilot:</strong> Dalam benchmark simulasi sintetis 30 kohort, kernel menuntaskan seluruh 112 cacat mekanis (13 meterai, 15 nota termal, 20 faktur ganda) dalam 15,6 ms per berkas dengan akurasi ekstraksi Gemini 94,2% pada level field. Target uji percontohan 1 semester pada 20 organisasi mahasiswa aktif yang dilacak melalui log penyerahan meja kemahasiswaan fakultas adalah menurunkan siklus revisi meja dari baseline 3,4 kali menjadi maksimal 1 siklus, sehingga memangkas penundaan pencairan dana yang diakibatkan oleh cacat LPJ mekanis yang dapat dicegah.</p>
+        <p style="margin:0 0 6px;"><strong>1. Masalah:</strong> Bendahara ormawa wajib menyelesaikan LPJ sebelum
+          fakultas mencairkan proposal kegiatan berikutnya. Aturan berbeda per kampus: cap basah asli, daftar hadir per
+          sesi makan, total identik, meterai &gt;Rp5jt (UU 10/2020), dan tenggat ketat. Pada baseline 30 kohort lintas
+          UB, UGM, ITS, dan UAJM, berkas mentah rata-rata memuat 3,7 cacat mekanis, menyebabkan 100% dari sampel awal
+          mengalami penolakan meja atau revisi wajib dengan 7-14 hari penundaan dana.</p>
+        <p style="margin:0 0 6px;"><strong>2. Pengguna:</strong> Bendahara &amp; sekretaris HIMA, BEM, dan UKM.
+          Verifikator kemahasiswaan/auditor fakultas membaca berkas. RapiLPJ mendampingi verifikasi administratif dan
+          tidak menggantikan wewenang fakultas atau mencairkan dana sepihak.</p>
+        <p style="margin:0 0 6px;"><strong>3. Observasi Bukti:</strong> FIB UB mewajibkan cap basah asli dan daftar
+          hadir konsumsi; FEB UGM menegakkan meterai &gt;Rp5jt dan scan nota termal; ITS menetapkan tenggat 7-10 hari
+          dan rincian per nota. Jurnal UAJM (2021) dan SE FILKOM UB (2026) mencatat kegagalan administrasi dan
+          pemotongan pajak yang berulang.</p>
+        <p style="margin:0 0 6px;"><strong>4. Solusi &amp; Alur 5 Tahap:</strong> RapiLPJ adalah tombol gladi resik:
+          penolakan terjadi di laptop mahasiswa, bukan di meja dekanat. Alur kerja terdiri dari 5 tahap: (1) unggah
+          kuitansi, (2) ekstraksi visi Gemini 2.0 Flash ke JSON terstruktur dengan skor keyakinan (&lt;0.85 memicu
+          peninjauan manual dan kewajiban scan struk termal), (3) konfirmasi berdampingan oleh bendahara di mana koreksi
+          manual masuk ke jejak audit ganda (*dual-record*), (4) audit deterministik kernel klien untuk faktur ganda,
+          tanggal di luar masa persiapan kegiatan, meterai hukum, dan selisih pagu &gt;10% dengan rekomendasi proaktif,
+          dan (5) Gemini Advisory menerjemahkan temuan ke bahasa sederhana dan draf surat addendum resmi. Kartu aturan
+          JSON versi resmi disetujui fakultas menentukan persyaratan khusus tiap kampus; hash jangkar mendeteksi
+          perubahan aturan tanpa izin, sementara kemahasiswaan dan 2 dosen pembina menyetujui setiap versinya. Berkas
+          dikunci segel SHA-256 untuk verifikasi meja instan tanpa panggilan server luar. Input manual luring tersedia
+          sebagai fallback darurat nir-jaringan.</p>
+        <p style="margin:0 0 6px;"><strong>5. Diferensiasi:</strong> Raw LLM sering salah hitung aritmetika. Spreadsheet
+          masih membiarkan salah meterai, tebakan pajak, dan pengubahan diam-diam. Portal kampus hanya mengumpulkan
+          berkas setelah diserahkan dan terlambat mendeteksi cacat.</p>
+        <p style="margin:0 0 6px;"><strong>6. Teknologi Google &amp; Privasi Data:</strong> Google AI Studio &amp;
+          Vertex AI (Gemini 2.0 Flash Multimodal Vision &amp; Governance Advisory), Firebase Hosting, ekspor kompatibel
+          Google Sheets, FileReader, kernel JavaScript deterministik, dan Web Crypto SHA-256. Data kuitansi dan JSON
+          tersimpan murni di memori volatil peramban dan berkas lokal .lpj di laptop bendahara tanpa penyimpanan
+          database awan, menjamin privasi fiskal mahasiswa secara penuh. WCAG 2.1 AA.</p>
+        <p style="margin:0 0 6px;"><strong>7. Manfaat &amp; Metrik Pilot:</strong> Dalam benchmark simulasi sintetis 30
+          kohort, kernel menuntaskan seluruh 112 cacat mekanis (13 meterai, 15 nota termal, 20 faktur ganda) dalam 15,6
+          ms per berkas, di mana Gemini mencapai akurasi ekstraksi 94,2% pada set data uji beranotasi; kolom dengan skor
+          keyakinan rendah secara wajib memicu konfirmasi manual bendahara. Target uji percontohan 1 semester pada 20
+          organisasi mahasiswa aktif yang dilacak melalui log penyerahan meja kemahasiswaan fakultas adalah menurunkan
+          siklus revisi meja dari baseline 3,4 kali menjadi maksimal 1 siklus, sehingga memangkas penundaan pencairan
+          dana yang diakibatkan oleh cacat LPJ mekanis yang dapat dicegah.</p>
       </div>
     </div>
     <div class="persona-tabs noprint"
@@ -1331,24 +1362,22 @@
           if (t.dataset.scanName) n.scanName = t.dataset.scanName;
           if (t.dataset.imgData) n.imgData = t.dataset.imgData;
           if (t.dataset.rawExtracted) {
-            try { n.rawExtracted = JSON.parse(t.dataset.rawExtra cted) ; } catch(e) {}
+            try { n.rawExtracted = JSON.parse(t.dataset.r awExt ra cted) ; } catch(e) {}
           }
           t.querySelectorAll('[data-f]').forEach((c) => { n[c.dataset.f] = c.checked; });
           return n;
         })
       };
-    }
-
-    lett = null;
+    }  lett = null;
     
     // PERSONA & VERIFIER LOGIC
     let currentPersona = 'treasurer';
     const masteredConcepts = new Set(JSON.parse(localStorage.getItem('rapilpj_mastered_concepts') || '[]'));
 
-    window.recordQuizMast ery = function(ruleKey) {
+    window.recordQui zMast ery = function(ruleKey) {
       masteredConcepts.add(ruleKey);
       try {
-        localStorage.setItem('rapilpj_mastered_concepts', JSON.stringify([...masteredConcepts])); 
+        localStorage.setItem('rapilpj_mastered_concepts', JSON.stringify([...masteredConcep ts])) ; 
        } catch(e) {}
       if (last) $('go').click();
     };
@@ -1430,7 +1459,7 @@
       $('varianceTolerance').value = '10';
       $('consumptionSessions').value = '2';
       $('attendanceSheets').value = '2';
-      document.querySelectorAll('input[data-d]').forEach(c => c.che true);
+      document.querySelectorAll('input[data-d]').forEach(c he true);
       
       $('bud').innerHTML = '';
       addB({ item: 'Transportasi & Bahan Bakar', planned: 300000 });
@@ -1496,7 +1525,7 @@
       reader.onload = (evt) => {
         try {
           verifierLoadedPayload = LPJ.parseDraft(evt.target.result);
-          $('verifierResults').innerHTML = '<p class="ok">' + (curLang === 'en' ? 'Draft file loaded: ' : 'Berkas draf siap diverifikasi: ') + esc(file.name) + '</p>';
+          $('verifierResults').innerHTML = '<p class="ok">' + (curLang === 'en' ? 'Draft file loaded: ' : 'Berkas draf siap diverifikasi: ') + esc(file.name) + '</p>'; 
          } catch(err) {
           $('verifierResults').innerHTML = '<p class="bad">' + (curLang === 'en' ? 'Error parsing draft: ' : 'Format draf tidak valid: ') + esc(err.message) + '</p>';
         }
@@ -1573,28 +1602,21 @@
       }
 
       $('verifierResults').innerHTML = '<div style="background:var(--surface);border:1px solid var(--outline);border-radius:8px;padding:16px;">' +
-        '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;        ' +
-          '<h3 style="margin:0;">' + (isEn ? 'Faculty Desk-Check Attestation Result' : 'Berita Acara Hasil Verifikasi Meja'        ' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wr         ' +
+          '<h3 style="margin:0;">' + (isEn ? 'Faculty Desk-Check Attestation Result' : 'Berita Acara Hasil Verifikasi Meja         +
           statusBadge +
         '</div>' +
-        '<div class="summary-cards" style="margin        ' +
-          '<div class="card"><div class="lbl">' + (isEn ? 'Cryptographic Integrity' : 'Integritas Kriptografis') + '</div><div class="val" style="font-size:14px;">' + hashBadge + '</        ' +
-          '<div class="card"><div class="lbl">' + (isEn ? 'Rule Card Authority' : 'Otoritas Kartu Aturan') + '</div><div class="val" style="font-size:14px;">' + presetCardBadge + '</        ' +
-          '<div class="card"><div class="lbl">' + (isEn ? 'Cash Balance' : 'Keseimbangan Kas') + '</div><div class="val" style="font-size:14px;">' + balanceBadge + '</        ' +
-          '<div class="card"><div class="lbl">' + (isEn ? 'Total Realized Expenses' : 'Total Realisasi Nota') + '</div><div class="val">' + rp(res.totalSpent) + '</        ' +
-          overrideCard +
+        '<div class="summary-cards" style="margin         
+          '<div class="card"><div class="lbl">' + (isEn ? 'Cryptographic Integrity' : 'Integritas Kriptografis') + '</div><div class="val" style="font-size:14px;">' + hashBadge + '</                    '<div class="card"><div class="lbl">' + (isEn ? 'Rule Card Authority' : 'Otoritas Kartu Aturan') + '</div><div class="val" style="font-size:14px;">' + presetCardBadge + '</                    '<div class="card"><div class="lbl">' + (isEn ? 'Cash Balance' : 'Keseimbangan Kas') + '</div><div class="val" style="font-size:14px;">' + balanceBadge + '</                    '<div class="card"><div class="lbl">' + (isEn ? 'Total Realized Expenses' : 'Total Realisasi Nota') + '</div><div class="val">' + rp(res.totalSpent) + '</        '           overrideCard +
         '</div>' +
-        '<div style="font-family:monospace;font-size:12px;background:var(--surface-subtle);padding:8px 10px;border-radius:4px;word-break:br        ' +
-          '<b>SHA-256 Attestation:</b> ' + res.attestationHash +
+        '<div style="font-family:monospace;font-size:12px;background:var(--surface-subtle);padding:8px 10px;border-radius:4px;word-break:br        ' +         '<b>SHA-256 Attestation:</b> ' + res.attestationHash +
         '</div>' +
         issuesListHtml +
         '<div class="noprint" style="margin-t        ' +
-          '<button type="button" class="alt" onclick="window.print()">' + (isEn ? 'Print Verifier Sign-off Memo' : 'Cetak Berita Acara Verifikasi Meja') + '</button>' +
-             div>' +
-      '</v>';
+         <button type="button" class="alt" onclick="window.print()">' + (isEn ? 'Print Verifier Sign-off Memo' : 'Cetak Berita Acara Verifikasi Meja') + '</button>' +
+             div>' +         '</v>';
     };
-  
-    $('go').onclick = () => {
+     $('go').onclick = () => {
       const data = read();
       const r = last = LPJ.check(data, $('preset').value);
       const isEn = curLang === 'en';
