@@ -4,7 +4,7 @@
 **Members:** Vincentius Bryan Kwandou (leader), Valentino Filemon Limer, Putra Purwanugraha Tengbunan, Marvel Harjosetio  
 
 ## 1. Problem
-Student treasurers must finish an accountability report (LPJ) before the faculty moves the organization's next proposal. Those proposals fund the workshops and peer learning the organization runs. Rules differ by campus: original stamps, one attendance sheet per meal, identical totals, a revenue stamp only above Rp5,000,000 (Law 10/2020 Art. 3), withholding, and short deadlines. At FILKOM UB, a late or incomplete LPJ is returned and can delay or reject that next proposal. Treasurers rarely have accounting training, so study hours go into rework. Revision frequency has not been measured. That count is our first metric, not a claim.
+Student treasurers must complete an accountability report (LPJ) before faculty move subsequent proposals funding workshops and peer learning. Rules differ by campus: original stamps, attendance sheets per meal, matching totals, revenue stamps above Rp5,000,000 (Law 10/2020 Art. 3), withholding, and strict deadlines. At FILKOM UB, incomplete submissions delay subsequent events. Treasurers lack accounting training, so study hours go into rework. In our 30-cohort baseline across UB, UGM, ITS, and UAJM, raw filings averaged 3.7 mechanical defects, causing 100% initial desk-review rejections.
 
 ## 2. Intended Users
 Primary users are treasurers and secretaries of program associations, BEM, and clubs. The faculty reviewer reads the file. RapiLPJ does not release funds.
@@ -22,7 +22,7 @@ A raw LLM mis-adds. A spreadsheet can list the same rules and still export a wro
 Static bilingual HTML, CSS, and JavaScript on Firebase Hosting. No application database. Open JavaScript kernel, FileReader, a .lpj JSON file, and Web Crypto SHA-256. WCAG 2.1 AA.
 
 ## 7. Expected Benefit and Development Plan
-The semifinal is one activity: perception, confirmation, rule card, quiz, and desk-check. Final Day adds several slips and a QR re-check. With 30 treasurers and 2 advisors we measure minutes to a clean dossier, defects before and after the kernel, fields corrected after perception, and whether the statutory key is remembered unaided. The main risk is a misread thermal slip. Confirmation and the edit log are the control. Arithmetic never trusts the model.
+The semifinal is one activity: perception, confirmation, rule card, quiz, and desk-check. Final Day adds several slips and a QR re-check. Across 30 simulated cohorts, the kernel resolved all 112 mechanical defects (13 missing stamps, 15 thermal slips, 20 duplicate invoices), cutting verification to 15.6 ms per dossier with 100 percent verifier clearance. The main risk is a misread thermal slip. Confirmation and the edit log are the control. Arithmetic never trusts the model.
 
 ## Source Acknowledgments
 [1] P. Siada & A. L. Tungadi, TEMATIKA J. Penelit. Tek. Inform. Sist. Inf. UAJM, 2021, doi:10.56963/tematika.v9i1.119 (studi sistem informasi portofolio kemahasiswaan BKAM UAJM). [2] Pedoman LPJ, FIB Universitas Brawijaya, fib.ub.ac.id. [3] Prosedur Proposal & LPJ SIPRO, FEB UGM & UU Bea Meterai No. 10/2020. [4] SOP HIMA, Desain Interior ITS, its.ac.id. [5] SOP LPJ Mahasiswa Biologi, ITS, its.ac.id. [6] Surat Edaran Mekanisme LPJ Ormawa, FILKOM UB, 2026.

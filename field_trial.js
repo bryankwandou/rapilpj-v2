@@ -60,7 +60,7 @@ console.log('Menjalankan simulasi audit & perbaikan pada 30 kohort bendahara orm
 
 ORG_PROFILES.forEach((org, index) => {
   const trialStart = process.hrtime.bigint();
-  
+
   // Specific campus bylaw rules alignment
   const hasMateraiSlip = (org.preset === 'ugmfeb' || org.preset === 'uajm' || index % 3 === 0);
   const hasThermalSlip = (org.preset === 'ugmfeb' || org.preset === 'uajm' || index % 2 === 0);
@@ -72,7 +72,7 @@ ORG_PROFILES.forEach((org, index) => {
   const hasMissingDocs = (org.preset === 'filkom' || org.preset === 'uajm');
 
   const plannedPerItem = Math.floor(org.budget / 3);
-  
+
   const rawLpj = {
     eventName: org.name,
     eventDate: '2026-10-02',
@@ -93,7 +93,7 @@ ORG_PROFILES.forEach((org, index) => {
   };
 
   let spentAcc = 0;
-  
+
   // Note 1: Standard / Override Item
   const n1Amount = hasVariance ? Math.floor(plannedPerItem * 1.30) : plannedPerItem;
   const note1 = {
@@ -162,7 +162,7 @@ ORG_PROFILES.forEach((org, index) => {
 
   // 2. Autonomous Remediation by RapiLPJ Engine
   const remediatedLpj = JSON.parse(JSON.stringify(rawLpj));
-  
+
   // Fix deadline if late (remedy: submitted on time within 4 working days)
   remediatedLpj.submitDate = '2026-10-08';
 
@@ -171,7 +171,7 @@ ORG_PROFILES.forEach((org, index) => {
     remediatedLpj.notes[0].amount = remediatedLpj.notes[0].rawExtracted.amount;
     delete remediatedLpj.notes[0].rawExtracted;
   }
-  
+
   // Resolve duplicate ref & date
   remediatedLpj.notes[2].refNo = `INV-${org.id}-03-FIXED`;
   remediatedLpj.notes[2].date = '2026-10-04';
