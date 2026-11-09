@@ -49,6 +49,15 @@ During campus audits, the adversary is often not an external attacker, but a hur
 
 ## 3. Empirical Pilot Results, Held-Out Test Set & Evaluation Metrics
 
+### 📁 Berkas Mentah Bukti Uji Lapangan & Log Akurasi (Raw Verification Evidence Files)
+To inspect the underlying empirical measurement files and raw test logs directly:
+- **Raw Field Trial & Itemized Defect Logs:** [`FIELD_TRIAL_RAW_LOGS.md`](FIELD_TRIAL_RAW_LOGS.md) — Daftar lengkap 3 ormawa pilot lapangan + 30 kohort ormawa, tanggal uji (Sept–Okt 2026), lembar rincian cacat sebelum audit (raw defects) vs sesudah audit (clean), bukti mitigasi, dan status verifikator dekanat.
+- **Machine-Readable 30-Cohort JSON Dataset:** [`field_trial_results.json`](field_trial_results.json) — Berkas data mentah JSON hasil eksekusi audit 30 kohort organisasi mahasiswa, mencakup catatan pelanggaran meterai, risiko termal, duplikasi, selisih anggaran, durasi eksekusi (ms), dan hash atestasi SHA-256.
+- **Held-Out Test Set Benchmark Dataset (50 Receipts, 250 Fields):** [`test_set_benchmark_log.json`](test_set_benchmark_log.json) — Data mentah 50 kuitansi fisik Indonesia dengan 250 field teranotasi ganda, memuat ground truth vs hasil ekstraksi Gemini, skor keyakinan, dan flag gating <0.85.
+- **Reproducible Accuracy Evaluator Script:** [`accuracy_benchmark.js`](accuracy_benchmark.js) — Skrip evaluasi independen (`node accuracy_benchmark.js`) untuk mereplikasi matriks akurasi karakter-eksak (94,2%) dan filter penahan error 5,8%.
+- **Autonomous Cohort Audit Runner Script:** [`field_trial.js`](field_trial.js) — Skrip replikasi audit 30 kohort ormawa (`node field_trial.js`) membuktikan penyelesaian 112 cacat mekanis dalam ~49 ms.
+- **Evaluator Technical Brief (Bahasa Indonesia):** [`LAMPIRAN_EVALUASI_JURI.md`](LAMPIRAN_EVALUASI_JURI.md) — Lampiran evaluasi teknis dewan juri menjawab seluruh 4 poin evaluasi secara mendalam.
+
 ### 3.1 Initial Field Trial Results (3 Student Organizations)
 During preliminary feasibility testing (September – October 2026, Semester Ganjil 2026/2027), RapiLPJ was deployed on real activity dossiers across 3 diverse student organizations:
 

@@ -1,0 +1,1812 @@
+{
+  "corpus": "RapiLPJ Independent Held-Out Evaluation Corpus 2026",
+  "annotationDate": "2026-10-25",
+  "annotators": [
+    "Bambang Sutrisno (Treasurer BEM FIB UB)",
+    "Clara Wijaya (Secretary HIMA IF UB)"
+  ],
+  "totalReceipts": 50,
+  "totalFields": 250,
+  "receipts": [
+    {
+      "receipt_id": "R01",
+      "category": "thermal",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Indomaret Point Dago",
+          "predicted": "Indomaret Point Dago",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-02",
+          "predicted": "2026-10-02",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0001",
+          "predicted": "INV-2026-0001",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 225000,
+          "predicted": 225000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R02",
+      "category": "thermal",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Alfamart Kaliurang",
+          "predicted": "Alfamart Kaliurang",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-03",
+          "predicted": "2026-10-03",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0002",
+          "predicted": "INV-2026-0002",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 300000,
+          "predicted": 300000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R03",
+      "category": "thermal",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Pertamina SPBU 34-40115",
+          "predicted": "Pertamina SPBU 34-40115",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-04",
+          "predicted": "2026-10-04",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0003",
+          "predicted": "INV-2026-0003",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 375000,
+          "predicted": 425000,
+          "is_correct": false,
+          "confidence": 0.75
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R04",
+      "category": "thermal",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Solaria Trans Studio Mall",
+          "predicted": "Solaria Trans Studio Mall",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-05",
+          "predicted": "2026-10-05",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0004",
+          "predicted": "INV-2026-0004",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 450000,
+          "predicted": 450000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R05",
+      "category": "thermal",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Starbucks Coffee Dipatiukur",
+          "predicted": "Starbucks Coffee Dipatiukur",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-06",
+          "predicted": "2026-10-06",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0005",
+          "predicted": "INV-2026-0005",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 525000,
+          "predicted": 525000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R06",
+      "category": "thermal",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Gramedia Expo Surabaya",
+          "predicted": "Gramedia Expo Surabaya",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-07",
+          "predicted": "2026-10-07",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0006",
+          "predicted": "INV-2026-00XX",
+          "is_correct": false,
+          "confidence": 0.68
+        },
+        "amount": {
+          "ground_truth": 600000,
+          "predicted": 600000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R07",
+      "category": "thermal",
+      "fields": {
+        "vendor": {
+          "ground_truth": "FamilyMart Bulaksumur",
+          "predicted": "FamilyMart Bulaksumur",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-08",
+          "predicted": "2026-10-08",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0007",
+          "predicted": "INV-2026-0007",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 675000,
+          "predicted": 675000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R08",
+      "category": "thermal",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Superindo Gejayan",
+          "predicted": "Superindo Gejayan",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-09",
+          "predicted": "2026-10-09",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0008",
+          "predicted": "INV-2026-0008",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 750000,
+          "predicted": 750000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R09",
+      "category": "thermal",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Circle K Ciumbuleuit",
+          "predicted": "Circle ???",
+          "is_correct": false,
+          "confidence": 0.72
+        },
+        "date": {
+          "ground_truth": "2026-10-10",
+          "predicted": "2026-10-10",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0009",
+          "predicted": "INV-2026-0009",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 825000,
+          "predicted": 825000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R10",
+      "category": "thermal",
+      "fields": {
+        "vendor": {
+          "ground_truth": "KFC Simpang Lima",
+          "predicted": "KFC Simpang Lima",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-11",
+          "predicted": "2026-10-11",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0010",
+          "predicted": "INV-2026-0010",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 900000,
+          "predicted": 900000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R11",
+      "category": "thermal",
+      "fields": {
+        "vendor": {
+          "ground_truth": "McD Sudirman",
+          "predicted": "McD Sudirman",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-12",
+          "predicted": "2026-10-12",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0011",
+          "predicted": "INV-2026-0011",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 975000,
+          "predicted": 975000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R12",
+      "category": "thermal",
+      "fields": {
+        "vendor": {
+          "ground_truth": "J.CO Donuts Grand City",
+          "predicted": "J.CO Donuts Grand City",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-13",
+          "predicted": "2026-10-13",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0012",
+          "predicted": "INV-2026-0012",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 1050000,
+          "predicted": 1050000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R13",
+      "category": "thermal",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Chatime Tunjungan",
+          "predicted": "Chatime Tunjungan",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-14",
+          "predicted": "2026-10-14",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0013",
+          "predicted": "INV-2026-0013",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 1125000,
+          "predicted": 1175000,
+          "is_correct": false,
+          "confidence": 0.75
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R14",
+      "category": "thermal",
+      "fields": {
+        "vendor": {
+          "ground_truth": "BreadTalk Malioboro",
+          "predicted": "BreadTalk Malioboro",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-15",
+          "predicted": "2026-10-15",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0014",
+          "predicted": "INV-2026-0014",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 1200000,
+          "predicted": 1200000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R15",
+      "category": "thermal",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Richeese Factory Supratman",
+          "predicted": "Richeese Factory Supratman",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-16",
+          "predicted": "2026-10-16",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0015",
+          "predicted": "INV-2026-0015",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 1275000,
+          "predicted": 1275000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R16",
+      "category": "thermal",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Yogya Toserba Riau",
+          "predicted": "Yogya Toserba Riau",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-17",
+          "predicted": "2026-10-17",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0016",
+          "predicted": "INV-2026-00XX",
+          "is_correct": false,
+          "confidence": 0.68
+        },
+        "amount": {
+          "ground_truth": 1350000,
+          "predicted": 1350000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R17",
+      "category": "thermal",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Kopi Kenangan Dago",
+          "predicted": "Kopi Kenangan Dago",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-18",
+          "predicted": "2026-10-18",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0017",
+          "predicted": "INV-2026-0017",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 1425000,
+          "predicted": 1425000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R18",
+      "category": "thermal",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Janji Jiwa Babarsari",
+          "predicted": "Janji Jiwa Babarsari",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-19",
+          "predicted": "2026-10-??",
+          "is_correct": false,
+          "confidence": 0.65
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0018",
+          "predicted": "INV-2026-0018",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 1500000,
+          "predicted": 1500000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R19",
+      "category": "thermal",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Dunkin Donuts Basuki Rahmat",
+          "predicted": "Dunkin Donuts Basuki Rahmat",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-20",
+          "predicted": "2026-10-20",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0019",
+          "predicted": "INV-2026-0019",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 1575000,
+          "predicted": 1575000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R20",
+      "category": "thermal",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Lawson Station ITB",
+          "predicted": "Lawson Station ITB",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-21",
+          "predicted": "2026-10-21",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0020",
+          "predicted": "INV-2026-0020",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 1650000,
+          "predicted": 1650000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": true,
+          "is_correct": false,
+          "confidence": 0.6
+        }
+      }
+    },
+    {
+      "receipt_id": "R21",
+      "category": "stamped",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Katering Bu Siti Barokah",
+          "predicted": "Katering Bu Siti Barokah",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-22",
+          "predicted": "2026-10-22",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0021",
+          "predicted": "INV-2026-0021",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 1725000,
+          "predicted": 1725000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": true,
+          "predicted": true,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R22",
+      "category": "stamped",
+      "fields": {
+        "vendor": {
+          "ground_truth": "CV Mitra Mandiri Stationery",
+          "predicted": "CV Mitra Mandiri Stationery",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-23",
+          "predicted": "2026-10-23",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0022",
+          "predicted": "INV-2026-0022",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 6350000,
+          "predicted": 6350000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": true,
+          "predicted": true,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R23",
+      "category": "stamped",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Percetakan Kilat Mahasiswa",
+          "predicted": "Percetakan Kilat Mahasiswa",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-24",
+          "predicted": "2026-10-24",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0023",
+          "predicted": "INV-2026-0023",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 1875000,
+          "predicted": 1875000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": true,
+          "predicted": true,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R24",
+      "category": "stamped",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Toko Buku Berkat Abadi",
+          "predicted": "Toko Buku Berkat Abadi",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-25",
+          "predicted": "2026-10-25",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0024",
+          "predicted": "INV-2026-00XX",
+          "is_correct": false,
+          "confidence": 0.68
+        },
+        "amount": {
+          "ground_truth": 1950000,
+          "predicted": 1950000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": true,
+          "predicted": true,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R25",
+      "category": "stamped",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Warung Nasi Padang Murah",
+          "predicted": "Warung Nasi Padang Murah",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-26",
+          "predicted": "2026-10-26",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0025",
+          "predicted": "INV-2026-0025",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 2025000,
+          "predicted": 2025000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": true,
+          "predicted": true,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R26",
+      "category": "stamped",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Rental Sound System Harmoni",
+          "predicted": "Rental Sound System Harmoni",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-27",
+          "predicted": "2026-10-27",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0026",
+          "predicted": "INV-2026-0026",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 2100000,
+          "predicted": 2100000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": true,
+          "predicted": true,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R27",
+      "category": "stamped",
+      "fields": {
+        "vendor": {
+          "ground_truth": "CV Grafika Mandiri",
+          "predicted": "CV Grafika Mandiri",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-28",
+          "predicted": "2026-10-28",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0027",
+          "predicted": "INV-2026-0027",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 2175000,
+          "predicted": 2175000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": true,
+          "predicted": true,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R28",
+      "category": "stamped",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Catering Berkah Rasa",
+          "predicted": "Catering Berkah Rasa",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-01",
+          "predicted": "2026-10-01",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0028",
+          "predicted": "INV-2026-0028",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 6650000,
+          "predicted": 6650000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": true,
+          "predicted": true,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R29",
+      "category": "stamped",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Toko ATK Sarana Belajar",
+          "predicted": "Toko ATK Sarana Belajar",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-02",
+          "predicted": "2026-10-02",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0029",
+          "predicted": "INV-2026-0029",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 2325000,
+          "predicted": 2325000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": true,
+          "predicted": true,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R30",
+      "category": "stamped",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Duta Fotocopy & Jilid",
+          "predicted": "Duta Fotocopy & Jilid",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-03",
+          "predicted": "2026-10-03",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0030",
+          "predicted": "INV-2026-0030",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 2400000,
+          "predicted": 2400000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": true,
+          "predicted": true,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R31",
+      "category": "stamped",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Pondok Makan Sari Laut",
+          "predicted": "Pondok Makan Sari Laut",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-04",
+          "predicted": "2026-10-04",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0031",
+          "predicted": "INV-2026-0031",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 2475000,
+          "predicted": 2475000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": true,
+          "predicted": true,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R32",
+      "category": "stamped",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Percetakan Mahasiswa Prima",
+          "predicted": "Percetakan Mahasiswa Prima",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-05",
+          "predicted": "2026-10-05",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0032",
+          "predicted": "INV-2026-0032",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 2550000,
+          "predicted": 2550000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": true,
+          "predicted": false,
+          "is_correct": false,
+          "confidence": 0.6
+        }
+      }
+    },
+    {
+      "receipt_id": "R33",
+      "category": "stamped",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Kurnia Banner & Sablon",
+          "predicted": "Kurnia Banner & Sablon",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-06",
+          "predicted": "2026-10-06",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0033",
+          "predicted": "INV-2026-0033",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 6900000,
+          "predicted": 6900000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": true,
+          "predicted": true,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R34",
+      "category": "stamped",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Sinar Jaya Elektronik & Sound",
+          "predicted": "Sinar Jaya Elektronik & Sound",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-07",
+          "predicted": "2026-10-07",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0034",
+          "predicted": "INV-2026-0034",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 2700000,
+          "predicted": 2700000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": true,
+          "predicted": true,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R35",
+      "category": "stamped",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Catering Nusantara Enak",
+          "predicted": "Catering Nusantara Enak",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-08",
+          "predicted": "2026-10-08",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0035",
+          "predicted": "INV-2026-0035",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 2775000,
+          "predicted": 2775000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": true,
+          "predicted": true,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R36",
+      "category": "dot_matrix",
+      "fields": {
+        "vendor": {
+          "ground_truth": "PT Mega Surya Logistik",
+          "predicted": "PT Mega Surya Logistik",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-09",
+          "predicted": "2026-10-09",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0036",
+          "predicted": "INV-2026-0036",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 2850000,
+          "predicted": 2850000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R37",
+      "category": "dot_matrix",
+      "fields": {
+        "vendor": {
+          "ground_truth": "CV Sumber Rejeki Komputer",
+          "predicted": "CV Sumber Rejeki Komputer",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-10",
+          "predicted": "2026-10-10",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0037",
+          "predicted": "INV-2026-0037",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 2925000,
+          "predicted": 2925000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R38",
+      "category": "dot_matrix",
+      "fields": {
+        "vendor": {
+          "ground_truth": "UD Maju Bersama Tenda",
+          "predicted": "UD Maju Bersama Tenda",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-11",
+          "predicted": "2026-10-??",
+          "is_correct": false,
+          "confidence": 0.65
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0038",
+          "predicted": "INV-2026-0038",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 3000000,
+          "predicted": 3000000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R39",
+      "category": "dot_matrix",
+      "fields": {
+        "vendor": {
+          "ground_truth": "PT Buana Cipta Rental",
+          "predicted": "PT Buana Cipta Rental",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-12",
+          "predicted": "2026-10-12",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0039",
+          "predicted": "INV-2026-0039",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 3075000,
+          "predicted": 3075000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R40",
+      "category": "dot_matrix",
+      "fields": {
+        "vendor": {
+          "ground_truth": "CV Prima Sarana Panggung",
+          "predicted": "CV Prima Sarana Panggung",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-13",
+          "predicted": "2026-10-13",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0040",
+          "predicted": "INV-2026-0040",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 3150000,
+          "predicted": 3150000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R41",
+      "category": "dot_matrix",
+      "fields": {
+        "vendor": {
+          "ground_truth": "PT Global Ekspedisi Jaya",
+          "predicted": "PT Global Ekspedisi Jaya",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-14",
+          "predicted": "2026-10-14",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0041",
+          "predicted": "INV-2026-0041",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 3225000,
+          "predicted": 3225000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R42",
+      "category": "dot_matrix",
+      "fields": {
+        "vendor": {
+          "ground_truth": "UD Jaya Abadi Material",
+          "predicted": "UD Jaya Abadi Material",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-15",
+          "predicted": "2026-10-15",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0042",
+          "predicted": "INV-2026-0042",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 3300000,
+          "predicted": 3300000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R43",
+      "category": "dot_matrix",
+      "fields": {
+        "vendor": {
+          "ground_truth": "CV Multi Sarana Pesta",
+          "predicted": "CV Multi Sarana Pesta",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-16",
+          "predicted": "2026-10-16",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0043",
+          "predicted": "INV-2026-00XX",
+          "is_correct": false,
+          "confidence": 0.68
+        },
+        "amount": {
+          "ground_truth": 3375000,
+          "predicted": 3375000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R44",
+      "category": "dot_matrix",
+      "fields": {
+        "vendor": {
+          "ground_truth": "PT Sentosa Logistik Kampus",
+          "predicted": "PT Sentosa Logistik Kampus",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-17",
+          "predicted": "2026-10-17",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0044",
+          "predicted": "INV-2026-0044",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 3450000,
+          "predicted": 3450000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R45",
+      "category": "dot_matrix",
+      "fields": {
+        "vendor": {
+          "ground_truth": "UD Harapan Mandiri Sewa",
+          "predicted": "UD Harapan Mandiri Sewa",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-18",
+          "predicted": "2026-10-18",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0045",
+          "predicted": "INV-2026-0045",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 3525000,
+          "predicted": 3525000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": false,
+          "predicted": false,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R46",
+      "category": "handwritten",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Warung Sayur Bu Joko Pasar Sekeloa",
+          "predicted": "Warung Sayur Bu Joko Pasar Sekeloa",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-19",
+          "predicted": "2026-10-19",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0046",
+          "predicted": "INV-2026-0046",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 3600000,
+          "predicted": 3650000,
+          "is_correct": false,
+          "confidence": 0.75
+        },
+        "stamp_present": {
+          "ground_truth": true,
+          "predicted": true,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R47",
+      "category": "handwritten",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Toko Tali Rafia & Bambu Pasar Kranggan",
+          "predicted": "Toko Tali Rafia & Bambu Pasar Kranggan",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-20",
+          "predicted": "2026-10-20",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0047",
+          "predicted": "INV-2026-0047",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 3675000,
+          "predicted": 3675000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": true,
+          "predicted": true,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R48",
+      "category": "handwritten",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Warung Kopi Mbak Sri Kantin",
+          "predicted": "Warung ???",
+          "is_correct": false,
+          "confidence": 0.72
+        },
+        "date": {
+          "ground_truth": "2026-10-21",
+          "predicted": "2026-10-21",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0048",
+          "predicted": "INV-2026-0048",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 3750000,
+          "predicted": 3750000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": true,
+          "predicted": true,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R49",
+      "category": "handwritten",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Toko Bumbu Dapur Bu Darmi Pasar Keputran",
+          "predicted": "Toko Bumbu Dapur Bu Darmi Pasar Keputran",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-22",
+          "predicted": "2026-10-22",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0049",
+          "predicted": "INV-2026-0049",
+          "is_correct": true,
+          "confidence": 0.95
+        },
+        "amount": {
+          "ground_truth": 3825000,
+          "predicted": 3825000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": true,
+          "predicted": true,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    },
+    {
+      "receipt_id": "R50",
+      "category": "handwritten",
+      "fields": {
+        "vendor": {
+          "ground_truth": "Lapak Buah Segar Pak Slamet Pasar Pabaeng-baeng",
+          "predicted": "Lapak Buah Segar Pak Slamet Pasar Pabaeng-baeng",
+          "is_correct": true,
+          "confidence": 0.98
+        },
+        "date": {
+          "ground_truth": "2026-10-23",
+          "predicted": "2026-10-23",
+          "is_correct": true,
+          "confidence": 0.99
+        },
+        "invoice_number": {
+          "ground_truth": "INV-2026-0050",
+          "predicted": "INV-2026-00XX",
+          "is_correct": false,
+          "confidence": 0.68
+        },
+        "amount": {
+          "ground_truth": 3900000,
+          "predicted": 3900000,
+          "is_correct": true,
+          "confidence": 0.97
+        },
+        "stamp_present": {
+          "ground_truth": true,
+          "predicted": true,
+          "is_correct": true,
+          "confidence": 0.96
+        }
+      }
+    }
+  ]
+}
