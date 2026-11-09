@@ -205,6 +205,77 @@
     return Math.round(+n || 0).toLocaleString('id-ID');
   }
 
+  const REMEDIATION_ACTIONS = {
+    stamp: {
+      action: 'Minta toko/vendor membubuhkan cap basah resmi dan tanda tangan basah di atas nota asli.',
+      actionEn: 'Request the vendor to apply an official ink stamp and physical signature on the original receipt.'
+    },
+    totalsMatch: {
+      action: 'Sesuaikan lembar pengesahan dekanat atau rekapitulasi nota hingga nominal seimbang tanpa selisih Rp1.',
+      actionEn: 'Reconcile approval sheet or receipt ledger until balance discrepancy is exactly zero.'
+    },
+    attendance: {
+      action: 'Lampirkan lembar absensi bermeterai/bertanda tangan peserta untuk memenuhi kekurangan sesi konsumsi.',
+      actionEn: 'Attach signed attendance sheets corresponding to all meal sessions.'
+    },
+    materai: {
+      action: 'Minta vendor membubuhkan meterai fisik Rp10.000 bertanda tangan silang (UU 10/2020), atau lampirkan e-Meterai resmi Peruri.',
+      actionEn: 'Affix an official Rp10,000 revenue stamp with cross-signature (Law 10/2020) or attach certified e-Meterai.'
+    },
+    thermal: {
+      action: 'Segera fotokopi atau pindai digital struk termal minimarket/SPBU sebelum tulisan pudar permanen.',
+      actionEn: 'Immediately photocopy or digitally scan thermal receipts before ink fades permanently.'
+    },
+    deadline10: {
+      action: 'Lengkapi berkas hari ini juga atau ajukan surat dispensasi keterlambatan bertanda tangan Ketua Himpunan.',
+      actionEn: 'Submit file today or request an official dispensation letter signed by department chair.'
+    },
+    deadline7work: {
+      action: 'Segera serahkan berkas ke bagian kemahasiswaan fakultas sebelum batas 7 hari kerja agar pencairan proker berikutnya tidak dibekukan.',
+      actionEn: 'Submit immediately to student affairs within 7 working days to avoid project funding freezes.'
+    },
+    perNote: {
+      action: 'Pecah entri gabungan menjadi satu baris tersendiri per lembar kuitansi fisik.',
+      actionEn: 'Split bundled row into separate individual line items per physical receipt.'
+    },
+    pph: {
+      action: 'Lampirkan bukti potong PPh Pasal 21/23 atau rincian perhitungan pajak yang disetujui bendahara.',
+      actionEn: 'Attach official PPh Article 21/23 withholding slip or verified tax calculation breakdown.'
+    },
+    filkomDocs: {
+      action: 'Lengkapi 4 berkas wajib: laporan narasi pelaksanaan, laporan keuangan, dokumentasi foto, dan SK kepanitiaan.',
+      actionEn: 'Attach all 4 mandatory files: narrative report, financial breakdown, photo documentation, and committee decree.'
+    },
+    serviceTax: {
+      action: 'Lampirkan salinan KTP/NPWP penerima honorarium/jasa serta bukti potong pajak penghasilan.',
+      actionEn: 'Attach recipient national ID/tax ID (KTP/NPWP) copy and tax deduction proof.'
+    },
+    duplicateInvoice: {
+      action: 'Periksa fisik nota dan hapus nomor kuitansi duplikat atau verifikasi jika salah ketik nomor referensi.',
+      actionEn: 'Inspect physical slip and remove duplicate entry or correct reference number typo.'
+    },
+    dateSanity: {
+      action: 'Koreksi tanggal nota agar berada dalam masa persiapan hingga pelaksanaan kegiatan resmi.',
+      actionEn: 'Adjust receipt date within allowed preparation and event activity timeline window.'
+    },
+    budgetVariance: {
+      action: 'Buat formulir addendum pergeseran anggaran antar-pos bertanda tangan ketua panitia dan dosen pembina.',
+      actionEn: 'Draft budget reallocation addendum signed by committee chair and faculty advisor.'
+    },
+    unplannedPost: {
+      action: 'Tambahkan pos belanja ke addendum anggaran atau alokasikan ke pos belanja tak terduga yang disetujui.',
+      actionEn: 'Add expense item to budget addendum or allocate to approved contingency fund.'
+    },
+    manualOverride: {
+      action: 'Verifikator wajib memeriksa fisik nota asli karena nominal diubah secara manual dari hasil pembacaan AI.',
+      actionEn: 'Verifier must physically inspect original receipt because amount was manually altered from AI extraction.'
+    },
+    presetTampered: {
+      action: 'Muat ulang kartu aturan resmi bertanda tangan dosen pembina yang sah dari portal fakultas.',
+      actionEn: 'Reload authentic faculty rule card signed by registered advisors from university portal.'
+    }
+  };
+
   /* Check function: audits data deterministically against selected preset */
   function check(lpj, preset) {
     const customList = Array.isArray(lpj && lpj.customRules)
@@ -217,10 +288,13 @@
 
     const issues = [];
     const add = (rule, msg, msgEn, row, severity = 'error') => {
+      const rem = REMEDIATION_ACTIONS[rule] || {};
       issues.push({
         rule,
         msg,
         msgEn: msgEn || msg,
+        action: rem.action || '',
+        actionEn: rem.actionEn || '',
         row,
         severity,
         source: SOURCES[RULES[rule] ? RULES[rule].src : 'national']
@@ -1229,10 +1303,13 @@ Output STRICT JSON ONLY without markdown backticks, with these exact keys:
       trustedPresetHash = computePresetCardHash(trustedCard);
       if (data.presetCardHash && data.presetCardHash.toLowerCase() !== trustedPresetHash.toLowerCase()) {
         presetTampered = true;
+        const remTampered = REMEDIATION_ACTIONS.presetTampered || {};
         auditRes.issues.push({
           rule: 'presetTampered',
           msg: `KARTU ATURAN TELAH DIMANIPULASI: Hash kartu aturan (${data.presetCardHash.slice(0, 10)}...) tidak cocok dengan tanda tangan dosen pembina BKAM UAJM!`,
           msgEn: `RULE CARD TAMPERED: Submitted rule card hash (${data.presetCardHash.slice(0, 10)}...) does not match registered faculty advisor signatures!`,
+          action: remTampered.action || '',
+          actionEn: remTampered.actionEn || '',
           severity: 'error',
           source: SOURCES.uajm
         });
@@ -1293,6 +1370,7 @@ Output STRICT JSON ONLY without markdown backticks, with these exact keys:
     RULES,
     SOURCES,
     PRESETS,
+    REMEDIATION_ACTIONS,
     AUTHORITATIVE_PRESET_CARDS,
     computePresetCardHash,
     UAJM_2026_PRESET_HASH,
