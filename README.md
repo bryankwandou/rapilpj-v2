@@ -58,7 +58,7 @@ During preliminary feasibility testing (September – October 2026, Semester Gan
 | **Pre-Audit Mechanical Defects** | 4 defects | 5 defects | 2 defects | 11 defects (avg 3.7 / dossier) |
 | **Defect Types Identified** | Faded thermal slip, consumption variance 18% | 2 receipts >Rp5M missing stamps, prep dates mismatch | Duplicate stationery invoice, missing meal list | 100% preventable mechanical errors |
 | **Post-Audit Remaining Defects** | 0 defects | 0 defects | 0 defects | 0 defects (100% resolved pre-desk) |
-| **Faculty Desk-Check Decision** | Approved (First Pass) | Approved (First Pass) | Approved (First Pass) | **First-pass desk approval without mandatory revisions in the initial trial** |
+| **Faculty Desk-Check Decision** | Approved (First Pass) | Approved (First Pass) | Approved (First Pass) | **First-pass desk approval without mandatory revisions in the initial trial, subject to faculty verification** |
 | **Funding Release Delays** | 0 days delay | 0 days delay | 0 days delay | **0 days delay** (Baseline: 7–14 days) |
 
 *Trial Methodology & Verification Evidence:*

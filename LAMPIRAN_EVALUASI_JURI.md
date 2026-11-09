@@ -16,11 +16,11 @@ Menjawab evaluasi mengenai perlunya bukti awal di luar simulasi sintetis, RapiLP
 | **Cacat Pra-Audit (Raw)** | 4 cacat | 5 cacat | 2 cacat | 11 cacat (rata-rata 3,7 / berkas) |
 | **Jenis Cacat Ditemukan** | Nota termal pudar, selisih pagu konsumsi 18% | 2 kuitansi >Rp5jt tanpa meterai, tanggal nota mendahului masa persiapan | Faktur kembar ATK, kurang absensi makan | 100% cacat mekanis administratif |
 | **Cacat Pasca-Audit RapiLPJ** | 0 cacat | 0 cacat | 0 cacat | 0 cacat (100% teratasi pra-meja) |
-| **Keputusan Verifikator Meja**| Disetujui (Lolos) | Disetujui (Lolos) | Disetujui (Lolos) | 100% First-Pass Acceptance |
+| **Keputusan Verifikator Meja**| Disetujui (Lolos) | Disetujui (Lolos) | Disetujui (Lolos) | **First-pass desk approval without mandatory revisions in the initial trial, subject to faculty verification** |
 | **Penundaan Pencairan Dana** | 0 hari tunda | 0 hari tunda | 0 hari tunda | 0 hari tunda (Baseline: 7-14 hari) |
 
 ### Protokol Pilot Skala Penuh 1 Semester (20 Ormawa)
-- **Definisi First-Pass Approval:** Berkas lolos verifikasi meja pertama tanpa kewajiban revisi administratif (*first-pass desk-check approval without revisions*).
+- **Definisi First-Pass Approval:** Berkas lolos verifikasi meja pertama tanpa kewajiban revisi administratif pada uji coba awal, tetap tunduk pada verifikasi akhir pihak fakultas (*first-pass desk approval without mandatory revisions in the initial trial, subject to faculty verification*).
 - **Justifikasi Skala Sampel:** Uji 3 ormawa awal berfungsi sebagai bukti kelayakan teknis awal (*feasibility proof*); ekspansi pilot 1 semester ke 20 ormawa aktif bertujuan memverifikasi generalisasi sistem di berbagai variasi regulasi fakultas.
 - **Subjek Uji:** 20 Himpunan Jurusan, BEM Fakultas, dan Unit Kegiatan Mahasiswa lintas fakultas.
 - **Metode Pelacakan:** Pencatatan log resmi tanggal penyerahan, catatan koreksi, dan tanggal pengesahan di loket kemahasiswaan dekanat.
